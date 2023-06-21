@@ -9,6 +9,19 @@
     </div>
 
     <div class="row">
+    
+    <div class="col-12">
+
+                      <a class="btn btn-primary col-md-auto mb-3 mt-2" :href="'/export_custom_transport/'+transportCode">
+                          <i class="fa fa-plus-circle mr-2"></i>
+                  <span>Export Custom Maintenances</span>
+                      </a>
+
+</div>
+
+</div>
+
+    <div class="row">
         <div class="modal-body">
                   <div class="form-row">
 
@@ -23,6 +36,28 @@
       </div>
                       </div>
 
+                      <div class="form-group col-md-4">
+                      <label for="serialId" class="ml-1">Serial Number</label>
+                      <div class="search-box">
+      <input type="text" placeholder="Serial Number" v-model="serial_id" @keyup="getSerialNumberData" autocomplete="off" class="form-control" id="serialId" />          
+        <ul>
+          <li @click="getSerialNumberName(serial.serialNumber, serial.id)" v-for="serial in search_serial" :key="serial.id" v-text="serial.serialNumber"></li>
+        </ul>
+        <p>{{ serialNumber }}</p>
+      </div>
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <label for="employeeId" class="ml-1">Employee Name</label>
+                        <div class="search-box">   
+                        <input type="text" placeholder="Employee Name" v-model="employee_id" @keyup="getEmployeeData" autocomplete="off" class="form-control" id="employeeId" />                 
+                            <ul>
+                            <li v-for="employees in search_employee" :key="employees.id" @click="getEmployeeName(employees.fullName, employees.id)" v-text="employees.fullName"></li>
+                        </ul>
+                            <p>{{ fullName }}</p>
+                        </div>
+                      </div>
+                      
 
                     </div>
 
@@ -46,8 +81,17 @@ data:() => ({
     asset_id:'',
     codeNamaa:'',
     search_asset : [],
+    serial_id:'',
+    serialNumber:'',
+    employee_id:'',
+    fullName:'',
+    search_serial : [],
+    search_employee:[],
+    maintenanceCode:'',
     filterMaintenances:[],
     apiAsset:'http://localhost:8000/api/codeSearch',
+    apiEmployee: 'http://localhost:8000/api/employee',
+    apiSerial: 'http://localhost:8000/api/serialSearch',
     apiMaintenance: 'http://localhost:8000/api/showMaintenances',
 }),
   methods:{
@@ -66,7 +110,36 @@ data:() => ({
         this.useToastr().error('Something Went Wrong');
       });
     },
+    getSerialNumberName(code, id){
+      this.serial_id = id;
+      this.serialNumber = code;
+      this.getFilterMaintenance(id);
+      this.search_serial = [];
+    },
+    async getSerialNumberData(){
+      this.search_serial = [];
+      await this.axios.get(this.apiSerial, {params:{ serialNumber : this.serial_id }}).then(res =>{
+        this.search_serial = res.data;
+      }).catch((error)=>{
+        this.useToastr().error('Something Went Wrong');
+      });
+    },
+    getEmployeeName(name, id){
+      this.employee_id = id;
+      this.fullName = name;
+      this.getFilterMaintenance(id);
+      this.search_employee = [];
+    },
+    async getEmployeeData(){
+      this.search_employee = [];
+      await this.axios.get(this.apiEmployee, {params:{ fullName : this.employee_id}}).then(res =>{
+        this.search_employee = res.data;
+      }).catch((error)=>{
+        this.useToastr().error('Something Went Wrong');
+      });
+    },
     async getFilterMaintenance(maintenanceId){
+      this.maintenanceCode = maintenanceId;
         await this.axios.get(this.apiMaintenance + '/' + maintenanceId).then(res =>{
         this.filterMaintenances = res.data;
       }).catch((error)=>{
