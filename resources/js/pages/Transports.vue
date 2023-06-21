@@ -37,11 +37,6 @@
                         <span>Import Transports</span>
                             </button>
 
-                            <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openShowTransport">
-                                <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Show Transports</span>
-                            </button>
-
                             <a class="btn btn-primary col-md-auto mb-3 mt-2" href="/export_transports">
                                 <i class="fa fa-plus-circle mr-2"></i>
                         <span>Export Transports</span>
@@ -104,8 +99,6 @@
 
 <import-transport @importTransportSuccess = "impSucc" />
 
-<show-transport />
-
 <div class="modal fade" id="modal-default-transport">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -137,11 +130,10 @@ import { useToastr } from '../toastr.js'
 import TransportModal from '../components/TransportModel.vue'
 import ImportTransport from '../components/ImportTransportModel.vue'
 import TransportInfo from '../components/TransportInfo.vue'
-import ShowTransport from '../components/ShowTransportModal.vue'
 import $ from 'jquery';
 
 export default{
-  components: { TransportModal, ImportTransport, TransportInfo, ShowTransport },
+  components: { TransportModal, ImportTransport, TransportInfo },
 
     data:() => ({
         transportCounts: '',
