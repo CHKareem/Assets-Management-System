@@ -1,0 +1,24 @@
+/* Google Font: Source Sans Pro */
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback';
+
+/* Font Awesome Icons */
+@import 'admin-lte/plugins/fontawesome-free/css/all.min.css';
+
+/* Theme style */
+@import 'admin-lte/dist/css/adminlte.min.css';
+
+
+/* select 2*/
+/* @import 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css';
+@import 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'; */
+
+
+/* @import "~admin-lte/plugins/fontawesome-free/css/all.min.css"; */
+@import 'admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4';
+@import "admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css";
+@import "admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css";
+
+@import "admin-lte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css";
+/* @import "~admin-lte/plugins/select2/css/select2.min.css";
+@import "~admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"; */
+/* @import 'jquery-ui/themes/base/all.css'; */
