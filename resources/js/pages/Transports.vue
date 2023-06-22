@@ -6,7 +6,7 @@
     <div class="small-box bg-info ml-4 mt-4 mr-4">
     <div class="inner">
         <h3> {{ transportCounts }} </h3>
-        <p>Transport Count</p>
+        <p>Transport Count</p> 
     </div>
     <div class="icon">
         <i class="fas fa-people-carry"></i>

@@ -103,11 +103,11 @@ methods:{
         this.is_handed = transport.isHanded == 1 ? 'Yes' : 'No';
         this.document_number = transport.documentNumber;
         this.document_type = transport.documentType;
-        this.position_id = transport.positions.positionName;
+        this.position_id = transport.position_id == null ? null : transport.positions.positionName;
         this.center_id = transport.centers.centerName;
         this.department_id = transport.departments.departmentName;
-        this.employee_id = transport.employees.fullName;
-        this.prev_employee_id = transport.prevs.fullName;
+        this.employee_id = transport.employee_id == null ? null : transport.employees.fullName;
+        this.prev_employee_id = transport.employee_prev_id == null ? null : transport.prevs.fullName;
 
   });
 }).catch((error)=>{

@@ -306,9 +306,9 @@ import $ from 'jquery'
     is_handed:'',
     }];
             // this.code_namaa = transport.assets.codeNamaa;
-            this.fullName = transport.employees.fullName;
-            this.prevFullName = transport.prevs.fullName;
-            this.positionName = transport.positions.positionName;
+            this.fullName = transport.employee_id == null ? null : transport.employees.fullName;
+            this.prevFullName = transport.employee_prev_id == null ? null : transport.prevs.fullName;
+            this.positionName = transport.position_id == null ? null : transport.positions.positionName;
             // this.asset_id = transport.asset_id,
           this.center_id = transport.center_id,
           this.department_id = transport.department_id,
@@ -327,8 +327,8 @@ import $ from 'jquery'
             'is_handed':transport.isHanded,
           }]
       });
-    }).catch((error)=>{
-        this.useToastr().error('Something Went Wrong');
+    // }).catch((error)=>{
+    //     this.useToastr().error('Something Went Wrong');
       });
     },
     async getCenters(){
