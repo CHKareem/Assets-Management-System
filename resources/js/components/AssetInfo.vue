@@ -105,6 +105,10 @@
                       </div>
             </div>
 
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal" @click="closed">Close</button>
+            </div>
+
 </div>
 
 </div>
@@ -140,13 +144,10 @@ quantity: '',
 status: '',
 department_id:'',
 center_id:'',
-apiAsset: 'http://localhost:8000/api/asset',
-apiCenter: 'http://localhost:8000/api/center',
-apiDepartment: 'http://localhost:8000/api/department',
 }),
 methods:{
   async getAssetData(assetId){
-    await this.axios.get(this.apiAsset +'/'+ assetId).then(res =>{
+    await this.axios.get(this.$store.state.apiAsset +'/'+ assetId).then(res =>{
        res.data.map(asset=>{
         this.item_id = asset.items.itemName;
         this.type_id = asset.types.typeName;
@@ -183,19 +184,38 @@ methods:{
   });
 },
 async getCenters(){
-           await this.axios.get(this.apiCenter).then(res =>{
+           await this.axios.get(this.$store.state.apiCenter).then(res =>{
            this.centers = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
       });
       },
       async getDepartments(){
-           await this.axios.get(this.apiDepartment).then(res =>{
+           await this.axios.get(this.$store.state.apiDepartment).then(res =>{
            this.departments = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
       });
       },
+      closed(){
+      this.item_id = '';
+        this.type_id = '';
+        this.notes = '';
+        this.code_namaa = '';
+        this.description = '';
+        this.serial_number = '';
+        this.aquisition_date = '';
+        this.in_service = '';
+        this.document_number = '';
+        this.center_id = '';
+        this.department_id = '';
+        this.aquisition_type = '';
+        this.funded_by = '';
+        this.expected_price = '';
+        this.real_price = '';
+        this.quantity = '';
+        this.status = '';
+    },
 },
 async mounted(){
      await this.getCenters();

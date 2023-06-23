@@ -92,8 +92,6 @@ import $ from 'jquery'
     is_stolen: '',
     document_number: '',
     lostStolenIndex: '',
-    apiAsset: 'http://localhost:8000/api/codeSearch',
-    apiLostStolen:'http://localhost:8000/api/lostStolen',
   }),
   methods:{
     useToastr,
@@ -104,7 +102,7 @@ import $ from 'jquery'
     },
     async getAssetData(){
       this.search_asset = [];
-      await this.axios.get(this.apiAsset, {params:{ codeNamaa : this.asset_id}}).then(res =>{
+      await this.axios.get(this.$store.state.apiAssetSearch, {params:{ codeNamaa : this.asset_id}}).then(res =>{
         this.search_asset = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
@@ -117,7 +115,7 @@ import $ from 'jquery'
     },
     async getAlterAssetData(){
       this.search_alter_asset = [];
-      await this.axios.get(this.apiAsset, {params:{ codeNamaa : this.alter_asset_id}}).then(res =>{
+      await this.axios.get(this.$store.state.apiAssetSearch, {params:{ codeNamaa : this.alter_asset_id}}).then(res =>{
         this.search_alter_asset = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
@@ -130,7 +128,7 @@ import $ from 'jquery'
                 this.document_number = '';
                 this.lost_date = '';
                 this.is_stolen = '';
-                this.$emit('yo ', true);
+                this.$emit('sendLostStolenValue', true);
                 this.edit = false;
     },
       async edit_lost_stolen(){
@@ -141,21 +139,16 @@ import $ from 'jquery'
           'lostDate': this.lost_date,
           'isStolen': this.is_stolen,
                   };
-              await this.axios.put(this.apiLostStolen +'/'+ this.lostStolenIndex, data).then(res =>{
-                this.asset_id = '';
-                this.alter_asset_id = '';
-                this.document_number = '';
-                this.lost_date = '';
-                this.is_stolen = '';
+              await this.axios.put(this.$store.state.apiLostStolen +'/'+ this.lostStolenIndex, data).then(res =>{
                 this.useToastr().success('Lost & Stolen Edited Successfully');
                 this.closed();
-                this.$emit('yo', true);
+                this.$emit('sendLostStolenValue', true);
         }).catch((error)=>{
           this.useToastr().error('Something Went Wrong');
         });
       },
       async getLostStolenData(lostStolenIndex){
-        await this.axios.get(this.apiLostStolen +'/'+ lostStolenIndex).then(res =>{
+        await this.axios.get(this.$store.state.apiLostStolen +'/'+ lostStolenIndex).then(res =>{
            res.data.map(lostStolen=>{
             this.code_namaa = lostStolen.assets.codeNamaa;
             this.alter_code_namaa = lostStolen.alters.codeNamaa;
@@ -177,15 +170,10 @@ import $ from 'jquery'
           'lostDate': this.lost_date,
           'isStolen': this.is_stolen,
                   };
-            await this.axios.post(this.apiLostStolen, data).then(res =>{
-                this.asset_id = '';
-                this.alter_asset_id = '';
-                this.document_number = '';
-                this.lost_date = '';
-                this.is_stolen = '';
+            await this.axios.post(this.$store.state.apiLostStolen, data).then(res =>{
               this.useToastr().success('Lost & Stolen Added Successfully');
               this.closed();
-                this.$emit('yo', true);
+                this.$emit('sendLostStolenValue', true);
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
       });

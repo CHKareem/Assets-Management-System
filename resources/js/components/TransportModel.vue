@@ -150,7 +150,6 @@ import $ from 'jquery'
     props:['transportId'],
 
   data:() => ({
-    // asset_id:'',
     code_namaa : [],
     positionName : '',
     fullName:'',
@@ -163,28 +162,11 @@ import $ from 'jquery'
     search_prev_employee:[],
     edit: false,
     departments:[],
-    // transport_date:'',
-    // document_number:'',
-    // document_type:'',
     centers:[],
-    // is_handed:'',
     transportIndex: '',
     department_id:'',
     center_id:'',
-    // transports:[{
-    //   asset_id:'',
-    // transport_date:'',
-    // document_number:'',
-    // document_type:'',
-    // is_handed:'',
-    // }],
     transports:[],
-    apiAsset:'http://localhost:8000/api/codeSearch',
-    apiTransport: 'http://localhost:8000/api/transport',
-    apiCenter: 'http://localhost:8000/api/center',
-    apiDepartment: 'http://localhost:8000/api/department',
-    apiPosition: 'http://localhost:8000/api/position',
-    apiEmployee: 'http://localhost:8000/api/employee',
   }),
   methods:{
     useToastr,
@@ -194,9 +176,8 @@ import $ from 'jquery'
       this.search_asset = [];
     },
     async getAssetData(index){
-      // console.log(this.transports[index].asset_id );
       this.search_asset = [];
-      await this.axios.get(this.apiAsset, {params:{ codeNamaa : this.transports[index].asset_id }}).then(res =>{
+      await this.axios.get(this.$store.state.apiAssetSearch, {params:{ codeNamaa : this.transports[index].asset_id }}).then(res =>{
         this.search_asset = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
@@ -209,7 +190,7 @@ import $ from 'jquery'
     },
     async getPositionData(){
       this.search_position = [];
-      await this.axios.get(this.apiPosition, {params:{ positionName : this.position_id}}).then(res =>{
+      await this.axios.get(this.$store.state.apiPosition, {params:{ positionName : this.position_id}}).then(res =>{
         this.search_position = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
@@ -222,7 +203,7 @@ import $ from 'jquery'
     },
     async getEmployeeData(){
       this.search_employee = [];
-      await this.axios.get(this.apiEmployee, {params:{ fullName : this.employee_id}}).then(res =>{
+      await this.axios.get(this.$store.state.apiEmployee, {params:{ fullName : this.employee_id}}).then(res =>{
         this.search_employee = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
@@ -235,7 +216,7 @@ import $ from 'jquery'
     },
     async getPrevEmployeeData(){
       this.search_prev_employee = [];
-      await this.axios.get(this.apiEmployee, {params:{ fullName : this.prev_employee_id}}).then(res =>{
+      await this.axios.get(this.$store.state.apiEmployee, {params:{ fullName : this.prev_employee_id}}).then(res =>{
         this.search_prev_employee = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
@@ -244,59 +225,43 @@ import $ from 'jquery'
     closed(){
       $('#transport-modal').modal('hide');
       this.transports = [],
-      // this.asset_id = '',
           this.center_id = '',
           this.department_id = '',
           this.position_id = '',
           this.employee_id = '',
           this.prev_employee_id = '',
-          // this.document_type = '',
-          // this.document_number = '',
-          // this.transport_date = '',
-          // this.is_handed = '',
           this.positionName = '',
           this.fullName = '',
           this.prevFullName = '',
           this.code_namaa = '',
-                this.$emit('yo ', true);
+                this.$emit('sendTransportValue ', true);
                 this.edit = false;
     },
       async edit_transport(){
         let data = {
-            // 'asset_id': this.asset_id,
           'center_id': this.center_id,
           'department_id': this.department_id,
           'position_id': this.position_id,
           'employee_id': this.employee_id,
           'employee_prev_id': this.prev_employee_id,
           'transports':this.transports,
-          // 'documentType': this.document_type,
-          // 'documentNumber': this.document_number,
-          // 'transportDate': this.transport_date,
-          // 'isHanded': this.is_handed,
-                  };
-              await this.axios.put(this.apiTransport +'/'+ this.transportIndex, data).then(res =>{
-                // this.asset_id = '',
-          this.center_id = '',
-          this.department_id = '',
-          this.position_id = '',
-          this.employee_id = '',
-          this.prev_employee_id = '',
-          // this.document_type = '',
-          // this.document_number = '',
-          // this.transport_date = '',
-          // this.is_handed = '',
-          this.transports = [],
-                this.useToastr().success('Asset Edited Successfully');
-                // $('#asset-modal').modal('hide');
+          };
+              await this.axios.put(this.$store.state.apiTransport +'/'+ this.transportIndex, data).then(res =>{
+          // this.center_id = '',
+          // this.department_id = '',
+          // this.position_id = '',
+          // this.employee_id = '',
+          // this.prev_employee_id = '',
+          // this.transports = [],
+                this.useToastr().success('Transport Edited Successfully');
                 this.closed();
-                this.$emit('yo', true);
+                this.$emit('sendTransportValue', true);
         }).catch((error)=>{
           this.useToastr().error('Something Went Wrong');
         });
       },
       async getTransportData(transportId){
-        await this.axios.get(this.apiTransport +'/'+ transportId).then(res =>{
+        await this.axios.get(this.$store.state.apiTransport +'/'+ transportId).then(res =>{
            res.data.map(transport=>{
                 this.transports = [{
       asset_id:'',
@@ -305,20 +270,14 @@ import $ from 'jquery'
     document_type:'',
     is_handed:'',
     }];
-            // this.code_namaa = transport.assets.codeNamaa;
             this.fullName = transport.employee_id == null ? null : transport.employees.fullName;
             this.prevFullName = transport.employee_prev_id == null ? null : transport.prevs.fullName;
             this.positionName = transport.position_id == null ? null : transport.positions.positionName;
-            // this.asset_id = transport.asset_id,
           this.center_id = transport.center_id,
           this.department_id = transport.department_id,
           this.position_id = transport.position_id,
           this.employee_id = transport.employee_id,
           this.prev_employee_id = transport.employee_prev_id,
-          // this.document_type = transport.documentType,
-          // this.document_number = transport.documentNumber,
-          // this.transport_date = transport.transportDate,
-          // this.is_handed = transport.isHanded
           this.transports = [{
             'asset_id': transport.asset_id,
             'document_type':transport.documentType,
@@ -326,34 +285,34 @@ import $ from 'jquery'
             'transport_date':transport.transportDate,
             'is_handed':transport.isHanded,
           }]
-      });
-    // }).catch((error)=>{
-    //     this.useToastr().error('Something Went Wrong');
+      })
+    }).catch((error)=>{
+        this.useToastr().error('Something Went Wrong');
       });
     },
     async getCenters(){
-           await this.axios.get(this.apiCenter).then(res =>{
+           await this.axios.get(this.$store.state.apiCenter).then(res =>{
            this.centers = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
       });
       },
       async getDepartments(){
-           await this.axios.get(this.apiDepartment).then(res =>{
+           await this.axios.get(this.$store.state.apiDepartment).then(res =>{
            this.departments = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
       });
       },
       async getPositions(){
-           await this.axios.get(this.apiPosition).then(res =>{
+           await this.axios.get(this.$store.state.apiPosition).then(res =>{
            this.positions = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
       });
       },
       async getEmployees(){
-           await this.axios.get(this.apiEmployee).then(res =>{
+           await this.axios.get(this.$store.state.apiEmployee).then(res =>{
            this.employees = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
@@ -361,44 +320,33 @@ import $ from 'jquery'
       },
     async add_transport(){
       let data = {
-          // 'asset_id': this.asset_id,
           'center_id': this.center_id,
           'department_id': this.department_id,
           'position_id': this.position_id,
           'employee_id': this.employee_id,
           'employee_prev_id': this.prev_employee_id,
           'transports': this.transports,
-          // 'documentType': this.document_type,
-          // 'documentNumber': this.document_number,
-          // 'transportDate': this.transport_date,
-          // 'isHanded': this.is_handed,
                   };
-            await this.axios.post(this.apiTransport, data).then(res =>{
-          // this.asset_id = '',
-          this.center_id = '',
-          this.department_id = '',
-          this.position_id = '',
-          this.employee_id = '',
-          this.prev_employee_id = '',
-          // this.document_type = '',
-          // this.document_number = '',
-          // this.transport_date = '',
-          // this.is_handed = '',
-          this.transports = [{
-            asset_id:'',
-          transport_date:'',
-          document_number:'',
-          document_type:'',
-          is_handed:'',
-          }],
-          this.positionName = '',
-          this.fullName = '',
-          this.prevFullName = '',
-          this.code_namaa = '',
+            await this.axios.post(this.$store.state.apiTransport, data).then(res =>{
+          // this.center_id = '',
+          // this.department_id = '',
+          // this.position_id = '',
+          // this.employee_id = '',
+          // this.prev_employee_id = '',
+          // this.transports = [{
+          //   asset_id:'',
+          // transport_date:'',
+          // document_number:'',
+          // document_type:'',
+          // is_handed:'',
+          // }],
+          // // this.positionName = '',
+          // // this.fullName = '',
+          // // this.prevFullName = '',
+          // // this.code_namaa = '',
               this.useToastr().success('Transport Added Successfully');
               this.closed();
-                this.$emit('yo', true);
-              // $('#asset-modal').modal('hide');
+                this.$emit('sendTransportValue', true);
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
       });

@@ -92,11 +92,10 @@ center_id:'',
 employee_id:'',
 position_id:'',
 prev_employee_id:'',
-apiTransport: 'http://localhost:8000/api/transport',
 }),
 methods:{
   async getTransportData(transportId){
-    await this.axios.get(this.apiTransport +'/'+ transportId).then(res =>{
+    await this.axios.get(this.$store.state.apiTransport +'/'+ transportId).then(res =>{
        res.data.map(transport=>{
         this.code_namaa = transport.assets.codeNamaa;
         this.transport_date = transport.transportDate;

@@ -92,7 +92,7 @@
      </div>
      </section>
  
- <maintenance-modal :maintenanceId ="maintenanceId" @yo="yo" />
+ <maintenance-modal :maintenanceId ="maintenanceId" @sendMaintenanceValue="receivedMaintenanceValue" />
  
  <maintenance-info :maintenanceId ="maintenanceId" />
  
@@ -139,7 +139,6 @@
          maintenancesArrs: [],
          maintenanceId: '',
          deleteId: '',
-         apiMaintenance:'http://localhost:8000/api/maintenance',
      }),
      methods:{
        async impSucc(value){
@@ -148,7 +147,7 @@
           await this.getMaintenances();
          }
        },
-       async yo(value){
+       async receivedMaintenanceValue(value){
          if(value == true){
            $('#maintenance-modal').modal('hide');
            this.maintenanceId = '';
@@ -159,7 +158,7 @@
        },
      useToastr,
        async getMaintenances(){
-            await this.axios.get(this.apiMaintenance).then(res =>{
+            await this.axios.get(this.$store.state.apiMaintenance).then(res =>{
             this.maintenancesArrs = res.data;
             this.maintenanceCounts = res.data.length;
        }).catch((error)=>{
@@ -186,7 +185,7 @@
          $('#modal-default-maintenance').modal('show');
        },
        async delete_maintenance(){
-             await this.axios.delete(this.apiMaintenance +'/'+ this.deleteId).then(res =>{
+             await this.axios.delete(this.$store.state.apiMaintenance +'/'+ this.deleteId).then(res =>{
                $('#modal-default-maintenance').modal('hide');
                this.deleteId = '';
                this.useToastr().success('Maintenance Deleted Successfully');
@@ -195,18 +194,6 @@
          this.useToastr().error('Something Went Wrong');
        });
        },
-     async export_file(){
-         // let data = new FormData($('#dfg')[0]);
-         await this.axios.get(this.apiMaintenance +'/export_employees').then(res =>{
-             //   this.type_name = '';
-               // this.useToastr().success('Type Added Successfully');
-             //   this.getTypes();
-             // this.dd = res.data;
-       }).catch((error)=>{
-         this.useToastr().error('Something Went Wrong');
-       });
- 
-     },
        },
  
      async mounted(){

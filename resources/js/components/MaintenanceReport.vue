@@ -89,10 +89,6 @@ data:() => ({
     search_employee:[],
     maintenanceCode:'',
     filterMaintenances:[],
-    apiAsset:'http://localhost:8000/api/codeSearch',
-    apiEmployee: 'http://localhost:8000/api/employee',
-    apiSerial: 'http://localhost:8000/api/serialSearch',
-    apiMaintenance: 'http://localhost:8000/api/showMaintenances',
 }),
   methods:{
     useToastr,
@@ -104,7 +100,7 @@ data:() => ({
     },
     async getAssetData(){
       this.search_asset = [];
-      await this.axios.get(this.apiAsset, {params:{ codeNamaa : this.asset_id }}).then(res =>{
+      await this.axios.get(this.$store.state.apiAsset, {params:{ codeNamaa : this.asset_id }}).then(res =>{
         this.search_asset = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
@@ -118,7 +114,7 @@ data:() => ({
     },
     async getSerialNumberData(){
       this.search_serial = [];
-      await this.axios.get(this.apiSerial, {params:{ serialNumber : this.serial_id }}).then(res =>{
+      await this.axios.get(this.$store.state.apiSerialSearch, {params:{ serialNumber : this.serial_id }}).then(res =>{
         this.search_serial = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
@@ -132,7 +128,7 @@ data:() => ({
     },
     async getEmployeeData(){
       this.search_employee = [];
-      await this.axios.get(this.apiEmployee, {params:{ fullName : this.employee_id}}).then(res =>{
+      await this.axios.get(this.$store.state.apiEmployee, {params:{ fullName : this.employee_id}}).then(res =>{
         this.search_employee = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
@@ -140,7 +136,7 @@ data:() => ({
     },
     async getFilterMaintenance(maintenanceId){
       this.maintenanceCode = maintenanceId;
-        await this.axios.get(this.apiMaintenance + '/' + maintenanceId).then(res =>{
+        await this.axios.get(this.$store.state.apiShowMaintenance + '/' + maintenanceId).then(res =>{
         this.filterMaintenances = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');

@@ -126,7 +126,6 @@ export default{
     getTypeId:'',
     typeArrs:[],
     typeCounts:'',
-    apiType:'http://localhost:8000/api/type',
   }),
   methods:{
     // getisDeleted(value){
@@ -136,7 +135,7 @@ export default{
     useToastr,
     async add_type(){
       let data = {'typeName':this.type_name, 'arabicTypeName':this.arabic_type_name};
-            await this.axios.post(this.apiType, data).then(res =>{
+            await this.axios.post(this.$store.state.apiType, data).then(res =>{
               this.type_name = '';
               this.arabic_type_name = '';
               this.useToastr().success('Type Added Successfully');
@@ -146,7 +145,7 @@ export default{
       });
     },
       async getTypes(){
-           await this.axios.get(this.apiType).then(res =>{
+           await this.axios.get(this.$store.state.apiType).then(res =>{
            this.typeArrs = res.data;
            this.typeCounts = res.data.length;
            this.$emit('typeCount', this.typeCounts);
@@ -179,8 +178,7 @@ export default{
     // }
     //   },
           async delete_type(){
-            console.log('dhdfhdg');
-            await this.axios.delete(this.apiType +'/'+ this.deleteId).then(res =>{
+            await this.axios.delete(this.$store.state.apiType +'/'+ this.deleteId).then(res =>{
               $('#modal-default-type').modal('hide');
               this.deleteId = '';
               this.useToastr().success('Type Deleted Successfully');
@@ -190,7 +188,7 @@ export default{
       });
       },
     async editTypeButton(getIndex){
-        await this.axios.get(this.apiType +'/'+ getIndex).then(res =>{
+        await this.axios.get(this.$store.state.apiType +'/'+ getIndex).then(res =>{
            res.data.map(type=>{
         this.type_name = type.typeName;
         this.arabic_type_name = type.arabicTypeName;
@@ -201,7 +199,7 @@ export default{
     },
     async edit_type(){
       let data = {'typeName': this.type_name, 'arabicTypeName':this.arabic_type_name};
-            await this.axios.put(this.apiType +'/'+ this.getTypeId, data).then(res =>{
+            await this.axios.put(this.$store.state.apiType +'/'+ this.getTypeId, data).then(res =>{
               this.type_name = '';
               this.arabic_type_name = '';
               this.useToastr().success('Type Edited Successfully');

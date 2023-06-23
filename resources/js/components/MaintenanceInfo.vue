@@ -110,11 +110,10 @@ data:() => ({
     is_paid:'',
     reason:'',
     notes: '',
-    apiMaintenance: 'http://localhost:8000/api/maintenance',
 }),
 methods:{
   async getMaintenanceData(maintenanceId){
-    await this.axios.get(this.apiMaintenance +'/'+ maintenanceId).then(res =>{
+    await this.axios.get(this.$store.state.apiMaintenance +'/'+ maintenanceId).then(res =>{
        res.data.map(maintenance=>{
         this.asset_id = maintenance.assets.codeNamaa;
             this.send_date = maintenance.sendDate;

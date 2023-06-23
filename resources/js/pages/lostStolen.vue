@@ -92,7 +92,7 @@
     </div>
     </section>
 
-<lost-stolen-model :lostStolenId ="lostStolenId" @yo="yo" />
+<lost-stolen-model :lostStolenId ="lostStolenId" @sendLostStolenValue="receivedLostStolenValue" />
 
 <lost-stolen-info :lostStolenId ="lostStolenId" />
 
@@ -138,7 +138,6 @@ export default{
         lostStolenArrs: [],
         lostStolenId: '',
         deleteId: '',
-        apiLostStolen:'http://localhost:8000/api/lostStolen',
     }),
     methods:{
       async impSucc(value){
@@ -147,7 +146,7 @@ export default{
          await this.getLostStolens();
         }
       },
-      async yo(value){
+      async receivedLostStolenValue(value){
         if(value == true){
           $('#lostStolen-modal').modal('hide');
           this.lostStolenId = '';
@@ -158,8 +157,7 @@ export default{
       },
     useToastr,
       async getLostStolens(){
-           await this.axios.get(this.apiLostStolen).then(res =>{
-            // console.log(res.data);
+           await this.axios.get(this.$store.state.apiLostStolen).then(res =>{
            this.lostStolenArrs = res.data;
            this.lostStolenCounts = res.data.length;
       }).catch((error)=>{
@@ -186,7 +184,7 @@ export default{
         $('#modal-default-lostStolen').modal('show');
       },
       async delete_lostStolen(){
-            await this.axios.delete(this.apiLostStolen +'/'+ this.deleteId).then(res =>{
+            await this.axios.delete(this.$store.state.apiLostStolen +'/'+ this.deleteId).then(res =>{
               $('#modal-default-lostStolen').modal('hide');
               this.deleteId = '';
               this.useToastr().success('Lost & Stolen Deleted Successfully');
@@ -195,16 +193,6 @@ export default{
         this.useToastr().error('Something Went Wrong');
       });
       },
-    async export_file(){
-        await this.axios.get(this.apiAsset +'/export_employees').then(res =>{
-      }).catch((error)=>{
-        this.useToastr().error('Something Went Wrong');
-      });
-
-    },
-    pp(){
-      window.location.href='/api/asset/export_employees'
-    }
       },
 
     async mounted(){

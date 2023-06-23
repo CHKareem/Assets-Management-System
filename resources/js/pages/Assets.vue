@@ -93,7 +93,7 @@
     </div>
     </section>
 
-<asset-modal :assetId ="assetId" @yo="yo" />
+<asset-modal :assetId ="assetId" @sendAssetValue="receivedAssetValue" />
 
 <asset-info :assetId ="assetId" />
 
@@ -140,7 +140,6 @@ export default{
         assetsArrs: [],
         assetId: '',
         deleteId: '',
-        apiAsset:'http://localhost:8000/api/asset',
     }),
     methods:{
       async impSucc(value){
@@ -149,7 +148,7 @@ export default{
          await this.getAssets();
         }
       },
-      async yo(value){
+      async receivedAssetValue(value){
         if(value == true){
           $('#asset-modal').modal('hide');
           this.assetId = '';
@@ -160,7 +159,7 @@ export default{
       },
     useToastr,
       async getAssets(){
-           await this.axios.get(this.apiAsset).then(res =>{
+           await this.axios.get(this.$store.state.apiAsset).then(res =>{
            this.assetsArrs = res.data;
            this.assetCounts = res.data.length;
       }).catch((error)=>{
@@ -187,7 +186,7 @@ export default{
         $('#modal-default-asset').modal('show');
       },
       async delete_asset(){
-            await this.axios.delete(this.apiAsset +'/'+ this.deleteId).then(res =>{
+            await this.axios.delete(this.$store.state.apiAsset +'/'+ this.deleteId).then(res =>{
               $('#modal-default-asset').modal('hide');
               this.deleteId = '';
               this.useToastr().success('Asset Deleted Successfully');
@@ -196,21 +195,6 @@ export default{
         this.useToastr().error('Something Went Wrong');
       });
       },
-    async export_file(){
-        // let data = new FormData($('#dfg')[0]);
-        await this.axios.get(this.apiAsset +'/export_employees').then(res =>{
-            //   this.type_name = '';
-              // this.useToastr().success('Type Added Successfully');
-            //   this.getTypes();
-            // this.dd = res.data;
-      }).catch((error)=>{
-        this.useToastr().error('Something Went Wrong');
-      });
-
-    },
-    pp(){
-      window.location.href='/api/asset/export_employees'
-    }
       },
 
     async mounted(){

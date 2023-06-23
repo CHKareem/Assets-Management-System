@@ -137,8 +137,6 @@ import $ from 'jquery'
     edit: false,
     notes: '',
     maintenanceIndex: '',
-    apiMaintenance: 'http://localhost:8000/api/maintenance',
-    apiAsset: 'http://localhost:8000/api/codeSearch',
   }),
   methods:{
     useToastr,
@@ -149,7 +147,7 @@ import $ from 'jquery'
     },
     async getAssetData(){
       this.search_asset = [];
-      await this.axios.get(this.apiAsset, {params:{ codeNamaa : this.asset_id}}).then(res =>{
+      await this.axios.get(this.$store.state.apiAssetSearch, {params:{ codeNamaa : this.asset_id}}).then(res =>{
         this.search_asset = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
@@ -171,7 +169,7 @@ import $ from 'jquery'
                 this.reason = '';
                 this.notes = '';
                 this.codeNamaa = '';
-                this.$emit('yo ', true);
+                this.$emit('sendMaintenanceValue ', true);
                 this.edit = false;
     },
       async edit_maintenance(){
@@ -190,30 +188,16 @@ import $ from 'jquery'
           'reason': this.reason,
           'notes': this.notes,
                   };
-              await this.axios.put(this.apiMaintenance +'/'+ this.maintenanceIndex, data).then(res =>{
-                this.asset_id = '';
-                this.send_date = '';
-                this.receive_date = '';
-                this.status_after = '';
-                this.status_before = '';
-                this.is_paid = '';
-                this.document_number = '';
-                this.where_maintained ='';
-                this.document_type = '';
-                this.technical_disclosure_number = '';
-                this.payment_price = '';
-                this.reason = '';
-                this.notes = '';
-                this.codeNamaa = '';
+              await this.axios.put(this.$store.state.apiMaintenance +'/'+ this.maintenanceIndex, data).then(res =>{
                 this.useToastr().success('Maintenance Edited Successfully');
                 this.closed();
-                this.$emit('yo', true);
+                this.$emit('sendMaintenanceValue', true);
         }).catch((error)=>{
           this.useToastr().error('Something Went Wrong');
         });
       },
       async getMaintenanceData(maintenanceIndex){
-        await this.axios.get(this.apiMaintenance +'/'+ maintenanceIndex).then(res =>{
+        await this.axios.get(this.$store.state.apiMaintenance +'/'+ maintenanceIndex).then(res =>{
            res.data.map(maintenance=>{
             this.asset_id = maintenance.asset_id;
             this.send_date = maintenance.sendDate;
@@ -251,23 +235,10 @@ import $ from 'jquery'
           'reason': this.reason,
           'notes': this.notes,
                   };
-            await this.axios.post(this.apiMaintenance, data).then(res =>{
-              // this.asset_id = '';
-              //   this.send_date = '';
-              //   this.receive_date = '';
-              //   this.status_after = '';
-              //   this.status_before = '';
-              //   this.is_paid = '';
-              //   this.document_number = '';
-              //   this.document_type = '';
-              //   this.technical_disclosure_number = '';
-              //   this.payment_price = '';
-              //   this.reason = '';
-              //   this.notes = '';
-              //   this.codeNamaa = '';
+            await this.axios.post(this.$store.state.apiMaintenance, data).then(res =>{
               this.useToastr().success('Maintenance Added Successfully');
               this.closed();
-                this.$emit('yo', true);
+                this.$emit('sendMaintenanceValue', true);
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
       });

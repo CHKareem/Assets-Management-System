@@ -62,11 +62,10 @@ data:() => ({
     lost_date: '',
     is_stolen: '',
     document_number: '',
-apiLostStolen:'http://localhost:8000/api/lostStolen',
 }),
 methods:{
   async getLostStolenData(lostStolenindex){
-    await this.axios.get(this.apiLostStolen +'/'+ lostStolenindex).then(res =>{
+    await this.axios.get(this.$store.state.apiLostStolen +'/'+ lostStolenindex).then(res =>{
        res.data.map(lostStolen=>{
             this.asset_id = lostStolen.assets.codeNamaa;
             this.alter_asset_id = lostStolen.alters.codeNamaa;

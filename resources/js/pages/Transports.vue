@@ -6,7 +6,7 @@
     <div class="small-box bg-info ml-4 mt-4 mr-4">
     <div class="inner">
         <h3> {{ transportCounts }} </h3>
-        <p>Transport Count</p> 
+        <p>Transport Count</p>
     </div>
     <div class="icon">
         <i class="fas fa-people-carry"></i>
@@ -93,7 +93,7 @@
     </div>
     </section>
 
-<transport-modal :transportId ="transportId" @yo="yo" />
+<transport-modal :transportId ="transportId" @sendTransportValue="receivedTransportValue" />
 
 <transport-info :transportId ="transportId" />
 
@@ -140,7 +140,6 @@ export default{
         transportArrs: [],
         transportId: '',
         deleteId: '',
-        apiTransport:'http://localhost:8000/api/transport',
     }),
     methods:{
       async impSucc(value){
@@ -149,7 +148,7 @@ export default{
          await this.getTransports();
         }
       },
-      async yo(value){
+      async receivedTransportValue(value){
         if(value == true){
           $('#transport-modal').modal('hide');
           this.transportId = '';
@@ -160,7 +159,7 @@ export default{
       },
     useToastr,
       async getTransports(){
-           await this.axios.get(this.apiTransport).then(res =>{
+           await this.axios.get(this.$store.state.apiTransport).then(res =>{
            this.transportArrs = res.data;
            this.transportCounts = res.data.length;
       }).catch((error)=>{
@@ -190,7 +189,7 @@ export default{
         $('#modal-default-transport').modal('show');
       },
       async delete_transport(){
-            await this.axios.delete(this.apiTransport +'/'+ this.deleteId).then(res =>{
+            await this.axios.delete(this.$store.state.apiTransport +'/'+ this.deleteId).then(res =>{
               $('#modal-default-transport').modal('hide');
               this.deleteId = '';
               this.useToastr().success('Transport Deleted Successfully');
@@ -199,16 +198,6 @@ export default{
         this.useToastr().error('Something Went Wrong');
       });
       },
-    async export_file(){
-        await this.axios.get(this.apiAsset +'/export_employees').then(res =>{
-      }).catch((error)=>{
-        this.useToastr().error('Something Went Wrong');
-      });
-
-    },
-    pp(){
-      window.location.href='/api/asset/export_employees'
-    }
       },
 
     async mounted(){

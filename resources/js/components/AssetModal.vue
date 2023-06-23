@@ -27,7 +27,6 @@
 
                       <div class="form-group col-md-3">
                         <label for="typeId">Type</label>
-                        <!-- <input v-model="type_id" type="text" class="form-control" id="typeId" placeholder="Type ID"> -->
                         <div class="search-box">   
                         <input type="text" placeholder="Type Name" v-model="type_id" @keyup="getTypeData" autocomplete="off" class="form-control" id="typeId" />                 
         <ul>
@@ -59,7 +58,6 @@
                       <div class="form-group col-md-3">
                         <label for="quantity">Quantity</label>
                         <input v-model="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity"><br>
-                        <!-- <p>{{ quantityValue }}</p> -->
                       </div>
 
                       <div class="form-group col-md-3">
@@ -79,7 +77,6 @@
 
                       <div class="form-group col-md-3">
                         <label for="fundedBy">Funded By</label>
-                        <!-- <input v-model="funded_by" type="text" class="form-control" id="fundedBy" placeholder="Funded By"> -->
                         <select class="custom-select rounded-0" v-model="funded_by" id="fundedBy">
                                 <option value="Procured Directly By U.N.H.C.R">Procured Directly By U.N.H.C.R</option>
                                 <option value="U.N.H.C.R-Funded Project">U.N.H.C.R-Funded Project</option>
@@ -94,7 +91,6 @@
 
                       <div class="form-group col-md-3">
                         <label for="inService">In Service ?</label>
-                        <!-- <input v-model="in_service" type="text" class="form-control" id="inService" placeholder="In Service"> -->
                         <select class="custom-select rounded-0" v-model="in_service" id="inService">
                                 <option value="0">Not In Service</option>
                                 <option value="1">In Service</option>
@@ -187,11 +183,6 @@ import $ from 'jquery'
     cc:'',
     dd:'',
     ee:[],
-    apiAsset: 'http://localhost:8000/api/asset',
-    apiCenter: 'http://localhost:8000/api/center',
-    apiDepartment: 'http://localhost:8000/api/department',
-    apiItem: 'http://localhost:8000/api/itemSearch',
-    apiType: 'http://localhost:8000/api/typeSearch',
   }),
   methods:{
     useToastr,
@@ -202,7 +193,7 @@ import $ from 'jquery'
     },
     async getItemData(){
       this.search_item = [];
-      await this.axios.get(this.apiItem, {params:{ itemName : this.item_id}}).then(res =>{
+      await this.axios.get(this.$store.state.apiItemSearch, {params:{ itemName : this.item_id}}).then(res =>{
         this.search_item = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
@@ -215,35 +206,20 @@ import $ from 'jquery'
     },
     async getTypeData(){
       this.search_type = [];
-      await this.axios.get(this.apiType, {params:{ typeName : this.type_id}}).then(res =>{
+      await this.axios.get(this.$store.state.apiTypeSearch, {params:{ typeName : this.type_id}}).then(res =>{
         this.search_type = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
       });
     },
     abcde(){
-      // console.log(uniq);
-      // this.ee.forEach(element => {
-      //   // let uniq = [...new Set(element)];
-      //   this.code_namaa += this.aa + this.bb + this.cc + this.dd + element;
-      //   return [...new Set(this.code_namaa)];
-      // });
-      // console.log(this.ee);
-      // Array.from(this.ee).forEach(element => {
-      //   console.log(element);
-      //   this.code_namaa.push(this.aa + this.bb + this.cc + this.dd + element);
-      // });
-      // console.log(this.code_namaa);
       this.code_namaa = [];
-      // console.log(this.code_namaa);
       for(let i=0; i<this.ee.length; i++){
         this.code_namaa.push(this.aa + this.bb + this.cc + this.dd + this.ee[i]);
       }
-      // this.code_namaa = [this.aa + this.bb + this.cc + this.dd + [...this.ee]];
     },
     closed(){
       $('#asset-modal').modal('hide');
-      // this.edit = !edit;
       this.item_id = '';
                 this.type_id = '';
                 this.notes = '';
@@ -258,7 +234,8 @@ import $ from 'jquery'
                 this.real_price = '';
                 this.quantity = '';
                 this.status = '';
-                this.$emit('yo ', true);
+                this.code_namaa_edit = '';
+                this.$emit('sendAssetValue ', true);
                 this.edit = false;
     },
       async edit_asset(){
@@ -279,40 +256,22 @@ import $ from 'jquery'
           'quantity': this.quantity,
           'status': this.status,
                   };
-              await this.axios.put(this.apiAsset +'/'+ this.assetIndex, data).then(res =>{
-                this.item_id = '';
-                this.type_id = '';
-                this.notes = '';
-                this.code_namaa_edit = '';
-                this.serial_number = '';
-                this.aquisition_date = '';
-                this.description = '';
-                this.in_service = '';
-                this.document_number = '';
-                this.aquisition_type = '';
-                this.funded_by = '';
-                this.expected_price = '';
-                this.real_price = '';
-                this.quantity = '';
-                this.status = '';
+              await this.axios.put(this.$store.state.apiAsset +'/'+ this.assetIndex, data).then(res =>{
                 this.useToastr().success('Asset Edited Successfully');
-                // $('#asset-modal').modal('hide');
                 this.closed();
-                this.$emit('yo', true);
+                this.$emit('sendAssetValue', true);
         }).catch((error)=>{
           this.useToastr().error('Something Went Wrong');
         });
       },
       async getAssetData(assetIndex){
-        await this.axios.get(this.apiAsset +'/'+ assetIndex).then(res =>{
+        await this.axios.get(this.$store.state.apiAsset +'/'+ assetIndex).then(res =>{
            res.data.map(asset=>{
             this.item_id = asset.item_id;
             this.type_id = asset.type_id;
             this.itemName = asset.items.itemName;
             this. typeName = asset.types.typeName;
             this.notes = asset.notes;
-            // console.log(asset.codeNamaa);
-            // this.code_namaa = asset.codeNamaa;
             this.code_namaa_edit = asset.codeNamaa;
             this.description = asset.description;
             this.serial_number = asset.serialNumber;
@@ -346,14 +305,14 @@ import $ from 'jquery'
       });
     },
     async getCenters(){
-           await this.axios.get(this.apiCenter).then(res =>{
+           await this.axios.get(this.$store.state.apiCenter).then(res =>{
            this.centers = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
       });
       },
       async getDepartments(){
-           await this.axios.get(this.apiDepartment).then(res =>{
+           await this.axios.get(this.$store.state.apiDepartment).then(res =>{
            this.departments = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
@@ -377,65 +336,22 @@ import $ from 'jquery'
           'status': this.status,
           'description':this.description,
                   };
-            await this.axios.post(this.apiAsset, data).then(res =>{
-            this.item_id = '';
-            this.type_id = '';
-            this.notes = '';
-            this.code_namaa = [];
-            this.serial_number = '';
-            this.aquisition_date = '';
-            this.in_service = '';
-            this.document_number = '';
-            this.aquisition_type = '';
-            this.funded_by = '';
-            this.expected_price = '';
-            this.real_price = '';
-            this.quantity = '';
-            this.status = '';
+            await this.axios.post(this.$store.state.apiAsset, data).then(res =>{
               this.useToastr().success('Asset Added Successfully');
               this.closed();
-                this.$emit('yo', true);
-              // $('#asset-modal').modal('hide');
+                this.$emit('sendAssetValue', true);
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
       });
     },
   },
-  // computed:{
-  //   abcde(){
-  //     this.code_namaa = this.aa + this.bb + this.cc + this.dd +this.ee;
-  //   }
-    // code_namaa:{
-    // set(newCode){
-    //   if(this.item_id.length == 1){
-    //   itemId = '0' + this.item_id + '0';
-    // }else if(this.item_id.length != 1){
-    //   itemId = this.item_id + '0';
-    // }if(this.type_id.length == 1){
-    //   typeId = '0' + this.item_id;
-    // }else if(this.type_id.length != 1){
-    //   typeId = this.item_id;
-    // }
-    // newCode = this.center_id + this.department_id + itemId + typeId;
-    // }
-    // }
-  // },
   watch:{
     async assetId(newAsset, oldAsset){
-      // if(newAsset == oldAsset){
-        // this.assetIndex = '';
-        // console.log(newAsset, oldAsset);
         this.assetIndex = newAsset;
       this.edit = true;
       await this.getAssetData(newAsset);
-      // }else{
-      //   this.assetIndex = newAsset;
-      // this.edit = true;
-      // await this.getAssetData();
-      // }
   },
           item_id(newItem, oldItem){
-            // this.aa = newItem;
         if(newItem >= 1 && newItem <= 9){
       this.cc = '0' + '0' + newItem;
     }if(newItem >= 10 && newItem <= 99 ){
@@ -446,7 +362,6 @@ import $ from 'jquery'
             this.abcde();
           },
           type_id(newType, oldType){
-            // this.bb = newType;
             if(newType >= 1 && newType <= 9){
             this.dd = '0' + newType;
           }if(newType >= 10){
@@ -455,7 +370,6 @@ import $ from 'jquery'
             this.abcde();
           },
           center_id(newCenter, oldCenter){
-            // this.cc = newCenter;
             if(newCenter >= 1 && newCenter <= 9){
             this.aa = '0' + newCenter;
           }if(newCenter >= 10){
@@ -464,7 +378,6 @@ import $ from 'jquery'
             this.abcde();
           },
           department_id(newDep, oldDep){
-            // this.dd = newDep;
             if(newDep >= 1 && newDep <= 9){
             this.bb = '0' + newDep;
           }if(newDep >= 10){
@@ -473,43 +386,23 @@ import $ from 'jquery'
             this.abcde();
           },
           quantity(newQuan, oldQuan){
-            // this.ee = newQuan;
             if(newQuan != oldQuan){
               this.ee = [];
-            // if(newQuan == 1){
-            //   this.ee = '000';
-            // }
             if(newQuan >= 1){
               for(let i = 0; i < newQuan; i++){
-              // this.ee = i;
-              // console.log(this.ee);
-              // this.abcde();
-              // let ii = Array.from(String(i), Number);
-              // if(i == 1){
-              //   this.ee = '000';
-              // }
               if(i >= 0 && i <= 9){
                 let ii = Array.from(String(i), Number);
                 this.ee.push('0' + '0' + ii);
               }if(i >= 10 && i <= 99){
-                // let ii = Array.from(String(i), Number);
-                // console.log(ii);
                 this.ee.push('0' + i);
                 // this.ee = '0' + i ;
               }if(i >= 100 && i <= 999){
                 this.ee.push(i);
               }
-                // this.ee = Array.apply(null, {length : i}).map(Number.call, Number);
-                // console.log(this.code_namaa);
-                // if(!this.edit){
                 this.abcde();
-                // }
              }
-            //  this.abcde();  
-            // console.log(this.code_namaa);
             }
           }
-          // this.abcde();  
           },
   },
   async mounted(){

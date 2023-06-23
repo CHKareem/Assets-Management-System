@@ -60,9 +60,10 @@ import'admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js';
 
 
 import {createApp} from 'vue'
+import store from './store'
 import App from './components/app.vue'
 import router from './router/index.js'
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
-createApp(App).use(VueAxios, axios).use(router).mount('#app')
+createApp(App).use(VueAxios, axios).use(router).use(store).mount('#app')

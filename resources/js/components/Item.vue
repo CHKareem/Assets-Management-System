@@ -127,7 +127,6 @@ export default{
     getItemId:'',
     itemArrs: [],
     itemCounts:'',
-    apiItem:'http://localhost:8000/api/item',
   }),
   methods:{
     useToastr,
@@ -137,7 +136,7 @@ export default{
     },
     async add_item(){
       let data = {'itemName':this.item_name, 'arabicItemName':this.arabic_item_name};
-            await this.axios.post(this.apiItem, data).then(res =>{
+            await this.axios.post(this.$store.state.apiItem, data).then(res =>{
               this.item_name = '';
               this.arabic_item_name = '';
               this.useToastr().success('Item Added Successfully');
@@ -147,7 +146,7 @@ export default{
       });
     },
   async getItems(){
-           await this.axios.get(this.apiItem).then(res =>{
+           await this.axios.get(this.$store.state.apiItem).then(res =>{
            this.itemArrs = res.data;
            this.itemCounts = res.data.length;
            this.$emit('itemCount', this.itemCounts);
@@ -179,7 +178,7 @@ export default{
         $('#modal-default-item').modal('show');
       },
       async delete_item(){
-            await this.axios.delete(this.apiItem +'/'+ this.deleteId).then(res =>{
+            await this.axios.delete(this.$store.state.apiItem +'/'+ this.deleteId).then(res =>{
               $('#modal-default-item').modal('hide');
               this.deleteId = '';
               this.useToastr().success('Item Deleted Successfully');
@@ -189,7 +188,7 @@ export default{
       });
       },
       async editItemButton(getIndex){
-        await this.axios.get(this.apiItem +'/'+ getIndex).then(res =>{
+        await this.axios.get(this.$store.state.apiItem +'/'+ getIndex).then(res =>{
            res.data.map(item=>{
         this.item_name = item.itemName;
         this.arabic_item_name = item.arabicItemName;
@@ -200,7 +199,7 @@ export default{
     },
     async edit_item(){
       let data = {'itemName': this.item_name, 'arabicItemName':this.arabic_item_name};
-            await this.axios.put(this.apiItem +'/'+ this.getItemId, data).then(res =>{
+            await this.axios.put(this.$store.state.apiItem +'/'+ this.getItemId, data).then(res =>{
               this.item_name = '';
               this.arabic_item_name = '';
               this.useToastr().success('Item Edited Successfully');
