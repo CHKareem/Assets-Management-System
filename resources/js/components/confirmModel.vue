@@ -13,7 +13,7 @@
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-danger" @click="accept_delete_type">Delete</button>
+              <button type="button" class="btn btn-danger" @click="accept_delete">Delete</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -29,20 +29,35 @@
 </template>
 
 <script>
-
+import $ from 'jquery'
+import { useToastr } from '../toastr.js'
 
 export default{
   data:() =>({
     deletedType: false,
   }),
   methods:{
-    accept_delete_type(){
-      // console.log(this.deleted);
-      this.deletedType = true;
-      // console.log(this.deleted);
-      this.$emit('deleteType', this.deletedType);
-      this.deletedType = false;
-    }
+    useToastr,
+    async accept_delete(){
+      console.log(this.$store.state.deleteUrl +'/'+ this.$store.state.deleteData);
+      // await this.$store.dispatch('delete_data');
+      // this.$store.state.isDeleted = false;
+      await this.axios.delete(this.$store.state.deleteUrl +'/'+ this.$store.state.deleteData).then(res =>{
+        this.$store.state.deleteUrl = '';
+        this.$store.state.deleteData = '';
+        $('#modal-default-type').modal('hide');
+        this.$store.state.isDeleted = true;
+      }).catch((error)=>{
+        this.useToastr().error('Something Went Wrong');
+      });
+    },
+    // accept_delete_type(){
+    //   // console.log(this.deleted);
+    //   this.deletedType = true;
+    //   // console.log(this.deleted);
+    //   this.$emit('deleteType', this.deletedType);
+    //   this.deletedType = false;
+    // }
   }
 }
 

@@ -99,7 +99,10 @@
 
 <import-asset @importSuccess = "impSucc" />
 
-<div class="modal fade" id="modal-default-asset">
+<conf-main />
+
+
+<!-- <div class="modal fade" id="modal-default-asset">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -115,12 +118,13 @@
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-danger" @click="delete_asset">Delete</button>
             </div>
-          </div>
+          </div> -->
           <!-- /.modal-content -->
-        </div>
+        <!-- </div> -->
         <!-- /.modal-dialog -->
-      </div>
+      <!-- </div> -->
       <!-- /.modal -->
+
 
 
 </template>
@@ -131,9 +135,10 @@ import AssetModal from '../components/AssetModal.vue'
 import ImportAsset from '../components/ImportAssetModel.vue'
 import AssetInfo from '../components/AssetInfo.vue'
 import $ from 'jquery';
+import ConfMain from '../components/confirmModel.vue'
 
 export default{
-  components: { AssetModal, ImportAsset, AssetInfo },
+  components: { AssetModal, ImportAsset, AssetInfo, ConfMain },
 
     data:() => ({
         assetCounts: '',
@@ -182,28 +187,41 @@ export default{
             $('#asset-info-modal').modal('show');
     },
     confirm_delete(deleteIndex){
-        this.deleteId = deleteIndex;
-        $('#modal-default-asset').modal('show');
+        // this.deleteId = deleteIndex;
+        this.$store.state.deleteUrl = this.$store.state.apiAsset;
+        this.$store.state.deleteData = deleteIndex;
+        $('#modal-default-type').modal('show');
       },
-      async delete_asset(){
-            await this.axios.delete(this.$store.state.apiAsset +'/'+ this.deleteId).then(res =>{
-              $('#modal-default-asset').modal('hide');
-              this.deleteId = '';
-              this.useToastr().success('Asset Deleted Successfully');
-              this.getAssets();
-      }).catch((error)=>{
-        this.useToastr().error('Something Went Wrong');
-      });
+      // async delete_asset(){
+      //       await this.axios.delete(this.$store.state.apiAsset +'/'+ this.deleteId).then(res =>{
+      //         $('#modal-default-asset').modal('hide');
+      //         this.deleteId = '';
+      //         this.useToastr().success('Asset Deleted Successfully');
+      //         this.getAssets();
+      // }).catch((error)=>{
+      //   this.useToastr().error('Something Went Wrong');
+      // });
+      // },
       },
-      },
-
+      computed:{
+    isDeleted(){
+      return this.$store.state.isDeleted;
+    }
+  },
     async mounted(){
      await this.getAssets();
     },
     watch:{
       assetIndex(newId, oldId){
         this.assetId = newId;
-      }
+      },
+      async isDeleted(newValue, oldValue){
+        if(newValue == true){
+              this.useToastr().success('Asset Deleted Successfully');
+              this.$store.state.isDeleted = false;
+              await this.getAssets();
+        }
+      },
     },
 }
 </script>  

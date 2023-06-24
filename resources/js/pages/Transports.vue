@@ -99,7 +99,9 @@
 
 <import-transport @importTransportSuccess = "impSucc" />
 
-<div class="modal fade" id="modal-default-transport">
+<conf-main />
+
+<!-- <div class="modal fade" id="modal-default-transport">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -115,11 +117,11 @@
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-danger" @click="delete_transport">Delete</button>
             </div>
-          </div>
+          </div> -->
           <!-- /.modal-content -->
-        </div>
+        <!-- </div> -->
         <!-- /.modal-dialog -->
-      </div>
+      <!-- </div> -->
       <!-- /.modal -->
 
 
@@ -130,10 +132,11 @@ import { useToastr } from '../toastr.js'
 import TransportModal from '../components/TransportModel.vue'
 import ImportTransport from '../components/ImportTransportModel.vue'
 import TransportInfo from '../components/TransportInfo.vue'
+import ConfMain from '../components/confirmModel.vue'
 import $ from 'jquery';
 
 export default{
-  components: { TransportModal, ImportTransport, TransportInfo },
+  components: { TransportModal, ImportTransport, TransportInfo, ConfMain },
 
     data:() => ({
         transportCounts: '',
@@ -185,28 +188,42 @@ export default{
             $('#transport-info-modal').modal('show');
     },
     confirm_delete(deleteIndex){
-        this.deleteId = deleteIndex;
-        $('#modal-default-transport').modal('show');
+        // this.deleteId = deleteIndex;
+        // $('#modal-default-transport').modal('show');
+        this.$store.state.deleteUrl = this.$store.state.apiTransport;
+        this.$store.state.deleteData = deleteIndex;
+        $('#modal-default-type').modal('show');
       },
-      async delete_transport(){
-            await this.axios.delete(this.$store.state.apiTransport +'/'+ this.deleteId).then(res =>{
-              $('#modal-default-transport').modal('hide');
-              this.deleteId = '';
-              this.useToastr().success('Transport Deleted Successfully');
-              this.getTransports();
-      }).catch((error)=>{
-        this.useToastr().error('Something Went Wrong');
-      });
+      // async delete_transport(){
+      //       await this.axios.delete(this.$store.state.apiTransport +'/'+ this.deleteId).then(res =>{
+      //         $('#modal-default-transport').modal('hide');
+      //         this.deleteId = '';
+      //         this.useToastr().success('Transport Deleted Successfully');
+      //         this.getTransports();
+      // }).catch((error)=>{
+      //   this.useToastr().error('Something Went Wrong');
+      // });
+      // },
       },
-      },
-
+      computed:{
+    isDeleted(){
+      return this.$store.state.isDeleted;
+    }
+  },
     async mounted(){
      await this.getTransports();
     },
     watch:{
         transportIndex(newId, oldId){
         this.transportId = newId;
-      }
+      },
+      async isDeleted(newValue, oldValue){
+        if(newValue == true){
+              this.useToastr().success('Transport Deleted Successfully');
+              this.$store.state.isDeleted = false;
+              await this.getTransports();
+        }
+      },
     },
 }
 </script>  

@@ -97,8 +97,10 @@
  <maintenance-info :maintenanceId ="maintenanceId" />
  
  <import-maintenance @importSuccess = "impSucc" />
+
+ <conf-main />
  
- <div class="modal fade" id="modal-default-maintenance">
+ <!-- <div class="modal fade" id="modal-default-maintenance">
          <div class="modal-dialog">
            <div class="modal-content">
              <div class="modal-header">
@@ -114,11 +116,11 @@
                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                <button type="button" class="btn btn-danger" @click="delete_maintenance">Delete</button>
              </div>
-           </div>
+           </div> -->
            <!-- /.modal-content -->
-         </div>
+         <!-- </div> -->
          <!-- /.modal-dialog -->
-       </div>
+       <!-- </div> -->
        <!-- /.modal -->
  
  
@@ -129,10 +131,11 @@
  import MaintenanceModal from '../components/MaintenanceModal.vue'
  import ImportMaintenance from '../components/ImportMaintenanceModel.vue'
  import MaintenanceInfo from '../components/MaintenanceInfo.vue'
+ import ConfMain from '../components/confirmModel.vue'
  import $ from 'jquery';
  
  export default{
-   components: { MaintenanceModal, ImportMaintenance, MaintenanceInfo },
+   components: { MaintenanceModal, ImportMaintenance, MaintenanceInfo, ConfMain },
  
      data:() => ({
          maintenanceCounts: '',
@@ -181,28 +184,42 @@
              $('#maintenance-info-modal').modal('show');
      },
      confirm_delete(deleteIndex){
-         this.deleteId = deleteIndex;
-         $('#modal-default-maintenance').modal('show');
+        //  this.deleteId = deleteIndex;
+        //  $('#modal-default-maintenance').modal('show');
+        this.$store.state.deleteUrl = this.$store.state.apiMaintenance;
+        this.$store.state.deleteData = deleteIndex;
+        $('#modal-default-type').modal('show');
        },
-       async delete_maintenance(){
-             await this.axios.delete(this.$store.state.apiMaintenance +'/'+ this.deleteId).then(res =>{
-               $('#modal-default-maintenance').modal('hide');
-               this.deleteId = '';
-               this.useToastr().success('Maintenance Deleted Successfully');
-               this.getMaintenances();
-       }).catch((error)=>{
-         this.useToastr().error('Something Went Wrong');
-       });
+      //  async delete_maintenance(){
+      //        await this.axios.delete(this.$store.state.apiMaintenance +'/'+ this.deleteId).then(res =>{
+      //          $('#modal-default-maintenance').modal('hide');
+      //          this.deleteId = '';
+      //          this.useToastr().success('Maintenance Deleted Successfully');
+      //          this.getMaintenances();
+      //  }).catch((error)=>{
+      //    this.useToastr().error('Something Went Wrong');
+      //  });
+      //  },
        },
-       },
- 
+       computed:{
+    isDeleted(){
+      return this.$store.state.isDeleted;
+    }
+  },
      async mounted(){
       await this.getMaintenances();
      },
      watch:{
        maintenanceIndex(newId, oldId){
          this.maintenanceId = newId;
-       }
+       },
+       async isDeleted(newValue, oldValue){
+        if(newValue == true){
+              this.useToastr().success('Maintenance Deleted Successfully');
+              this.$store.state.isDeleted = false;
+              await this.getMaintenances();
+        }
+      },
      },
  }
  </script>  

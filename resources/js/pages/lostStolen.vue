@@ -98,7 +98,10 @@
 
 <import-lost-stolen @importLostStolenSuccess = "impSucc" />
 
-<div class="modal fade" id="modal-default-lostStolen">
+<conf-main />
+
+
+<!-- <div class="modal fade" id="modal-default-lostStolen">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -114,11 +117,11 @@
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-danger" @click="delete_lostStolen">Delete</button>
             </div>
-          </div>
+          </div> -->
           <!-- /.modal-content -->
-        </div>
+        <!-- </div> -->
         <!-- /.modal-dialog -->
-      </div>
+      <!-- </div> -->
       <!-- /.modal -->
 
 </template>
@@ -128,10 +131,11 @@ import { useToastr } from '../toastr.js'
 import LostStolenModel from '../components/LostStolenModel.vue'
 import ImportLostStolen from '../components/ImportLostStolenModel.vue'
 import LostStolenInfo from '../components/LostStolenInfo.vue'
+import ConfMain from '../components/confirmModel.vue'
 import $ from 'jquery';
 
 export default{
-  components: { ImportLostStolen, LostStolenInfo, LostStolenModel },
+  components: { ImportLostStolen, LostStolenInfo, LostStolenModel, ConfMain },
 
     data:() => ({
         lostStolenCounts: '',
@@ -180,28 +184,42 @@ export default{
             $('#lostStolen-info-modal').modal('show');
     },
     confirm_delete(deleteIndex){
-        this.deleteId = deleteIndex;
-        $('#modal-default-lostStolen').modal('show');
+        // this.deleteId = deleteIndex;
+        // $('#modal-default-lostStolen').modal('show');
+        this.$store.state.deleteUrl = this.$store.state.apiLostStolen;
+        this.$store.state.deleteData = deleteIndex;
+        $('#modal-default-type').modal('show');
       },
-      async delete_lostStolen(){
-            await this.axios.delete(this.$store.state.apiLostStolen +'/'+ this.deleteId).then(res =>{
-              $('#modal-default-lostStolen').modal('hide');
-              this.deleteId = '';
-              this.useToastr().success('Lost & Stolen Deleted Successfully');
-              this.getLostStolens();
-      }).catch((error)=>{
-        this.useToastr().error('Something Went Wrong');
-      });
+      // async delete_lostStolen(){
+      //       await this.axios.delete(this.$store.state.apiLostStolen +'/'+ this.deleteId).then(res =>{
+      //         $('#modal-default-lostStolen').modal('hide');
+      //         this.deleteId = '';
+      //         this.useToastr().success('Lost & Stolen Deleted Successfully');
+      //         this.getLostStolens();
+      // }).catch((error)=>{
+      //   this.useToastr().error('Something Went Wrong');
+      // });
+      // },
       },
-      },
-
+      computed:{
+    isDeleted(){
+      return this.$store.state.isDeleted;
+    }
+  },
     async mounted(){
      await this.getLostStolens();
     },
     watch:{
         lostStolenIndex(newId, oldId){
         this.lostStolenId = newId;
-      }
+      },
+      async isDeleted(newValue, oldValue){
+        if(newValue == true){
+              this.useToastr().success('Lost & Stolen Deleted Successfully');
+              this.$store.state.isDeleted = false;
+              await this.getLostStolens();
+        }
+      },
     },
 }
 </script>  

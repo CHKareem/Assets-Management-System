@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 
+
 const store = createStore({
     state(){
         return{
@@ -19,8 +20,12 @@ const store = createStore({
             apiSerialSearch: 'http://localhost:8000/api/serialSearch',
             apiShowMaintenance: 'http://localhost:8000/api/showMaintenances',
             apiShowTransport: 'http://localhost:8000/api/showTransports',
+                deleteUrl: '',
+                deleteData: '',
+                isDeleted: false,
         };
     },
+
 })
 
 export default store;

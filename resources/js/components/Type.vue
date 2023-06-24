@@ -75,10 +75,14 @@
 
             </section>
 
+            <conf-main />
+
+
+            
             <!-- <conf-main @deleteType="getisDeleted" /> -->
 
 
-            <div class="modal fade" id="modal-default-type">
+            <!-- <div class="modal fade" id="modal-default-types">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -94,26 +98,26 @@
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-danger" @click="delete_type">Delete</button>
             </div>
-          </div>
+          </div> -->
           <!-- /.modal-content -->
-        </div>
+        <!-- </div> -->
         <!-- /.modal-dialog -->
-      </div>
+      <!-- </div> -->
       <!-- /.modal -->
-
 
 </template>
 
 
 <script>
 import { useToastr } from '../toastr.js'
-// import ConfMain from "../components/confirmModel.vue"
+import ConfMain from "../components/confirmModel.vue"
 import $ from 'jquery';
 
 export default{
-  // components:{
-  //   ConfMain
-  // },
+  components:{
+    ConfMain
+  },
+
   props:['typeSuccess'],
 
   data:() => ({
@@ -159,9 +163,16 @@ export default{
       //   $('#modal-default-type').modal('show');
       // },
         confirm_delete(deleteIndex){
-        this.deleteId = deleteIndex;
-        console.log(this.deleteId, deleteIndex);
+        // this.deleteId = deleteIndex;
+        this.$store.state.deleteUrl = this.$store.state.apiType;
+        this.$store.state.deleteData = deleteIndex;
+        // console.log(this.deleteId, deleteIndex);
         $('#modal-default-type').modal('show');
+        // if(this.$store.state.isDeleted == true){
+        //       this.useToastr().success('Type Deleted Successfully');
+        //       this.$store.state.isDeleted = false;
+        //       this.getTypes();
+        // }
       },
     //   async delete_type(){
     //     if(this.isDeleted){
@@ -177,16 +188,16 @@ export default{
     //   });
     // }
     //   },
-          async delete_type(){
-            await this.axios.delete(this.$store.state.apiType +'/'+ this.deleteId).then(res =>{
-              $('#modal-default-type').modal('hide');
-              this.deleteId = '';
-              this.useToastr().success('Type Deleted Successfully');
-              this.getTypes();
-      }).catch((error)=>{
-        this.useToastr().error('Something Went Wrong');
-      });
-      },
+      //     async delete_type(){
+      //       await this.axios.delete(this.$store.state.apiType +'/'+ this.deleteId).then(res =>{
+      //         $('#modal-default-type').modal('hide');
+      //         this.deleteId = '';
+      //         this.useToastr().success('Type Deleted Successfully');
+      //         this.getTypes();
+      // }).catch((error)=>{
+      //   this.useToastr().error('Something Went Wrong');
+      // });
+      // },
     async editTypeButton(getIndex){
         await this.axios.get(this.$store.state.apiType +'/'+ getIndex).then(res =>{
            res.data.map(type=>{
@@ -210,6 +221,11 @@ export default{
       });
     },
   },
+  computed:{
+    isDeleted(){
+      return this.$store.state.isDeleted;
+    }
+  },
     async mounted(){
      await this.getTypes();
     },
@@ -219,6 +235,13 @@ export default{
         await this.getTypes();
       }
   },
+  async isDeleted(newValue, oldValue){
+        if(newValue == true){
+              this.useToastr().success('Type Deleted Successfully');
+              this.$store.state.isDeleted = false;
+              await this.getTypes();
+        }
+      },
 },
 }
 
