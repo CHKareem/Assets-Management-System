@@ -32,7 +32,7 @@
                         <span>Add New Lost & Stolen</span>
                             </button>
 
-                            <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openImportLostStolen">
+                            <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openImportModal">
                                 <i class="fa fa-plus-circle mr-2"></i>
                         <span>Import Losts & Stolens</span>
                             </button>
@@ -96,46 +96,22 @@
 
 <lost-stolen-info :lostStolenId ="lostStolenId" />
 
-<import-lost-stolen @importLostStolenSuccess = "impSucc" />
+<import-modal />
 
 <conf-main />
-
-
-<!-- <div class="modal fade" id="modal-default-lostStolen">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Delete Modal</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p> Are You Sure You Want To Delete ?</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-danger" @click="delete_lostStolen">Delete</button>
-            </div>
-          </div> -->
-          <!-- /.modal-content -->
-        <!-- </div> -->
-        <!-- /.modal-dialog -->
-      <!-- </div> -->
-      <!-- /.modal -->
 
 </template>
 
 <script>
 import { useToastr } from '../toastr.js'
 import LostStolenModel from '../components/LostStolenModel.vue'
-import ImportLostStolen from '../components/ImportLostStolenModel.vue'
+import ImportModal from '../components/ImportModal.vue'
 import LostStolenInfo from '../components/LostStolenInfo.vue'
 import ConfMain from '../components/confirmModel.vue'
 import $ from 'jquery';
 
 export default{
-  components: { ImportLostStolen, LostStolenInfo, LostStolenModel, ConfMain },
+  components: { ImportModal, LostStolenInfo, LostStolenModel, ConfMain },
 
     data:() => ({
         lostStolenCounts: '',
@@ -144,12 +120,6 @@ export default{
         deleteId: '',
     }),
     methods:{
-      async impSucc(value){
-        if(value == true){
-          $('#lostStolen-import-modal').modal('hide');
-         await this.getLostStolens();
-        }
-      },
       async receivedLostStolenValue(value){
         if(value == true){
           $('#lostStolen-modal').modal('hide');
@@ -171,8 +141,11 @@ export default{
       openLostStolenModal(){
         $('#lostStolen-modal').modal('show');
       },
-      openImportLostStolen(){
-        $('#lostStolen-import-modal').modal('show');
+      openImportModal(){
+        $('#import-modal').modal('show');
+        this.$store.state.importUrl = this.$store.state.apiLostStolen;
+              this.$store.state.importFuncLink = '/import_lostStolens';
+              this.$store.state.importTitle = 'Import Lost & Stolen';
       },
       editLostStolenModal(lostStolenIndex){
 
@@ -204,6 +177,9 @@ export default{
       computed:{
     isDeleted(){
       return this.$store.state.isDeleted;
+    },
+    isImported(){
+      return this.$store.state.isImported;
     }
   },
     async mounted(){
@@ -217,6 +193,14 @@ export default{
         if(newValue == true){
               this.useToastr().success('Lost & Stolen Deleted Successfully');
               this.$store.state.isDeleted = false;
+              await this.getLostStolens();
+        }
+      },
+      async isImported(newValue, oldValue){
+        if(newValue == true){
+          $('#import-modal').modal('hide');
+              this.useToastr().success('Losts & Stolens Imported Successfully');
+              this.$store.state.isImported = false;
               await this.getLostStolens();
         }
       },

@@ -32,7 +32,7 @@
                         <span>Add New Transport</span>
                             </button>
 
-                            <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openImportTransport">
+                            <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openImportModal">
                                 <i class="fa fa-plus-circle mr-2"></i>
                         <span>Import Transports</span>
                             </button>
@@ -97,32 +97,9 @@
 
 <transport-info :transportId ="transportId" />
 
-<import-transport @importTransportSuccess = "impSucc" />
+<import-modal />
 
 <conf-main />
-
-<!-- <div class="modal fade" id="modal-default-transport">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Delete Modal</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p> Are You Sure You Want To Delete ?</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-danger" @click="delete_transport">Delete</button>
-            </div>
-          </div> -->
-          <!-- /.modal-content -->
-        <!-- </div> -->
-        <!-- /.modal-dialog -->
-      <!-- </div> -->
-      <!-- /.modal -->
 
 
 </template>
@@ -130,13 +107,13 @@
 <script>
 import { useToastr } from '../toastr.js'
 import TransportModal from '../components/TransportModel.vue'
-import ImportTransport from '../components/ImportTransportModel.vue'
+import ImportModal from '../components/ImportModal.vue'
 import TransportInfo from '../components/TransportInfo.vue'
 import ConfMain from '../components/confirmModel.vue'
 import $ from 'jquery';
 
 export default{
-  components: { TransportModal, ImportTransport, TransportInfo, ConfMain },
+  components: { TransportModal, ImportModal, TransportInfo, ConfMain },
 
     data:() => ({
         transportCounts: '',
@@ -145,12 +122,6 @@ export default{
         deleteId: '',
     }),
     methods:{
-      async impSucc(value){
-        if(value == true){
-          $('#transport-import-modal').modal('hide');
-         await this.getTransports();
-        }
-      },
       async receivedTransportValue(value){
         if(value == true){
           $('#transport-modal').modal('hide');
@@ -172,11 +143,11 @@ export default{
       openTransportModal(){
         $('#transport-modal').modal('show');
       },
-      openImportTransport(){
-        $('#transport-import-modal').modal('show');
-      },
-      openShowTransport(){
-        $('#transport-show-modal').modal('show');
+      openImportModal(){
+        $('#import-modal').modal('show');
+        this.$store.state.importUrl = this.$store.state.apiTransport;
+              this.$store.state.importFuncLink = '/import_transports';
+              this.$store.state.importTitle = 'Import Transports';
       },
       editTransportModal(transportIndex){
 
@@ -208,6 +179,9 @@ export default{
       computed:{
     isDeleted(){
       return this.$store.state.isDeleted;
+    },
+    isImported(){
+      return this.$store.state.isImported;
     }
   },
     async mounted(){
@@ -221,6 +195,14 @@ export default{
         if(newValue == true){
               this.useToastr().success('Transport Deleted Successfully');
               this.$store.state.isDeleted = false;
+              await this.getTransports();
+        }
+      },
+      async isImported(newValue, oldValue){
+        if(newValue == true){
+          $('#import-modal').modal('hide');
+              this.useToastr().success('Transports Imported Successfully');
+              this.$store.state.isImported = false;
               await this.getTransports();
         }
       },

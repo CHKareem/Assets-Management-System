@@ -25,7 +25,6 @@
           <div class="col-12">
                 <div class="card card-primary card-outline">
                 <div class="card-header">
-<!-- <div class="d-flex justify-content-between"> -->
   <div class="row justify-content-between">
 
     <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openAssetModal">
@@ -33,7 +32,7 @@
                         <span>Add New Asset</span>
                             </button>
 
-                            <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openImportAsset">
+                            <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openImportModal">
                                 <i class="fa fa-plus-circle mr-2"></i>
                         <span>Import Assets</span>
                             </button>
@@ -97,48 +96,22 @@
 
 <asset-info :assetId ="assetId" />
 
-<import-asset @importSuccess = "impSucc" />
+<import-modal />
 
 <conf-main />
-
-
-<!-- <div class="modal fade" id="modal-default-asset">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Delete Modal</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p> Are You Sure You Want To Delete ?</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-danger" @click="delete_asset">Delete</button>
-            </div>
-          </div> -->
-          <!-- /.modal-content -->
-        <!-- </div> -->
-        <!-- /.modal-dialog -->
-      <!-- </div> -->
-      <!-- /.modal -->
-
-
 
 </template>
 
 <script>
 import { useToastr } from '../toastr.js'
 import AssetModal from '../components/AssetModal.vue'
-import ImportAsset from '../components/ImportAssetModel.vue'
+import ImportModal from '../components/ImportModal.vue'
 import AssetInfo from '../components/AssetInfo.vue'
 import $ from 'jquery';
 import ConfMain from '../components/confirmModel.vue'
 
 export default{
-  components: { AssetModal, ImportAsset, AssetInfo, ConfMain },
+  components: { AssetModal, ImportModal, AssetInfo, ConfMain },
 
     data:() => ({
         assetCounts: '',
@@ -147,12 +120,6 @@ export default{
         deleteId: '',
     }),
     methods:{
-      async impSucc(value){
-        if(value == true){
-          $('#asset-import-modal').modal('hide');
-         await this.getAssets();
-        }
-      },
       async receivedAssetValue(value){
         if(value == true){
           $('#asset-modal').modal('hide');
@@ -174,8 +141,11 @@ export default{
       openAssetModal(){
         $('#asset-modal').modal('show');
       },
-      openImportAsset(){
-        $('#asset-import-modal').modal('show');
+      openImportModal(){
+        $('#import-modal').modal('show');
+        this.$store.state.importUrl = this.$store.state.apiAsset;
+              this.$store.state.importFuncLink = '/import_assets';
+              this.$store.state.importTitle = 'Import Assets';
       },
       editAssetModal(assetIndex){
 
@@ -206,6 +176,9 @@ export default{
       computed:{
     isDeleted(){
       return this.$store.state.isDeleted;
+    },
+    isImported(){
+      return this.$store.state.isImported;
     }
   },
     async mounted(){
@@ -219,6 +192,14 @@ export default{
         if(newValue == true){
               this.useToastr().success('Asset Deleted Successfully');
               this.$store.state.isDeleted = false;
+              await this.getAssets();
+        }
+      },
+      async isImported(newValue, oldValue){
+        if(newValue == true){
+          $('#import-modal').modal('hide');
+              this.useToastr().success('Assets Imported Successfully');
+              this.$store.state.isImported = false;
               await this.getAssets();
         }
       },

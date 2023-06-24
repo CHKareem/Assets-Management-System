@@ -23,6 +23,10 @@ const store = createStore({
                 deleteUrl: '',
                 deleteData: '',
                 isDeleted: false,
+                importUrl: '',
+                importTitle: '',
+                importFuncLink: '',
+                isImported: false,
         };
     },
 

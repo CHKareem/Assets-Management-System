@@ -89,9 +89,9 @@ class TransportImport implements ToModel, WithStartRow, WithValidation
             'asset_id' => $this->get_asset_id($row[0]),
             'center_id' => $this->get_center_id($row[1]),
             'department_id' => $this->get_department_id($row[2]),
-            'position_id' => $this->get_position_id($row[3]),
-            'employee_id' => $this->get_employee_id($row[4]),
-            'employee_prev_id' => $this->get_employee_id($row[5]),
+            'position_id' => $row[3] == null ? null : $this->get_position_id($row[3]),
+            'employee_id' => $row[4] == null ? null : $this->get_employee_id($row[4]),
+            'employee_prev_id' => $row[5] == null ? null : $this->get_employee_id($row[5]),
             'documentType' => $row[6],
             'documentNumber' => $row[7],
             'transportDate' => $startDate,
@@ -133,13 +133,13 @@ class TransportImport implements ToModel, WithStartRow, WithValidation
             },
 
             '3' => function($attribute, $value, $onFailure) {
-                if(!is_string($value) || is_numeric($value)){
+                if(!is_string($value) && $value !== null){
                 $onFailure('Column[4] This Value MUST BE TEXT');
                 }
             },
 
             '4' => function($attribute, $value, $onFailure) {
-                if(!is_string($value)){
+                if(!is_string($value) && $value !== null){
                     $onFailure('Column[5] This Value MUST BE TEXT');
                 }
                 // if($value < 0){
@@ -148,7 +148,7 @@ class TransportImport implements ToModel, WithStartRow, WithValidation
             },
 
             '5' => function($attribute, $value, $onFailure) {
-                if(!is_string($value)){
+                if(!is_string($value) && $value !== null){
                     $onFailure('Column[6] This Value MUST BE TEXT');
                 }
                 // if($value < 0){

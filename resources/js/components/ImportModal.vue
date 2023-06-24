@@ -1,17 +1,17 @@
 <template>
     
-    <div class="modal fade" id="maintenance-import-modal" data-backdrop="static">
+    <div class="modal fade" id="import-modal" data-backdrop="static">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Import Maintenance</h4>
+              <h4 class="modal-title">{{ this.$store.state.importTitle }}</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closed">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
 
-    <form id="maintenanceForm">
+    <form id="importForm">
 
            
 <div class="modal-body">
@@ -52,16 +52,18 @@ import $ from 'jquery';
 export default{
 
   data:() => ({
-    dd:[],
-    apiMaintenance:'http://localhost:8000/api/maintenance',
   }),
   methods:{
     useToastr,
     async import_file(){
-        let data = new FormData($('#maintenanceForm')[0]);
-        await this.axios.post(this.apiMaintenance +'/import_maintenances', data).then(res =>{
-              this.useToastr().success('Maintenances Added Successfully');
-              this.$emit('importSuccess', true);
+        let data = new FormData($('#importForm')[0]);
+        await this.axios.post(this.$store.state.importUrl + this.$store.state.importFuncLink, data).then(res =>{
+            //   this.useToastr().success('Import Was Successfull');
+              this.$store.state.importUrl = '';
+              this.$store.state.importFuncLink = '';
+              this.$store.state.importTitle = '';
+              this.$store.state.isImported = true;
+            //   this.$emit('importSuccess', true);
       }).catch((error)=>{
         // this.errors = error.response.data.errors
         this.useToastr().error(error.response.data.errors);

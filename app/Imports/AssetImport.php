@@ -199,7 +199,7 @@ class AssetImport implements ToModel, WithStartRow, WithValidation
             },
 
             '14' => function($attribute, $value, $onFailure) {
-                if(!is_string($value) || !is_numeric($value)){
+                if(!is_string($value) && !is_numeric($value)){
                     $onFailure('Column[15] This Value MUST BE TEXT OR Number');
                     }
                     if(strlen($value) != 10 && strlen($value) != 14 && strlen($value) != 1){
