@@ -4,6 +4,7 @@ import { createStore } from "vuex";
 const store = createStore({
     state(){
         return{
+            appLanguage: localStorage.getItem("appLanguage") || 'en',
             apiTransport:'http://localhost:8000/api/transport',
             apiAssetSearch:'http://localhost:8000/api/codeSearch',
             apiCenter: 'http://localhost:8000/api/center',
@@ -29,6 +30,16 @@ const store = createStore({
                 isImported: false,
         };
     },
+    getters: {
+        getAppLanguage: (state) => state.appLanguage
+      },
+      mutations: {
+        setAppLanguage(state, language) {
+            localStorage.removeItem("appLanguage");
+          state.appLanguage = language.locale;
+          localStorage.setItem("appLanguage", language.locale);
+        }
+    }
 
 })
 

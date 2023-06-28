@@ -58,12 +58,27 @@ import'admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js';
 });
 
 
-
 import {createApp} from 'vue'
 import store from './store'
 import App from './components/app.vue'
 import router from './router/index.js'
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import i18n from './i18n.js'
 
-createApp(App).use(VueAxios, axios).use(router).use(store).mount('#app')
+// router.beforeEach((to, from, next) => {
+
+//   // use the language from the routing param or default language
+//   let language = to.params.lang;
+//   if (!language) {
+//     language = 'en'
+//   }
+
+//   // set the current language for i18n.
+//   i18n.locale = language
+//   next()
+// })
+
+
+
+createApp(App).use(i18n).use(VueAxios, axios).use(router).use(store).mount('#app')

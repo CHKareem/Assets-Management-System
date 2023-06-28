@@ -19,9 +19,15 @@
       </li>
 
       <li class="nav-item">
+        <div class="dropdown">
         <button class="btn dropdown-toggle" id="dropdownMenuButton"  type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   <i class="fa fa-language"></i>
   </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" @click="setLocale('en')">en</a>
+    <a class="dropdown-item" @click="setLocale('ar')">ar</a>
+  </div>
+</div>
       </li>
 
       <li class="nav-item">
@@ -38,8 +44,18 @@
 
 
 <script>
+import store from '../store.js'
 
-
-export default{}
+export default{
+methods:{
+  setLocale(locale) {
+    store.commit('setAppLanguage', {locale: locale});
+      this.$i18n.locale = locale
+      // this.$router.push({
+      //   params: { lang: locale }
+      // })
+    }
+  }
+}
 
 </script>

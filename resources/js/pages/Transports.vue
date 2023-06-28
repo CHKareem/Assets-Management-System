@@ -1,12 +1,12 @@
 <template>
-    
+    <h1>{{ $t('welcomeMsg') }}</h1>
     <div class="row">
 
 <div class="col-12">
     <div class="small-box bg-info ml-4 mt-4 mr-4">
     <div class="inner">
         <h3> {{ transportCounts }} </h3>
-        <p>Transport Count</p>
+        <p>{{ $t('transportCount') }}</p>
     </div>
     <div class="icon">
         <i class="fas fa-people-carry"></i>
@@ -29,17 +29,17 @@
         
     <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openTransportModal">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Add New Transport</span>
+                        <span>{{ $t('newTransport') }}</span>
                             </button>
 
                             <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openImportModal">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Import Transports</span>
+                        <span>{{ $t('impTransport') }}</span>
                             </button>
 
                             <a class="btn btn-primary col-md-auto mb-3 mt-2" href="/export_transports">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Export Transports</span>
+                        <span>{{ $t('expTransport') }}</span>
                             </a>
     </div>
     </div>
