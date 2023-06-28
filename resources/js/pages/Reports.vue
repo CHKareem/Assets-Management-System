@@ -12,15 +12,15 @@
                 <ul class="nav nav-tabs mb-3" id="ex-with-icons" role="tablist">
                 <li class="nav-item" role="presentation">
                     <a class="nav-link active" id="ex-with-icons-tab-1" data-toggle="tab" href="#ex-with-icons-tabs-1" role="tab"
-                    aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i class="far fa-file-code mr-2 fa-fw me-2"></i>Code Namaa Report</a>
+                    aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i class="far fa-file-code mr-2 fa-fw me-2"></i>{{ $t('codeNamaaReport') }}</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="ex-with-icons-tab-2" data-toggle="tab" href="#ex-with-icons-tabs-2" role="tab"
-                    aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i class="fas fa-tools mr-2 fa-fw me-2"></i>Maintenance Reports</a>
+                    aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i class="fas fa-tools mr-2 fa-fw me-2"></i>{{ $t('maintenanceReport') }}</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="ex-with-icons-tab-3" data-toggle="tab" href="#ex-with-icons-tabs-3" role="tab"
-                    aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fas fa-people-carry mr-2 fa-fw me-2"></i>Transport Reports</a>
+                    aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fas fa-people-carry mr-2 fa-fw me-2"></i>{{ $t('transportReport') }}</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="ex-with-icons-tab-4" data-toggle="tab" href="#ex-with-icons-tabs-4" role="tab"

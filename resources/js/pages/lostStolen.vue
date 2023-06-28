@@ -6,7 +6,7 @@
     <div class="small-box bg-info ml-4 mt-4 mr-4">
     <div class="inner">
         <h3> {{ lostStolenCounts }} </h3>
-        <p>Lost & Stolen Count</p>
+        <p>{{ $t('lostStolenCount') }}</p>
     </div>
     <div class="icon">
         <i class="fas fa-exchange-alt"></i>
@@ -29,17 +29,17 @@
         
     <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openLostStolenModal">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Add New Lost & Stolen</span>
+                        <span>{{ $t('newLostStolen') }}</span>
                             </button>
 
                             <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openImportModal">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Import Losts & Stolens</span>
+                        <span>{{ $t('impLostStolen') }}</span>
                             </button>
 
                             <a class="btn btn-primary col-md-auto mb-3 mt-2" href="/export_lostStolens">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Export Losts & Stolens</span>
+                        <span>{{ $t('expLostStolen') }}</span>
                             </a>
     </div>
     </div>
@@ -57,12 +57,12 @@
     <table id="example2" class="table table-bordered table-striped">
       <thead>
       <tr>
-        <th>Code Namaa</th>
-        <th>Alter Code Namaa</th>
-        <th>Document Number</th>
-        <th>Lost Date</th>
-        <th>Is Stolen</th>
-        <th>Options</th>
+        <th>{{ $t('codeNamaa') }}</th>
+        <th>{{ $t('alterCodeNamaa') }}</th>
+        <th>{{ $t('docNumber') }}</th>
+        <th>{{ $t('lostDate') }}</th>
+        <th>{{ $t('stolen') }}</th>
+        <th>{{ $t('options') }}</th>
       </tr>
       </thead>
       <tbody>

@@ -6,7 +6,7 @@
     <div class="small-box bg-info ml-4 mt-4 mr-4">
     <div class="inner">
         <h3> {{ assetCounts }} </h3>
-        <p>Asset Count</p>
+        <p>{{ $t('assetCount') }}</p>
     </div>
     <div class="icon">
         <i class="fa fa-desktop"></i>
@@ -29,17 +29,17 @@
 
     <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openAssetModal">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Add New Asset</span>
+                        <span>{{ $t('newAsset') }}</span>
                             </button>
 
                             <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openImportModal">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Import Assets</span>
+                        <span>{{ $t('impAsset') }}</span>
                             </button>
 
                             <a class="btn btn-primary col-md-auto mb-3 mt-2" href="/export_assets">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Export Assets</span>
+                        <span>{{ $t('expAsset') }}</span>
                             </a>
     </div>
     </div>
@@ -57,12 +57,12 @@
     <table id="example2" class="table table-bordered table-striped">
       <thead>
       <tr>
-        <th>Code Namaa</th>
-        <th>Status</th>
-        <th>Serial Number</th>
-        <th>Document Number</th>
-        <th>In Service</th>
-        <th>Options</th>
+        <th>{{ $t('codeNamaa') }}</th>
+        <th>{{ $t('status') }}</th>
+        <th>{{ $t('serNumber') }}</th>
+        <th>{{ $t('docNumber') }}</th>
+        <th>{{ $t('serviced') }}</th>
+        <th>{{ $t('options') }}</th>
       </tr>
       </thead>
       <tbody>

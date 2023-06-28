@@ -1,5 +1,4 @@
 <template>
-    <h1>{{ $t('welcomeMsg') }}</h1>
     <div class="row">
 
 <div class="col-12">
@@ -57,12 +56,12 @@
     <table id="example2" class="table table-bordered table-striped">
       <thead>
       <tr>
-        <th>Asset</th>
-        <th>Employee</th>
-        <th>Document Date</th>
-        <th>Document Number</th>
-        <th>Is Handed</th>
-        <th>Options</th>
+        <th>{{ $t('asset') }}</th>
+        <th>{{ $t('emp') }}</th>
+        <th>{{ $t('docDate') }}</th>
+        <th>{{ $t('docNumber') }}</th>
+        <th>{{ $t('handed') }}</th>
+        <th>{{ $t('options') }}</th>
       </tr>
       </thead>
       <tbody>

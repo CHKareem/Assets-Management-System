@@ -5,7 +5,7 @@
     <div class="small-box bg-info ml-4 mt-4">
     <div class="inner">
         <h3> {{ itemCounts }} </h3>
-        <p>Item Count</p>
+        <p>{{ $t('itemCount') }}</p>
     </div>
     <div class="icon">
         <i class="fas fa-microchip"></i>
@@ -17,7 +17,7 @@
     <div class="small-box bg-info mr-4 mt-4">
     <div class="inner">
         <h3> {{ typeCounts }} </h3>
-        <p>Type Count</p>
+        <p>{{ $t('typeCount') }}</p>
     </div>
     <div class="icon">
         <i class="fas fa-microchip"></i>
@@ -36,22 +36,22 @@
 
   <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openImportItem">
                       <i class="fa fa-plus-circle mr-2"></i>
-              <span>Import Items</span>
+              <span>{{ $t('impItem') }}</span>
                   </button>
 
                   <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openImportType">
                       <i class="fa fa-plus-circle mr-2"></i>
-              <span>Import Types</span>
+              <span>{{ $t('impType') }}</span>
                   </button>
 
                   <a class="btn btn-primary col-md-auto mb-3 mt-2" href="/export_items">
                       <i class="fa fa-plus-circle mr-2"></i>
-              <span>Export Items</span>
+              <span>{{ $t('expItem') }}</span>
                   </a>
 
                   <a class="btn btn-primary col-md-auto mb-3 mt-2" href="/export_types">
                       <i class="fa fa-plus-circle mr-2"></i>
-              <span>Export Types</span>
+              <span>{{ $t('expType') }}</span>
                   </a>
 
 

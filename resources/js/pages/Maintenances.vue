@@ -6,7 +6,7 @@
      <div class="small-box bg-info ml-4 mt-4 mr-4">
      <div class="inner">
          <h3> {{ maintenanceCounts }} </h3>
-         <p>Maintenance Count</p>
+         <p>{{ $t('maintenanceCount') }}</p>
      </div>
      <div class="icon">
          <i class="fas fa-tools"></i>
@@ -29,17 +29,17 @@
          
      <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openMaintenanceModal">
                                  <i class="fa fa-plus-circle mr-2"></i>
-                         <span>Add New Maintenance</span>
+                         <span>{{ $t('newMaintenance') }}</span>
                              </button>
  
                              <button class="btn btn-primary col-md-auto mb-3 mt-2" @click="openImportModal">
                                  <i class="fa fa-plus-circle mr-2"></i>
-                         <span>Import Maintenances</span>
+                         <span>{{ $t('impMaintenance') }}</span>
                              </button>
  
                              <a class="btn btn-primary col-md-auto mb-3 mt-2" href="/export_maintenances">
                                  <i class="fa fa-plus-circle mr-2"></i>
-                         <span>Export Maintenances</span>
+                         <span>{{ $t('expMaintenance') }}</span>
                              </a>
      </div>
      </div>
@@ -57,12 +57,12 @@
      <table id="example2" class="table table-bordered table-striped">
        <thead>
        <tr>
-         <th>Code Namaa</th>
-         <th>Receive date</th>
-         <th>Status Before</th>
-         <th>Status After</th>
-         <th>Technical Disclosure Number</th>
-         <th>Options</th>
+         <th>{{ $t('codeNamaa') }}</th>
+         <th>{{ $t('receiveDate') }}</th>
+         <th>{{ $t('statusBefore') }}</th>
+         <th>{{ $t('statusAfter') }}</th>
+         <th>{{ $t('techNumber') }}</th>
+         <th>{{ $t('options') }}</th>
        </tr>
        </thead>
        <tbody>
