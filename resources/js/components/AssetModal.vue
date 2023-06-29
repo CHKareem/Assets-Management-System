@@ -265,7 +265,6 @@ import $ from 'jquery'
         });
       },
       async getAssetData(assetIndex){
-        this.closed();
         await this.axios.get(this.$store.state.apiAsset +'/'+ assetIndex).then(res =>{
            res.data.map(asset=>{
             this.item_id = asset.item_id;
