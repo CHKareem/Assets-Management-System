@@ -5,8 +5,8 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title" v-if="!edit">Add New Transport</h4>
-              <h4 class="modal-title" v-else>Edit Transport</h4>
+              <h4 class="modal-title" v-if="!edit">{{$t('newTransport')}}</h4>
+              <h4 class="modal-title" v-else>{{$t('editTransport')}}</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closed">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -15,9 +15,9 @@
               <div class="form-row">
 
                       <div class="form-group col-md-4">
-                        <label for="positionId">Position</label>
+                        <label for="positionId">{{$t('position')}}</label>
                         <div class="search-box">   
-                        <input type="text" placeholder="Position Name" v-model="position_id" @keyup="getPositionData" autocomplete="off" class="form-control" id="positionId" />                 
+                        <input type="text" :placeholder="$t('posName')" v-model="position_id" @keyup="getPositionData" autocomplete="off" class="form-control" id="positionId" />                 
                             <ul>
                             <li v-for="positions in search_position" :key="positions.id" @click="getPositionName(positions.positionName, positions.id)" v-text="positions.positionName"></li>
                         </ul>
@@ -26,23 +26,23 @@
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="centerId">Center</label>
+                        <label for="centerId">{{$t('center')}}</label>
                         <select class="custom-select rounded-0" v-model="center_id" id="centerId">
                                 <option v-for="center in centers" :key="center.id" :value="center.id">{{ center.centerName }}</option>
                         </select>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="departmentId">Department</label>
+                        <label for="departmentId">{{$t('department')}}</label>
                         <select class="custom-select rounded-0" v-model="department_id" id="departmentId">
                                 <option v-for="department in departments" :key="department.id" :value="department.id">{{ department.departmentName }}</option>
                         </select>
                       </div>
 
                       <div class="form-group col-md-5">
-                        <label for="employeeId">Employee Name</label>
+                        <label for="employeeId">{{$t('empName')}}</label>
                         <div class="search-box">   
-                        <input type="text" placeholder="Employee Name" v-model="employee_id" @keyup="getEmployeeData" autocomplete="off" class="form-control" id="employeeId" />                 
+                        <input type="text" :placeholder="$t('empName')" v-model="employee_id" @keyup="getEmployeeData" autocomplete="off" class="form-control" id="employeeId" />                 
                             <ul>
                             <li v-for="employees in search_employee" :key="employees.id" @click="getEmployeeName(employees.fullName, employees.id)" v-text="employees.fullName"></li>
                         </ul>
@@ -51,9 +51,9 @@
                       </div>
 
                       <div class="form-group col-md-5">
-                        <label for="prevEmployeeId">Prev Employee Name</label>
+                        <label for="prevEmployeeId">{{$t('prevEmpName')}}</label>
                         <div class="search-box">   
-                        <input type="text" placeholder="Prev Employee Name" v-model="prev_employee_id" @keyup="getPrevEmployeeData" autocomplete="off" class="form-control" id="prevEmployeeId" />                 
+                        <input type="text" :placeholder="$t('prevEmpName')" v-model="prev_employee_id" @keyup="getPrevEmployeeData" autocomplete="off" class="form-control" id="prevEmployeeId" />                 
                             <ul>
                             <li v-for="prevEmployees in search_prev_employee" :key="prevEmployees.id" @click="getPrevEmployeeName(prevEmployees.fullName, prevEmployees.id)" v-text="prevEmployees.fullName"></li>
                         </ul>
@@ -65,7 +65,7 @@
                         <br>
                       <button class="btn btn-primary mt-2" @click="add_transport_array">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                                <span>Add Row</span>
+                                <span>{{$t('addRow')}}</span>
                             </button>
                           </div>
 
@@ -77,9 +77,9 @@
               <div class="form-row">
 
                 <div class="form-group col-md-4">
-                      <label for="assetId">Code Namaa</label>
+                      <label for="assetId">{{$t('codeNamaa')}}</label>
                       <div class="search-box">
-                        <input type="text" placeholder="Code Namaa" v-model="transport.asset_id" @keyup="getAssetData(index)" autocomplete="off" class="form-control" id="assetId" />          
+                        <input type="text" :placeholder="$t('codeNamaa')" v-model="transport.asset_id" @keyup="getAssetData(index)" autocomplete="off" class="form-control" id="assetId" />          
                             <ul>
                             <li @click="getAssetName(asset.codeNamaa, asset.id, index)" v-for="asset in search_asset" :key="asset.id" v-text="asset.codeNamaa"></li>
                             </ul>
@@ -88,12 +88,12 @@
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="documentNumber">Document Number</label>
-                        <input v-model="transport.document_number" type="text" class="form-control" id="documentNumber" placeholder="Document Number">
+                        <label for="documentNumber">{{$t('docNumber')}}</label>
+                        <input v-model="transport.document_number" type="text" class="form-control" id="documentNumber" :placeholder="$t('docNumber')">
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="isHanded">Is Handed ?</label>
+                        <label for="isHanded">{{$t('handed')}}</label>
                         <select class="custom-select rounded-0" v-model="transport.is_handed" id="isHanded">
                                 <option value="0">No</option>
                                 <option value="1">Yes</option>
@@ -101,20 +101,20 @@
                       </div>
 
                       <div class="form-group col-md-5">
-                        <label for="transportDate">Transport Date</label>
-                        <input v-model="transport.transport_date" type="text" class="form-control" id="transportDate" placeholder="Transport Date" onfocus="(this.type='date')">
+                        <label for="transportDate">{{$t('transportDate')}}</label>
+                        <input v-model="transport.transport_date" type="text" class="form-control" id="transportDate" :placeholder="$t('transportDate')" onfocus="(this.type='date')">
                       </div>
 
                       <div class="form-group col-md-5">
-                        <label for="documentType">Document Type</label>
-                        <input v-model="transport.document_type" type="text" class="form-control" id="documentType" placeholder="Document Type">
+                        <label for="documentType">{{$t('docType')}}</label>
+                        <input v-model="transport.document_type" type="text" class="form-control" id="documentType" :placeholder="$t('docType')">
                       </div>
 
                       <div class="form-group col-md-2">
                         <br>
                         <button class="btn btn-danger mt-2" @click="delete_transport_array(index)">
                                 <i class="fa fa-trash mr-2"></i>
-                                <span>Delete Row</span>
+                                <span>{{$t('deleteRow')}}</span>
                             </button>
                       </div>
 
@@ -124,9 +124,9 @@
                 </transition-group>
                     
             <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal" @click="closed">Close</button>
-              <button type="button" class="btn btn-info" v-if="!edit" @click="add_transport">Save</button>
-              <button type="button" class="btn btn-info" v-else @click="edit_transport">Save Changes</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" @click="closed">{{$t('close')}}</button>
+              <button type="button" class="btn btn-info" v-if="!edit" @click="add_transport">{{$t('save')}}</button>
+              <button type="button" class="btn btn-info" v-else @click="edit_transport">{{$t('saveChange')}}</button>
             </div>
 
           </div>

@@ -4,7 +4,7 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Asset Info</h4>
+              <h4 class="modal-title">{{ $t('assetInfo') }}</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closed">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -14,91 +14,91 @@
               <div class="form-row">
 
                     <div class="form-group col-md-3">
-                      <label for="itemId">Item</label>
+                      <label for="itemId">{{ $t('item') }}</label>
       <output type="text" class="form-control" id="itemId"> {{ item_id }} </output>          
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="typeId">Type</label> 
+                        <label for="typeId">{{ $t('type') }}</label> 
                         <output type="text" class="form-control" id="typeId"> {{ type_id }} </output>            
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="centerId">Center</label>
+                        <label for="centerId">{{ $t('center') }}</label>
                         <select class="custom-select rounded-0" v-model="center_id" id="centerId" disabled>
                                 <option v-for="center in centers" :key="center.id" :value="center_id">{{ center.centerName }}</option>
                         </select>
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="departmentId">Department</label>
+                        <label for="departmentId">{{ $t('departement') }}</label>
                          <select class="custom-select rounded-0" v-model="department_id" id="departmentId" disabled>
                                 <option v-for="department in departments" :key="department.id" :value="department.id" >{{ department.departmentName }}</option>
                         </select> 
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="status">Status</label>
+                        <label for="status">{{ $t('status') }}</label>
                         <output type="text" class="form-control" id="status"> {{ status }} </output>
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="quantity">Quantity</label>
+                        <label for="quantity">{{ $t('quantity') }}</label>
                         <output type="text" class="form-control" id="quantity"> {{ quantity }} </output>
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="realPrice">Real Price</label>
+                        <label for="realPrice">{{ $t('reaPrice') }}</label>
                         <output type="text" class="form-control" id="realPrice"> {{ real_price }} </output>
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="expectedPrice">Expected Price</label>
+                        <label for="expectedPrice">{{ $t('expPrice') }}</label>
                         <output type="text" class="form-control" id="expectedPrice"> {{ expected_price }} </output>
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="aquisitionType">Aquisition Type</label>
+                        <label for="aquisitionType">{{ $t('aqType') }}</label>
                         <output type="text" class="form-control" id="aquisitionType"> {{ aquisition_type }} </output>
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="fundedBy">Funded By</label>
+                        <label for="fundedBy">{{ $t('funded') }}</label>
                         <output class="form-control" type="text" id="fundedBy"> {{ funded_by }} </output>
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="documentNumber">Document Number</label>
+                        <label for="documentNumber">{{ $t('docNumber') }}</label>
                         <output type="text" class="form-control" id="documentNumber"> {{ document_number }} </output>
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="inService">In Service</label>
+                        <label for="inService">{{ $t('serviced') }}</label>
                          <output type="text" class="form-control" id="inService"> {{ in_service }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="aquisitionDate">Aquisition Date</label>
+                        <label for="aquisitionDate">{{ $t('aqDate') }}</label>
                         <output type="text" class="form-control" id="aquisitionDate"> {{ aquisition_date }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="serialNumber">Serial Number</label>
+                        <label for="serialNumber">{{ $t('serNumber') }}</label>
                         <output type="text" class="form-control" id="serialNumber"> {{ serial_number }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="description">Asset Description</label>
+                        <label for="description">{{ $t('description') }}</label>
                         <output type="text" class="form-control" id="description"> {{ description }} </output>
                       </div>
 
                       <div class="form-group col-md-6">
-                        <label for="codeNamaa">Namaa Code</label>
+                        <label for="codeNamaa">{{ $t('codeNamaa') }}</label>
                         <output type="text" class="form-control" id="codeNamaa"> {{ code_namaa }} </output>
                       </div>
 
                       <div class="form-group col-md-6">
-                        <label for="notes">Notes</label>
+                        <label for="notes">{{ $t('notes') }}</label>
                         <output type="text" class="form-control" id="notes"> {{ notes }} </output>
                       </div>
 
@@ -106,7 +106,7 @@
             </div>
 
             <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal" @click="closed">Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" @click="closed">{{ $t('close') }}</button>
             </div>
 
 </div>

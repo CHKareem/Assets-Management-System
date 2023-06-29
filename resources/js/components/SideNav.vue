@@ -18,7 +18,7 @@
             <router-link :to="link.routers" active-class="active" class="nav-link">
               <i :class="[link.icon, nav-icon, ml-2 ]"></i>
               <p  class="ml-2">
-                {{ link.title }}
+                {{ $t(link.title) }}
               </p>
             </router-link>
           </li>
@@ -36,13 +36,13 @@
 export default{
 data: () => ({
     links:[
-          {title: 'Dashboard', icon:'fas fa-tachometer-alt',routers:'/'},
-          {title: 'Items & Types', icon:'fas fa-microchip',routers:'/items-types' },
-          {title: 'Assets', icon:'fa fa-desktop',routers:'/assets' },
-          {title: 'Transports', icon:'fas fa-people-carry',routers:'/transports' },
-          {title: 'Maintenances', icon:'fas fa-tools',routers:'/maintenance' },
-          {title: 'Lost & Stolen', icon: 'fas fa-exchange-alt', routers: '/lostStolen'},
-          {title: 'Reports', icon:'far fa-file',routers:'/Reports' }
+          {title: 'dashboard', icon:'fas fa-tachometer-alt',routers:'/'},
+          {title: 'itemType', icon:'fas fa-microchip',routers:'/items-types' },
+          {title: 'assets', icon:'fa fa-desktop',routers:'/assets' },
+          {title: 'transports', icon:'fas fa-people-carry',routers:'/transports' },
+          {title: 'maintenances', icon:'fas fa-tools',routers:'/maintenance' },
+          {title: 'lostStolen', icon: 'fas fa-exchange-alt', routers: '/lostStolen'},
+          {title: 'reports', icon:'far fa-file',routers:'/Reports' }
          ],
 }),
 

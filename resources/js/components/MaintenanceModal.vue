@@ -5,8 +5,8 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title" v-if="!edit">Add New Maintenance</h4>
-              <h4 class="modal-title" v-else>Edit Maintenance</h4>
+              <h4 class="modal-title" v-if="!edit">{{ $t('newMaintenance') }}</h4>
+              <h4 class="modal-title" v-else>{{ $t('editMaintenance') }}</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closed">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -15,9 +15,9 @@
               <div class="form-row">
 
                     <div class="form-group col-md-4">
-                      <label for="assetId">Code Namaa</label>
+                      <label for="assetId">{{ $t('codeNamaa') }}</label>
                       <div class="search-box">
-      <input type="text" placeholder="Code Namaa" v-model="asset_id" @keyup="getAssetData" autocomplete="off" class="form-control" id="assetId" />          
+      <input type="text" :placeholder="$t('codeNamaa')" v-model="asset_id" @keyup="getAssetData" autocomplete="off" class="form-control" id="assetId" />          
         <ul>
           <li @click="getAssetName(asset.codeNamaa, asset.id)" v-for="asset in search_asset" :key="asset.id" v-text="asset.codeNamaa"></li>
         </ul>
@@ -26,47 +26,47 @@
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="sendDate">Send Date</label>
-                        <input v-model="send_date" type="text" class="form-control" id="sendDate" placeholder="Send Date" onfocus="(this.type='date')">
+                        <label for="sendDate">{{ $t('sendDate') }}</label>
+                        <input v-model="send_date" type="text" class="form-control" id="sendDate" :placeholder="$t('sendDate')" onfocus="(this.type='date')">
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="receiveDate">Receive Date</label>
-                        <input v-model="receive_date" type="text" class="form-control" id="receiveDate" placeholder="Receive Date" onfocus="(this.type='date')">
+                        <label for="receiveDate">{{ $t('receiveDate') }}</label>
+                        <input v-model="receive_date" type="text" class="form-control" id="receiveDate" :placeholder="$t('receiveDate')" onfocus="(this.type='date')">
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="statusBefore">Status Before</label>
-                        <input v-model="status_before" type="text" class="form-control" id="statusBefore" placeholder="Status Before">
+                        <label for="statusBefore">{{ $t('statusBefore') }}</label>
+                        <input v-model="status_before" type="text" class="form-control" id="statusBefore" :placeholder="$t('statusBefore')">
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="statusAfter">Status After</label>
-                        <input v-model="status_after" type="text" class="form-control" id="statusAfter" placeholder="Status After">
+                        <label for="statusAfter">{{ $t('statusAfter') }}</label>
+                        <input v-model="status_after" type="text" class="form-control" id="statusAfter" :placeholder="$t('statusAfter')">
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="documentType">Document Type</label>
-                        <input v-model="document_type" type="text" class="form-control" id="documentType" placeholder="Document Type">
+                        <label for="documentType">{{ $t('docType') }}</label>
+                        <input v-model="document_type" type="text" class="form-control" id="documentType" :placeholder="$t('docType')">
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="documentNumber">Document Number</label>
-                        <input v-model="document_number" type="text" class="form-control" id="documentNumber" placeholder="Document Number">
+                        <label for="documentNumber">{{ $t('docNumber') }}</label>
+                        <input v-model="document_number" type="text" class="form-control" id="documentNumber" :placeholder="$t('docNumber')">
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="technicalDisclosureNumber">Technical Disclosure Number</label>
-                        <input v-model="technical_disclosure_number" type="text" class="form-control" id="technicalDisclosureNumber" placeholder="Technical Disclosure Number">
+                        <label for="technicalDisclosureNumber">{{ $t('techNumber') }}</label>
+                        <input v-model="technical_disclosure_number" type="text" class="form-control" id="technicalDisclosureNumber" :placeholder="$t('techNumber')">
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="paymentPrice">Payment Price</label>
-                        <input v-model="payment_price" type="text" class="form-control" id="paymentPrice" placeholder="Payment Price">
+                        <label for="paymentPrice">{{ $t('payPrice') }}</label>
+                        <input v-model="payment_price" type="text" class="form-control" id="paymentPrice" :placeholder="$t('payPrice')">
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="isPaid">Is Paid ?</label>
+                        <label for="isPaid">{{ $t('paid') }}</label>
                         <select class="custom-select rounded-0" v-model="is_paid" id="isPaid">
                                 <option value="0">No</option>
                                 <option value="1">Yes</option>
@@ -74,7 +74,7 @@
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="whereMaintained">Where Maintained ?</label>
+                        <label for="whereMaintained">{{ $t('whereMaintained') }}</label>
                         <select class="custom-select rounded-0" v-model="where_maintained" id="whereMaintained">
                                 <option value="0">Internal</option>
                                 <option value="1">External</option>
@@ -82,21 +82,21 @@
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="reason">Reason</label>
-                        <input v-model="reason" type="text" class="form-control" id="reason" placeholder="Reason">
+                        <label for="reason">{{ $t('reason') }}</label>
+                        <input v-model="reason" type="text" class="form-control" id="reason" :placeholder="$t('reason')">
                       </div>
 
                       <div class="form-group col-md-12">
-                        <label for="notes">Notes</label>
-                        <textarea v-model="notes" cols="5" rows="4" class="form-control" id="notes" placeholder="Notes"></textarea>
+                        <label for="notes">{{ $t('notes') }}</label>
+                        <textarea v-model="notes" cols="5" rows="4" class="form-control" id="notes" :placeholder="$t('notes')"></textarea>
                       </div>
 
                       </div>
             </div>
             <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal" @click="closed">Close</button>
-              <button type="button" class="btn btn-info" v-if="!edit" @click="add_maintenance">Save</button>
-              <button type="button" class="btn btn-info" v-else @click="edit_maintenance">Save Changes</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" @click="closed">{{ $t('close') }}</button>
+              <button type="button" class="btn btn-info" v-if="!edit" @click="add_maintenance">{{ $t('save') }}</button>
+              <button type="button" class="btn btn-info" v-else @click="edit_maintenance">{{ $t('saveChange') }}</button>
             </div>
 
           </div>

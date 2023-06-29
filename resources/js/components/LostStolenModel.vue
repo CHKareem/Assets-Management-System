@@ -5,8 +5,8 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title" v-if="!edit">Add New Lost & Stolen</h4>
-              <h4 class="modal-title" v-else>Edit Lost & Stolen</h4>
+              <h4 class="modal-title" v-if="!edit">{{ $t('newLostStolen') }}</h4>
+              <h4 class="modal-title" v-else>{{ $t('editLostStolen') }}</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closed">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -15,9 +15,9 @@
               <div class="form-row">
 
                 <div class="form-group col-md-6">
-                      <label for="assetId">Code Namaa</label>
+                      <label for="assetId">{{ $t('codeNamaa') }}</label>
                       <div class="search-box">
-                        <input type="text" placeholder="Code Namaa" v-model="asset_id" @keyup="getAssetData" autocomplete="off" class="form-control" id="assetId" />          
+                        <input type="text" :placeholder="$t('codeNamaa')" v-model="asset_id" @keyup="getAssetData" autocomplete="off" class="form-control" id="assetId" />          
                             <ul>
                             <li @click="getAssetName(asset.codeNamaa, asset.id)" v-for="asset in search_asset" :key="asset.id" v-text="asset.codeNamaa"></li>
                             </ul>
@@ -26,9 +26,9 @@
                       </div>
 
                       <div class="form-group col-md-6">
-                      <label for="alterAssetId">Alter Code Namaa</label>
+                      <label for="alterAssetId">{{ $t('alterCodeNamaa') }}</label>
                       <div class="search-box">
-                        <input type="text" placeholder="Alter Code Namaa" v-model="alter_asset_id" @keyup="getAlterAssetData" autocomplete="off" class="form-control" id="alterAssetId" />          
+                        <input type="text" :placeholder="$t('alterCodeNamaa')" v-model="alter_asset_id" @keyup="getAlterAssetData" autocomplete="off" class="form-control" id="alterAssetId" />          
                             <ul>
                             <li @click="getAlterAssetName(alterAsset.codeNamaa, alterAsset.id)" v-for="alterAsset in search_alter_asset" :key="alterAsset.id" v-text="alterAsset.codeNamaa"></li>
                             </ul>
@@ -37,17 +37,17 @@
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="documentNumber">Document Number</label>
-                        <input v-model="document_number" type="text" class="form-control" id="documentNumber" placeholder="Document Number">
+                        <label for="documentNumber">{{ $t('docNumber') }}</label>
+                        <input v-model="document_number" type="text" class="form-control" id="documentNumber" :placeholder="$t('docNumber')">
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="lostDate">Lost Date</label>
-                        <input v-model="lost_date" type="text" class="form-control" id="lostDate" placeholder="Lost Date" onfocus="(this.type='date')">
+                        <label for="lostDate">{{ $t('lostDate') }}</label>
+                        <input v-model="lost_date" type="text" class="form-control" id="lostDate" :placeholder="$t('lostDate')" onfocus="(this.type='date')">
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="isStolen">Is Stolen ?</label>
+                        <label for="isStolen">{{ $t('stolen') }}</label>
                         <select class="custom-select rounded-0" v-model="is_stolen" id="isStolen">
                                 <option value="0">No</option>
                                 <option value="1">Yes</option>
@@ -57,9 +57,9 @@
                       </div>
             </div>
             <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal" @click="closed">Close</button>
-              <button type="button" class="btn btn-info" v-if="!edit" @click="add_lost_stolen">Save</button>
-              <button type="button" class="btn btn-info" v-else @click="edit_lost_stolen">Save Changes</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" @click="closed">{{ $t('close') }}</button>
+              <button type="button" class="btn btn-info" v-if="!edit" @click="add_lost_stolen">{{ $t('save') }}</button>
+              <button type="button" class="btn btn-info" v-else @click="edit_lost_stolen">{{ $t('saveChange') }}</button>
             </div>
 
           </div>

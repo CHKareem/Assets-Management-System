@@ -4,7 +4,7 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Maintenance Info</h4>
+              <h4 class="modal-title">{{ $t('maintenanceInfo') }}</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closed">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -14,67 +14,67 @@
               <div class="form-row">
 
                     <div class="form-group col-md-4">
-                      <label for="codeNamaa">Code Namaa</label>
+                      <label for="codeNamaa">{{ $t('codeNamaa') }}</label>
       <output type="text" class="form-control" id="codeNamaa"> {{ asset_id }} </output>          
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="sendDate">Send Date</label>
+                        <label for="sendDate">{{ $t('sendDate') }}</label>
                         <output type="text" class="form-control" id="sendDate"> {{ send_date }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="receiveDate">Receive Date</label>
+                        <label for="receiveDate">{{ $t('receiveDate') }}</label>
                         <output type="text" class="form-control" id="receiveDate"> {{ receive_date }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="statusBefore">Status Before</label>
+                        <label for="statusBefore">{{ $t('statusBefore') }}</label>
                         <output type="text" class="form-control" id="statusBefore"> {{ status_before }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="statusAfter">Status After</label>
+                        <label for="statusAfter">{{ $t('statusAfter') }}</label>
                         <output type="text" class="form-control" id="statusAfter"> {{ status_after }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="documentType">Document Type</label>
+                        <label for="documentType">{{ $t('docType') }}</label>
                         <output type="text" class="form-control" id="documentType"> {{ document_type }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="documentNumber">Document Number</label>
+                        <label for="documentNumber">{{ $t('docNumber') }}</label>
                         <output type="text" class="form-control" id="documentNumber"> {{ document_number }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="technicalDisclosureNumber">Technical Disclosure Number</label>
+                        <label for="technicalDisclosureNumber">{{ $t('techNumber') }}</label>
                          <output type="text" class="form-control" id="technicalDisclosureNumber"> {{ technical_disclosure_number }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="paymentPrice">Payment Price</label>
+                        <label for="paymentPrice">{{ $t('payPrice') }}</label>
                         <output type="text" class="form-control" id="paymentPrice"> {{ payment_price }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="isPaid">Is Paid ?</label>
+                        <label for="isPaid">{{ $t('paid') }}</label>
                         <output type="text" class="form-control" id="isPaid"> {{ is_paid }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="whereMaintained">Where Maintained ?</label>
+                        <label for="whereMaintained">{{ $t('whereMaintained') }}</label>
                         <output type="text" class="form-control" id="whereMaintained"> {{ where_maintained }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="reason">Reason</label>
+                        <label for="reason">{{ $t('reason') }}</label>
                         <output type="text" class="form-control" id="reason"> {{ reason }} </output>
                       </div>
 
                       <div class="form-group col-md-12">
-                        <label for="notes">Notes</label>
+                        <label for="notes">{{ $t('notes') }}</label>
                         <output type="text" class="form-control" id="notes"> {{ notes }} </output>
                       </div>
 

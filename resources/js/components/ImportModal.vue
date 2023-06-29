@@ -18,13 +18,13 @@
     <div class="form-row">
         <div class="form-group col">
             <label for="file1" class="drop-container">
-<span class="drop-title">Drop files here</span>
+<span class="drop-title">{{ $t('drop') }}</span>
 or
 <input type="file" id="file1" name="file" required>
 </label>
 
 <button type="submit" class="btn btn-primary" @click.prevent="import_file"><i class="fa fa-save mr-1"></i>
-            <span>Import File</span>
+            <span>{{ $t('impFile') }}</span>
     </button>
         </div>
     </div>

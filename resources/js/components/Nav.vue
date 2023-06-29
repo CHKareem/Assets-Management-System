@@ -24,8 +24,8 @@
   <i class="fa fa-language"></i>
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" @click="setLocale('en')">en</a>
-    <a class="dropdown-item" @click="setLocale('ar')">ar</a>
+    <a class="dropdown-item" role="button" v-if="this.$store.state.appLanguage == 'en' ? '' : 'active' " @click="setLocale('en')">en</a>
+    <a class="dropdown-item" role="button" v-if="this.$store.state.appLanguage == 'ar' ? '' : 'active' " @click="setLocale('ar')">ar</a>
   </div>
 </div>
       </li>

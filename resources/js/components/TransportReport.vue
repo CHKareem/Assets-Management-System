@@ -4,7 +4,7 @@
           <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
-            <h5 class="modal-title mt-2 mb-3 ml-2">Filter Data Using</h5>
+            <h5 class="modal-title mt-2 mb-3 ml-2">{{ $t('filter') }}</h5>
         </div>
     </div>
 
@@ -14,7 +14,7 @@
 
                       <a class="btn btn-primary col-md-auto mb-3 mt-2" :href="'/export_custom_transport/'+transportCode">
                           <i class="fa fa-plus-circle mr-2"></i>
-                  <span>Export Custom Transport</span>
+                  <span>{{ $t('expCustomTransport') }}</span>
                       </a>
 
 </div>
@@ -26,9 +26,9 @@
                   <div class="form-row">
 
                     <div class="form-group col-md-4">
-                      <label for="assetId" class="ml-1">Code Namaa</label>
+                      <label for="assetId" class="ml-1">{{ $t('codeNamaa') }}</label>
                       <div class="search-box">
-      <input type="text" placeholder="Code Namaa" v-model="asset_id" @keyup="getAssetData" autocomplete="off" class="form-control" id="assetId" />          
+      <input type="text" :placeholder="$t('codeNamaa')" v-model="asset_id" @keyup="getAssetData" autocomplete="off" class="form-control" id="assetId" />          
         <ul>
           <li @click="getAssetName(asset.codeNamaa, asset.id)" v-for="asset in search_asset" :key="asset.id" v-text="asset.codeNamaa"></li>
         </ul>
@@ -38,9 +38,9 @@
 
 
                       <div class="form-group col-md-4">
-                      <label for="serialId" class="ml-1">Serial Number</label>
+                      <label for="serialId" class="ml-1">{{ $t('serNumber') }}</label>
                       <div class="search-box">
-      <input type="text" placeholder="Serial Number" v-model="serial_id" @keyup="getSerialNumberData" autocomplete="off" class="form-control" id="serialId" />          
+      <input type="text" :placeholder="$t('serNumber')" v-model="serial_id" @keyup="getSerialNumberData" autocomplete="off" class="form-control" id="serialId" />          
         <ul>
           <li @click="getSerialNumberName(serial.serialNumber, serial.id)" v-for="serial in search_serial" :key="serial.id" v-text="serial.serialNumber"></li>
         </ul>
@@ -49,9 +49,9 @@
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="employeeId" class="ml-1">Employee Name</label>
+                        <label for="employeeId" class="ml-1">{{ $t('empName') }}</label>
                         <div class="search-box">   
-                        <input type="text" placeholder="Employee Name" v-model="employee_id" @keyup="getEmployeeData" autocomplete="off" class="form-control" id="employeeId" />                 
+                        <input type="text" :placeholder="$t('empName')" v-model="employee_id" @keyup="getEmployeeData" autocomplete="off" class="form-control" id="employeeId" />                 
                             <ul>
                             <li v-for="employees in search_employee" :key="employees.id" @click="getEmployeeName(employees.fullName, employees.id)" v-text="employees.fullName"></li>
                         </ul>
@@ -65,27 +65,27 @@
                       <div class="card text-center">
             <div class="card-header">
                 <b><img class="fa-solid fa-map-pin mr-2"></b>
-                <h5 class="card-title float-none" v-if="transport.assets.codeNamaa == null">Asset Code: <b> -- </b></h5>
-                <h5 class="card-title float-none" v-else>Asset Code: <b>{{ transport.assets.codeNamaa }}</b></h5>
-                <h5 class="card-title float-none" v-if="transport.assets.serialNumber == null">Serial Number: <b> -- </b></h5>
-                <h5 class="card-title float-none" v-else>Serial Number: <b>{{ transport.assets.serialNumber }}</b></h5>
+                <h5 class="card-title float-none" v-if="transport.assets.codeNamaa == null">{{ $t('codeNamaa') }}: <b> -- </b></h5>
+                <h5 class="card-title float-none" v-else>{{ $t('codeNamaa') }}: <b>{{ transport.assets.codeNamaa }}</b></h5>
+                <h5 class="card-title float-none" v-if="transport.assets.serialNumber == null">{{ $t('serNumber') }}: <b> -- </b></h5>
+                <h5 class="card-title float-none" v-else>{{ $t('serNumber') }}: <b>{{ transport.assets.serialNumber }}</b></h5>
   </div>
   <div class="card-body">
-    <h5 class="card-title float-none">Item Name: <b class="ml-2">{{ transport.assets.items.itemName }}</b></h5>
-    <h5 class="card-title float-none">Type Name: <b class="ml-2">{{ transport.assets.types.typeName }}</b></h5>
-    <h5 class="card-title float-none">Description: <b class="ml-2">{{ transport.assets.description}}</b></h5>
-    <h5 class="card-title float-none" v-if="transport.employee_id == null">Employee Name: <b class="ml-2"> -- </b></h5>
-    <h5 class="card-title float-none" v-else>Employee Name: <b class="ml-2">{{ transport.employees.fullName }}</b></h5>
-    <h5 class="card-title float-none" v-if="transport.employee_prev_id == null">Prev Employee Name: <b class="ml-2"> -- </b></h5>
-    <h5 class="card-title float-none" v-else>Prev Employee Name: <b class="ml-2">{{ transport.prevs.fullName }}</b></h5>
-    <h5 class="card-title float-none">Transport Date: <b class="ml-2">{{ transport.transportDate}}</b></h5>
-    <h5 class="card-title float-none" v-if="transport.position_id == null">Position: <b class="ml-2"> -- </b></h5>
-    <h5 class="card-title float-none" v-else>Position: <b class="ml-2">{{ transport.positions.positionName}}</b></h5>
-    <h5 class="card-title float-none">Department: <b class="ml-2">{{ transport.departments.departmentName}}</b></h5>
-    <h5 class="card-title float-none">Center: <b class="ml-2">{{ transport.centers.centerName}}</b></h5>
-    <h5 class="card-title float-none">Document Type: <b class="ml-2">{{ transport.documentType}}</b></h5>
-    <h5 class="card-title float-none">Document Number: <b class="ml-2">{{ transport.documentNumber}}</b></h5>
-    <h5 class="card-title float-none">Is Handed: <b class="ml-2">{{ transport.isHanded == 1 ? 'Yes' : 'No'}}</b></h5>
+    <h5 class="card-title float-none">{{ $t('itemName') }}: <b class="ml-2">{{ transport.assets.items.itemName }}</b></h5>
+    <h5 class="card-title float-none">{{ $t('typeName') }}: <b class="ml-2">{{ transport.assets.types.typeName }}</b></h5>
+    <h5 class="card-title float-none">{{ $t('description') }}: <b class="ml-2">{{ transport.assets.description}}</b></h5>
+    <h5 class="card-title float-none" v-if="transport.employee_id == null">{{ $t('empName') }}: <b class="ml-2"> -- </b></h5>
+    <h5 class="card-title float-none" v-else>{{ $t('empName') }}: <b class="ml-2">{{ transport.employees.fullName }}</b></h5>
+    <h5 class="card-title float-none" v-if="transport.employee_prev_id == null">{{ $t('prevEmpName') }}: <b class="ml-2"> -- </b></h5>
+    <h5 class="card-title float-none" v-else>{{ $t('prevEmpName') }}: <b class="ml-2">{{ transport.prevs.fullName }}</b></h5>
+    <h5 class="card-title float-none">{{ $t('transportDate') }}: <b class="ml-2">{{ transport.transportDate}}</b></h5>
+    <h5 class="card-title float-none" v-if="transport.position_id == null">{{ $t('position') }}: <b class="ml-2"> -- </b></h5>
+    <h5 class="card-title float-none" v-else>{{ $t('position') }}: <b class="ml-2">{{ transport.positions.positionName}}</b></h5>
+    <h5 class="card-title float-none">{{ $t('department') }}: <b class="ml-2">{{ transport.departments.departmentName}}</b></h5>
+    <h5 class="card-title float-none">{{ $t('center') }}: <b class="ml-2">{{ transport.centers.centerName}}</b></h5>
+    <h5 class="card-title float-none">{{ $t('docType') }}: <b class="ml-2">{{ transport.documentType}}</b></h5>
+    <h5 class="card-title float-none">{{ $t('docNumber') }}: <b class="ml-2">{{ transport.documentNumber}}</b></h5>
+    <h5 class="card-title float-none">{{ $t('handed') }}: <b class="ml-2">{{ transport.isHanded == 1 ? 'Yes' : 'No'}}</b></h5>
 
   </div>
 </div>

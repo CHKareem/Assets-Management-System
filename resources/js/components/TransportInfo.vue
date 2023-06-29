@@ -4,7 +4,7 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Transport Info</h4>
+              <h4 class="modal-title">{{ $t('transportInfo') }}</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closed">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -14,52 +14,52 @@
               <div class="form-row">
 
                     <div class="form-group col-md-12">
-                      <label for="codeNamaa">Asset Code</label>
+                      <label for="codeNamaa">{{ $t('codeNamaa') }}</label>
       <output type="text" class="form-control" id="codeNamaa"> {{ code_namaa }} </output>          
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="centerId">Center</label>
+                        <label for="centerId">{{ $t('center') }}</label>
                         <output type="text" class="form-control" id="centerId"> {{ center_id }} </output>  
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="departmentId">Department</label>
+                        <label for="departmentId">{{ $t('department') }}</label>
                         <output type="text" class="form-control" id="departmentId"> {{ department_id }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="positionId">Position</label>
+                        <label for="positionId">{{ $t('position') }}</label>
                         <output type="text" class="form-control" id="positionId"> {{ position_id }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="employeeId">Employee Name</label>
+                        <label for="employeeId">{{ $t('empName') }}</label>
                         <output type="text" class="form-control" id="employeeId"> {{ employee_id }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="prevEmployeeId">Prev Employee Name</label>
+                        <label for="prevEmployeeId">{{ $t('prevEmpName') }}</label>
                         <output type="text" class="form-control" id="prevEmployeeId"> {{ prev_employee_id }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="documentType">Document Type</label>
+                        <label for="documentType">{{ $t('docType') }}</label>
                         <output type="text" class="form-control" id="documentType"> {{ document_type }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="documentNumber">Document Number</label>
+                        <label for="documentNumber">{{ $t('docNumber') }}</label>
                         <output type="text" class="form-control" id="documentNumber"> {{ document_number }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="isHanded">Is Handed</label>
+                        <label for="isHanded">{{ $t('handed') }}</label>
                          <output type="text" class="form-control" id="isHanded"> {{ is_handed }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="transportDate">Transport Date</label>
+                        <label for="transportDate">{{ $t('transportDate') }}</label>
                         <output type="text" class="form-control" id="transportDate"> {{ transport_date }} </output>
                       </div>
 

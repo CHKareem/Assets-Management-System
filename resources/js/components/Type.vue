@@ -10,25 +10,25 @@
                 <div class="card card-primary card-outline">
                 <div class="card-header">
                 <h5 class="modal-title" id="exampleModalLabel">
-                    <span v-if="typeView">Edit Type</span>
-                    <span v-if="!typeView">Add New Type</span>
+                    <span v-if="typeView">{{ $t('editType') }}</span>
+                    <span v-if="!typeView">{{ $t('newType') }}</span>
 </h5><br>
 <div class="d-flex justify-content-between">
 <div class="col-5">
-                        <input v-model="type_name" type="text" class="form-control" id="typeName" placeholder="Type Name">
+                        <input v-model="type_name" type="text" class="form-control" id="typeName" :placeholder="$t('typeName')">
                         </div>
                         <div class="col-5">
-                        <input v-model="arabic_type_name" type="text" class="form-control" id="arabicTypeName" placeholder="Arabic Type Name">
+                        <input v-model="arabic_type_name" type="text" class="form-control" id="arabicTypeName" :placeholder="$t('arabicTypeName')">
                         </div>
                         <div class="col">
                         <button v-if="!typeView" class="btn btn-primary" v-on:click="add_type">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Save</span>
+                        <span>{{ $t('save') }}</span>
                             </button>
 
                             <button v-if="typeView" class="btn btn-primary" v-on:click="edit_type">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Save Changes</span>
+                        <span>{{ $t('saveChange') }}</span>
                             </button>
 </div>
 </div>
@@ -46,9 +46,9 @@
                 <table id="example2" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Type Name</th>
-                    <th>Arabic Type Name</th>
-                    <th>Options</th>
+                    <th>{{ $t('typeName') }}</th>
+                    <th>{{ $t('arabicTypeName') }}</th>
+                    <th>{{ $t('options') }}</th>
                   </tr>
                   </thead>
                   <tbody>

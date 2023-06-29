@@ -6,13 +6,13 @@
         <div class="modal-body">
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                            <label for="firstDate">First Date</label>
-                            <input v-model="first_date" type="text" class="form-control" id="firstDate" placeholder="First Date" onfocus="(this.type='date')">
+                            <label for="firstDate">{{ $t('firstDate') }}</label>
+                            <input v-model="first_date" type="text" class="form-control" id="firstDate" :placeholder="$t('firstDate')" onfocus="(this.type='date')">
                           </div>
     
                           <div class="form-group col-md-6">
-                            <label for="secondDate">Second Date</label>
-                            <input v-model="second_date" type="text" class="form-control" id="secondDate" placeholder="Second Date" onfocus="(this.type='date')">
+                            <label for="secondDate">{{ $t('secondDate') }}</label>
+                            <input v-model="second_date" type="text" class="form-control" id="secondDate" :placeholder="$t('secondDate')" onfocus="(this.type='date')">
                           </div>
     </div>
     </div>
@@ -27,7 +27,7 @@
     
                                 <a class="btn btn-primary col-md-auto mb-3 mt-2" :href="'/export_custom_code_namaa/'+first_date+'/'+second_date">
                                     <i class="fa fa-plus-circle mr-2"></i>
-                            <span>Export Custom Code Namaa</span>
+                            <span>{{ $t('expCustomCodeNamaa') }}</span>
                                 </a>
 
         </div>

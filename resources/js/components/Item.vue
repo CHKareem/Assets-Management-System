@@ -9,25 +9,25 @@
                 <div class="card card-primary card-outline">
                 <div class="card-header">
                 <h5 class="modal-title" id="exampleModalLabel">
-                    <span v-if="itemView">Edit Item</span>
-                    <span v-if="!itemView">Add New Item</span>
+                    <span v-if="itemView">{{ $t('editItem') }}</span>
+                    <span v-if="!itemView">{{ $t('newItem') }}</span>
 </h5><br>
 <div class="d-flex justify-content-between">
 <div class="col-5">
-                        <input v-model="item_name" type="text" class="form-control" id="itemName" placeholder="Item Name">
+                        <input v-model="item_name" type="text" class="form-control" id="itemName" :placeholder="$t('itemName')">
                         </div>
                         <div class="col-5">
-                        <input v-model="arabic_item_name" type="text" class="form-control" id="arabicItemName" placeholder="Arabic Item Name">
+                        <input v-model="arabic_item_name" type="text" class="form-control" id="arabicItemName" :placeholder="$t('arabicItemName')">
                         </div>
                         <div class="col">
                         <button v-if="!itemView" class="btn btn-primary" v-on:click="add_item">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Save</span>
+                        <span>{{ $t('save') }}</span>
                             </button>
 
                             <button v-if="itemView" class="btn btn-primary" v-on:click="edit_item">
                                 <i class="fa fa-plus-circle mr-2"></i>
-                        <span>Save Changes</span>
+                        <span>{{ $t('saveChange') }}</span>
                             </button>
 </div>
 </div>
@@ -45,9 +45,9 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Item Name</th>
-                    <th>Arabic Item Name</th>
-                    <th>Options</th>
+                    <th>{{ $t('itemName') }}</th>
+                    <th>{{ $t('arabicItemName') }}</th>
+                    <th>{{ $t('options') }}</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -80,17 +80,17 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Delete Modal</h4>
+              <h4 class="modal-title">{{$t('deleteModal')}}</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <p> Are You Sure You Want To Delete ?</p>
+              <p>{{$t('deleteMsg')}}</p>
             </div>
             <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-danger" @click="delete_item">Delete</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{$t('close')}}</button>
+              <button type="button" class="btn btn-danger" @click="delete_item">{{$t('delete')}}</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -106,14 +106,10 @@
 
 <script>
 import { useToastr } from '../toastr.js'
-// import ConfMain from "../components/confirmModel.vue"
 import $ from 'jquery';
 
 
 export default{
-  // components:{
-  //   ConfMain
-  // },
 
   props:['itemSuccess'],
 

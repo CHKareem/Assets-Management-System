@@ -4,7 +4,7 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Lost & Stolen Info</h4>
+              <h4 class="modal-title">{{ $t('lostStolenInfo') }}</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closed">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -14,27 +14,27 @@
               <div class="form-row">
 
                     <div class="form-group col-md-6">
-                      <label for="assetId">Code Namaa</label>
+                      <label for="assetId">{{ $t('codeNamaa') }}</label>
       <output type="text" class="form-control" id="assetId"> {{ asset_id }} </output>          
                       </div>
 
                       <div class="form-group col-md-6">
-                        <label for="alterAssetId">Alter Code Namaa</label>
+                        <label for="alterAssetId">{{ $t('alterCodeNamaa') }}</label>
                         <output type="text" class="form-control" id="alterAssetId"> {{ alter_asset_id }} </output>  
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="documentNumber">Document Number</label>
+                        <label for="documentNumber">{{ $t('docNumber') }}</label>
                         <output type="text" class="form-control" id="documentNumber"> {{ document_number }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="lostDate">Lost Date</label>
+                        <label for="lostDate">{{ $t('lostDate') }}</label>
                         <output type="text" class="form-control" id="lostDate"> {{ lost_date }} </output>
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="isStolen">Is Stolen ?</label>
+                        <label for="isStolen">{{ $t('stolen') }}</label>
                         <output type="text" class="form-control" id="isStolen"> {{ is_stolen }} </output>
                       </div>
 

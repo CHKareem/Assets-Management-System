@@ -5,8 +5,8 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title" v-if="!edit">Add New Asset</h4>
-              <h4 class="modal-title" v-else>Edit Asset</h4>
+              <h4 class="modal-title" v-if="!edit">{{ $t('newAsset') }}</h4>
+              <h4 class="modal-title" v-else>{{ $t('editAsset') }}</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closed">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -15,9 +15,9 @@
               <div class="form-row">
 
                     <div class="form-group col-md-3">
-                      <label for="itemId">Item</label>
+                      <label for="itemId">{{ $t('item') }}</label>
                       <div class="search-box">
-      <input type="text" placeholder="Item Name" v-model="item_id" @keyup="getItemData" autocomplete="off" class="form-control" id="itemId" />          
+      <input type="text" :placeholder="$t('itemName')" v-model="item_id" @keyup="getItemData" autocomplete="off" class="form-control" id="itemId" />          
         <ul>
           <li @click="getItemName(item.itemName, item.id)" v-for="item in search_item" :key="item.id" v-text="item.itemName"></li>
         </ul>
@@ -26,9 +26,9 @@
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="typeId">Type</label>
+                        <label for="typeId">{{ $t('type') }}</label>
                         <div class="search-box">   
-                        <input type="text" placeholder="Type Name" v-model="type_id" @keyup="getTypeData" autocomplete="off" class="form-control" id="typeId" />                 
+                        <input type="text" :placeholder="$t('typeName')" v-model="type_id" @keyup="getTypeData" autocomplete="off" class="form-control" id="typeId" />                 
         <ul>
           <li v-for="types in search_type" :key="types.id" @click="getTypeName(types.typeName, types.id)" v-text="types.typeName"></li>
     </ul>
@@ -37,46 +37,46 @@
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="centerId">Center</label>
+                        <label for="centerId">{{ $t('center') }}</label>
                         <select class="custom-select rounded-0" v-model="center_id" id="centerId">
                                 <option v-for="center in centers" :key="center.id" :value="center.id">{{ center.centerName }}</option>
                         </select>
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="departmentId">Department</label>
+                        <label for="departmentId">{{ $t('department') }}</label>
                         <select class="custom-select rounded-0" v-model="department_id" id="departmentId">
                                 <option v-for="department in departments" :key="department.id" :value="department.id">{{ department.departmentName }}</option>
                         </select>
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="status">Status</label>
-                        <input v-model="status" type="text" class="form-control" id="status" placeholder="Status">
+                        <label for="status">{{ $t('status') }}</label>
+                        <input v-model="status" type="text" class="form-control" id="status" :placeholder="$t('status')">
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="quantity">Quantity</label>
-                        <input v-model="quantity" type="text" class="form-control" id="quantity" placeholder="Quantity"><br>
+                        <label for="quantity">{{ $t('quantity') }}</label>
+                        <input v-model="quantity" type="text" class="form-control" id="quantity" :placeholder="$t('quantity')"><br>
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="realPrice">Real Price</label>
-                        <input v-model="real_price" type="text" class="form-control" id="realPrice" placeholder="Real Price">
+                        <label for="realPrice">{{ $t('reaPrice') }}</label>
+                        <input v-model="real_price" type="text" class="form-control" id="realPrice" :placeholder="$t('reaPrice')">
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="expectedPrice">Expected Price</label>
-                        <input v-model="expected_price" type="text" class="form-control" id="expectedPrice" placeholder="Expected Price">
+                        <label for="expectedPrice">{{ $t('expPrice') }}</label>
+                        <input v-model="expected_price" type="text" class="form-control" id="expectedPrice" :placeholder="$t('expPrice')">
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="aquisitionType">Aquisition Type</label>
-                        <input v-model="aquisition_type" type="text" class="form-control" id="aquisitionType" placeholder="Aquisition Type">
+                        <label for="aquisitionType">{{ $t('aqType') }}</label>
+                        <input v-model="aquisition_type" type="text" class="form-control" id="aquisitionType" :placeholder="$t('aqType')">
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="fundedBy">Funded By</label>
+                        <label for="fundedBy">{{ $t('funded') }}</label>
                         <select class="custom-select rounded-0" v-model="funded_by" id="fundedBy">
                                 <option value="Procured Directly By U.N.H.C.R">Procured Directly By U.N.H.C.R</option>
                                 <option value="U.N.H.C.R-Funded Project">U.N.H.C.R-Funded Project</option>
@@ -85,12 +85,12 @@
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="documentNumber">Document Number</label>
-                        <input v-model="document_number" type="text" class="form-control" id="documentNumber" placeholder="Document Number">
+                        <label for="documentNumber">{{ $t('docNumber') }}</label>
+                        <input v-model="document_number" type="text" class="form-control" id="documentNumber" :placeholder="$t('docNumber')">
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label for="inService">In Service ?</label>
+                        <label for="inService">{{ $t('serviced') }}</label>
                         <select class="custom-select rounded-0" v-model="in_service" id="inService">
                                 <option value="0">Not In Service</option>
                                 <option value="1">In Service</option>
@@ -98,37 +98,37 @@
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="aquisitionDate">Aquisition Date</label>
-                        <input v-model="aquisition_date" type="text" class="form-control" id="aquisitionDate" placeholder="Aquisition Date" onfocus="(this.type='date')">
+                        <label for="aquisitionDate">{{ $t('aqDate') }}</label>
+                        <input v-model="aquisition_date" type="text" class="form-control" id="aquisitionDate" :placeholder="$t('aqDate')" onfocus="(this.type='date')">
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="serialNumber">Serial Number</label>
-                        <input v-model="serial_number" type="text" class="form-control" id="serialNumber" placeholder="Serial Number">
+                        <label for="serialNumber">{{ $t('serNumber') }}</label>
+                        <input v-model="serial_number" type="text" class="form-control" id="serialNumber" :placeholder="$t('serNumber')">
                       </div>
 
                       <div class="form-group col-md-4">
-                        <label for="description">Asset Description</label>
-                        <input v-model="description" type="text" class="form-control" id="description" placeholder="Asset Description">
+                        <label for="description">{{ $t('description') }}</label>
+                        <input v-model="description" type="text" class="form-control" id="description" :placeholder="$t('description')">
                       </div>
 
                       <div class="form-group col-md-6">
-                        <label for="codeNamaa">Namaa Code</label>
-                        <input v-if="!edit" v-model="code_namaa" type="text" class="form-control" id="codeNamaa" placeholder="Namaa Code">
-                        <input v-else v-model="code_namaa_edit" type="text" class="form-control" id="codeNamaa" placeholder="Namaa Code">
+                        <label for="codeNamaa">{{ $t('codeNamaa') }}</label>
+                        <input v-if="!edit" v-model="code_namaa" type="text" class="form-control" id="codeNamaa" :placeholder="$t('codeNamaa')">
+                        <input v-else v-model="code_namaa_edit" type="text" class="form-control" id="codeNamaa" :placeholder="$t('codeNamaa')">
                       </div>
 
                       <div class="form-group col-md-6">
-                        <label for="notes">Notes</label>
-                        <input v-model="notes" type="text" class="form-control" id="notes" placeholder="Notes">
+                        <label for="notes">{{ $t('notes') }}</label>
+                        <input v-model="notes" type="text" class="form-control" id="notes" :placeholder="$t('notes')">
                       </div>
 
                       </div>
             </div>
             <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal" @click="closed">Close</button>
-              <button type="button" class="btn btn-info" v-if="!edit" @click="add_asset">Save</button>
-              <button type="button" class="btn btn-info" v-else @click="edit_asset">Save Changes</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" @click="closed">{{ $t('close') }}</button>
+              <button type="button" class="btn btn-info" v-if="!edit" @click="add_asset">{{ $t('save') }}</button>
+              <button type="button" class="btn btn-info" v-else @click="edit_asset">{{ $t('saveChange') }}</button>
             </div>
 
           </div>
@@ -265,6 +265,7 @@ import $ from 'jquery'
         });
       },
       async getAssetData(assetIndex){
+        this.closed();
         await this.axios.get(this.$store.state.apiAsset +'/'+ assetIndex).then(res =>{
            res.data.map(asset=>{
             this.item_id = asset.item_id;
