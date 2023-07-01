@@ -109,6 +109,7 @@ const messages = {
         posName: 'Position Name',
         addRow: 'Add Row',
         deleteRow: 'Delete Row',
+        expCustomMaintenance: 'Export Custom Maintenances',
     },
     'ar': {
         transportCount: 'عدد التنقلات',
@@ -214,6 +215,7 @@ const messages = {
         posName: 'اسم المنصب',
         addRow: 'إضافة سطر',
         deleteRow: 'حذف سطر',
+        expCustomMaintenance: 'تصدير الصيانات',
     }
 };
 

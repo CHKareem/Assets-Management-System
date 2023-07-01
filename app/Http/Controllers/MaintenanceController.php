@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\MaintenanceImport;
 use App\Exports\MaintenanceExport;
+use App\Exports\CustomMaintenanceExport;
 
 class MaintenanceController extends Controller
 {
@@ -87,7 +88,10 @@ class MaintenanceController extends Controller
      }
 
      public function show_maintenances($maintenance){
-        return response()->json(Maintenance::with('assets')->where('asset_id', $maintenance)->get());
+        return response()->json(Maintenance::with('assets', 'assets.items', 'assets.types')->where('asset_id', $maintenance)->get());
      }
      
+     public function export_custom_maintenance(Request $request, $maintenanceCode){
+        return Excel::download(new CustomMaintenanceExport($maintenanceCode), 'Custom-maintenances.xlsx');
+ }
 }

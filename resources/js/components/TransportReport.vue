@@ -121,6 +121,10 @@ data:() => ({
     getAssetName(code, id){
       this.asset_id = id;
       this.codeNamaa = code;
+      this.employee_id = '';
+      this.asset_id = '';
+      this.serialNumber = '';
+      this.fullName = '';
       this.getFilterTransport(id);
       this.search_asset = [];
     },
@@ -135,6 +139,10 @@ data:() => ({
     getSerialNumberName(code, id){
       this.serial_id = id;
       this.serialNumber = code;
+      this.employee_id = '';
+      this.asset_id = '';
+      this.fullName = '';
+      this.codeNamaa = '';
       this.getFilterTransport(id);
       this.search_serial = [];
     },
@@ -149,6 +157,10 @@ data:() => ({
     getEmployeeName(name, id){
       this.employee_id = id;
       this.fullName = name;
+      this.serial_id = '';
+      this.asset_id = '';
+      this.serialNumber = '';
+      this.codeNamaa = '';
       this.getFilterTransport(id);
       this.search_employee = [];
     },
