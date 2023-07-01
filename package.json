@@ -16,6 +16,7 @@
         "jquery": "^3.7.0",
         "vue": "^3.2.36",
         "vue-axios": "^3.5.2",
+        "vue-flag-icon": "^2.1.0",
         "vue-i18n": "^9.3.0-beta.19",
         "vue-loader": "^17.0.1",
         "vue-router": "^4.0.13",
