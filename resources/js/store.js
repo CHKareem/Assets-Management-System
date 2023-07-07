@@ -1,5 +1,5 @@
-import { createStore } from "vuex";
-
+import { createStore } from "vuex"
+import createPersistedState from "vuex-persistedstate";
 
 const store = createStore({
     state(){
@@ -21,6 +21,7 @@ const store = createStore({
             apiSerialSearch: 'http://localhost:8000/api/serialSearch',
             apiShowMaintenance: 'http://localhost:8000/api/showMaintenances',
             apiShowTransport: 'http://localhost:8000/api/showTransports',
+            apiLogin: 'http://localhost:8000/api/login',
                 deleteUrl: '',
                 deleteData: '',
                 isDeleted: false,
@@ -28,16 +29,24 @@ const store = createStore({
                 importTitle: '',
                 importFuncLink: '',
                 isImported: false,
+                user: '',
+
         };
     },
+    plugins: [createPersistedState()],
     getters: {
-        getAppLanguage: (state) => state.appLanguage
+        getAppLanguage: (state) => state.appLanguage,
+        isAuthenticated: (state) => '' || state.user,
+        userState: (state) => state.user,
       },
       mutations: {
         setAppLanguage(state, language) {
             localStorage.removeItem("appLanguage");
           state.appLanguage = language.locale;
           localStorage.setItem("appLanguage", language.locale);
+        },
+        setUser(state, data){
+            state.user = data.stateOfUser;
         }
     }
 

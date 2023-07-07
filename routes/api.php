@@ -13,6 +13,8 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LostStolenController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +27,9 @@ use App\Http\Controllers\DocumentController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 
 // Items API
@@ -104,3 +106,6 @@ Route::get('position', [PositionController::class,'index']);
 
 // Employees API
 Route::get('employee', [EmployeeController::class,'index']);
+
+// Login API
+Route::post('login', [UserController::class,'store']);

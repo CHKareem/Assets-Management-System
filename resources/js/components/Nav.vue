@@ -14,7 +14,7 @@
 
            <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" role="button">
-          <i class="far fa-user"></i> username
+          <i class="far fa-user"></i> {{ this.$store.state.user }}
         </a>
       </li>
 
@@ -30,8 +30,8 @@
 </div>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+      <li class="nav-item" v-if="isLoggedIn">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button" @click="logoutBtn">
           <i class="fas fa-sign-out-alt"></i>
         </a>
       </li>
@@ -47,6 +47,11 @@
 import store from '../store.js'
 
 export default{
+  computed:{
+    isLoggedIn(){
+      return store.getters.isAuthenticated;
+    }
+  },
 methods:{
   setLocale(locale) {
     store.commit('setAppLanguage', {locale: locale});
@@ -54,6 +59,10 @@ methods:{
       // this.$router.push({
       //   params: { lang: locale }
       // })
+    },
+     logoutBtn(){
+       store.commit('setUser', {stateOfUser: ''});
+      this.$router.push('/login');
     }
   }
 }
