@@ -53,7 +53,7 @@ import store from '../store.js'
 
 export default{
     data:() => ({
-    email: 'test@namaa.sy',
+    email: '',
     password: '',
 }),
 methods:{
@@ -82,4 +82,3 @@ methods:{
 }
 }
 </script>
-
