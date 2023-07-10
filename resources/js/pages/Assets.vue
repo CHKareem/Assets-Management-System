@@ -109,6 +109,7 @@ import ImportModal from '../components/ImportModal.vue'
 import AssetInfo from '../components/AssetInfo.vue'
 import $ from 'jquery';
 import ConfMain from '../components/confirmModel.vue'
+import i18n from '../i18n.js'
 
 export default{
   components: { AssetModal, ImportModal, AssetInfo, ConfMain },
@@ -145,7 +146,8 @@ export default{
         $('#import-modal').modal('show');
         this.$store.state.importUrl = this.$store.state.apiAsset;
               this.$store.state.importFuncLink = '/import_assets';
-              this.$store.state.importTitle = 'Import Assets';
+              this.$store.state.importTitle = '';
+              this.$store.state.importTitle = i18n.global.t('impAsset');
       },
       editAssetModal(assetIndex){
 

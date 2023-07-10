@@ -110,7 +110,8 @@
  import MaintenanceInfo from '../components/MaintenanceInfo.vue'
  import ConfMain from '../components/confirmModel.vue'
  import $ from 'jquery';
- 
+ import i18n from '../i18n.js'
+
  export default{
    components: { MaintenanceModal, ImportModal, MaintenanceInfo, ConfMain },
  
@@ -146,7 +147,8 @@
         $('#import-modal').modal('show');
         this.$store.state.importUrl = this.$store.state.apiMaintenance;
               this.$store.state.importFuncLink = '/import_maintenances';
-              this.$store.state.importTitle = 'Import Maintenances';
+              this.$store.state.importTitle = '';
+              this.$store.state.importTitle = i18n.global.t('impMaintenance');
        },
        editMaintenanceModal(maintenanceIndex){
  

@@ -109,6 +109,7 @@ import ImportModal from '../components/ImportModal.vue'
 import LostStolenInfo from '../components/LostStolenInfo.vue'
 import ConfMain from '../components/confirmModel.vue'
 import $ from 'jquery';
+import i18n from '../i18n.js'
 
 export default{
   components: { ImportModal, LostStolenInfo, LostStolenModel, ConfMain },
@@ -145,7 +146,8 @@ export default{
         $('#import-modal').modal('show');
         this.$store.state.importUrl = this.$store.state.apiLostStolen;
               this.$store.state.importFuncLink = '/import_lostStolens';
-              this.$store.state.importTitle = 'Import Lost & Stolen';
+              this.$store.state.importTitle = '';
+              this.$store.state.importTitle = i18n.global.t('impLostStolen');
       },
       editLostStolenModal(lostStolenIndex){
 

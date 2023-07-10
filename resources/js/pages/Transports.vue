@@ -110,6 +110,7 @@ import ImportModal from '../components/ImportModal.vue'
 import TransportInfo from '../components/TransportInfo.vue'
 import ConfMain from '../components/confirmModel.vue'
 import $ from 'jquery';
+import i18n from '../i18n.js'
 
 export default{
   components: { TransportModal, ImportModal, TransportInfo, ConfMain },
@@ -146,7 +147,8 @@ export default{
         $('#import-modal').modal('show');
         this.$store.state.importUrl = this.$store.state.apiTransport;
               this.$store.state.importFuncLink = '/import_transports';
-              this.$store.state.importTitle = 'Import Transports';
+              this.$store.state.importTitle = '';
+              this.$store.state.importTitle = i18n.global.t('impTransport');
       },
       editTransportModal(transportIndex){
 
