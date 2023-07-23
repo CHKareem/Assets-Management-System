@@ -68,6 +68,11 @@
                       </div>
 
                       <div class="form-group col-md-3">
+                        <label for="partnerName">{{ $t('partnerName') }}</label>
+                        <output type="text" class="form-control" id="partnerName"> {{ partner_name }} </output>
+                      </div>
+
+                      <div class="form-group col-md-3">
                         <label for="documentNumber">{{ $t('docNumber') }}</label>
                         <output type="text" class="form-control" id="documentNumber"> {{ document_number }} </output>
                       </div>
@@ -77,17 +82,17 @@
                          <output type="text" class="form-control" id="inService"> {{ in_service }} </output>
                       </div>
 
-                      <div class="form-group col-md-4">
+                      <div class="form-group col-md-3">
                         <label for="aquisitionDate">{{ $t('aqDate') }}</label>
                         <output type="text" class="form-control" id="aquisitionDate"> {{ aquisition_date }} </output>
                       </div>
 
-                      <div class="form-group col-md-4">
+                      <div class="form-group col-md-3">
                         <label for="serialNumber">{{ $t('serNumber') }}</label>
                         <output type="text" class="form-control" id="serialNumber"> {{ serial_number }} </output>
                       </div>
 
-                      <div class="form-group col-md-4">
+                      <div class="form-group col-md-3">
                         <label for="description">{{ $t('description') }}</label>
                         <output type="text" class="form-control" id="description"> {{ description }} </output>
                       </div>
@@ -138,6 +143,7 @@ in_service: '',
 document_number: '',
 aquisition_type: '',
 funded_by: '',
+partner_name: '',
 expected_price: '',
 real_price: '',
 quantity: '',
@@ -160,6 +166,7 @@ methods:{
         this.document_number = asset.documentNumber;
         this.aquisition_type = asset.aquisitionType;
         this.funded_by = asset.fundedBy;
+        this.partner_name = asset.partner_name;
         this.expected_price = asset.expectedPrice;
         this.real_price = asset.realPrice;
         this.quantity = asset.quantity;
@@ -211,6 +218,7 @@ async getCenters(){
         this.department_id = '';
         this.aquisition_type = '';
         this.funded_by = '';
+        this.partner_name = '';
         this.expected_price = '';
         this.real_price = '';
         this.quantity = '';

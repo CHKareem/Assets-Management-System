@@ -24,7 +24,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="ex-with-icons-tab-4" data-toggle="tab" href="#ex-with-icons-tabs-4" role="tab"
-                    aria-controls="ex-with-icons-tabs-4" aria-selected="false"><i class="fa-solid fa fa-check mr-2 fa-fw me-2"></i>d</a>
+                    aria-controls="ex-with-icons-tabs-4" aria-selected="false"><i class="fa-solid fa fa-check mr-2 fa-fw me-2"></i>{{ $t('GPReport') }}</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="ex-with-icons-tab-5" data-toggle="tab" href="#ex-with-icons-tabs-5" role="tab"
@@ -57,7 +57,7 @@
 
                  <div class="tab-pane fade show" id="ex-with-icons-tabs-3" role="tabpanel" aria-labelledby="ex-with-icons-tab-3"><transport-report /></div>
 
-                 <div class="tab-pane fade show" id="ex-with-icons-tabs-4" role="tabpanel" aria-labelledby="ex-with-icons-tab-4">d</div>
+                 <div class="tab-pane fade show" id="ex-with-icons-tabs-4" role="tabpanel" aria-labelledby="ex-with-icons-tab-4"><asset-report /></div>
 
                  <div class="tab-pane fade show" id="ex-with-icons-tabs-5" role="tabpanel" aria-labelledby="ex-with-icons-tab-5">e</div>
 
@@ -87,9 +87,10 @@ import { useToastr } from '../toastr.js'
 import CodeNamaaReport from '../components/codeNamaaReport.vue'
 import MaintenanceReport from '../components/MaintenanceReport.vue'
 import TransportReport from '../components/TransportReport.vue'
+import AssetReport from '../components/AssetReport.vue'
 
   export default ({
-components:{CodeNamaaReport, MaintenanceReport, TransportReport},
+components:{CodeNamaaReport, MaintenanceReport, TransportReport, AssetReport},
     // props:['assetId'],
 
   data:() => ({

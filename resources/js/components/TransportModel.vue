@@ -162,6 +162,8 @@ import $ from 'jquery'
     search_prev_employee:[],
     edit: false,
     departments:[],
+    position_id: '',
+    positionName: '',
     centers:[],
     transportIndex: '',
     department_id:'',

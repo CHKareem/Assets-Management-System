@@ -59,12 +59,12 @@ class AssetImport implements ToModel, WithStartRow, WithValidation
             $startDate = $this->transformDate($row[9]);
         }
 
-        if(str_contains($row[14], 'In Service') || str_contains($row[14], 'Not In Service')){
-            $inService = $row[14] == 'In Service' ? 1 : 0;
+        if(str_contains($row[15], 'In Service') || str_contains($row[15], 'Not In Service')){
+            $inService = $row[15] == 'In Service' ? 1 : 0;
        }
 
-       if(str_contains($row[14], '1') || str_contains($row[14], '0')){
-            $inService = $row[14];
+       if(str_contains($row[15], '1') || str_contains($row[15], '0')){
+            $inService = $row[15];
        }
 
         return new Asset([
@@ -81,8 +81,9 @@ class AssetImport implements ToModel, WithStartRow, WithValidation
             'aquisitionDate' => $startDate,
             'aquisitionType' => $row[10],
             'fundedBy' => $row[11],
-            'documentNumber' => $row[12],
-            'notes' => $row[13],
+            'partnerName' => $row[12],
+            'documentNumber' => $row[13],
+            'notes' => $row[14],
             'inService' => $inService,
         ]);
     }
@@ -184,26 +185,32 @@ class AssetImport implements ToModel, WithStartRow, WithValidation
             },
 
             '12' => function($attribute, $value, $onFailure) {
-                if(!is_int($value) && !is_string($value)){
-                    $onFailure('Column[13] This Value MUST BE INT');
-                    }
-                    if($value < 0){
-                        $onFailure('Column[13] This Value MUST Have POSITIVE Numbers');
+                if(!is_string($value)){
+                    $onFailure('Column[13] This Value MUST BE TEXT');
                     }
             },
 
             '13' => function($attribute, $value, $onFailure) {
-                if(!is_string($value) || is_numeric($value)){
-                $onFailure('Column[14] This Value MUST BE TEXT');
-                }
+                if(!is_int($value) && !is_string($value)){
+                    $onFailure('Column[14] This Value MUST BE INT');
+                    }
+                    if($value < 0){
+                        $onFailure('Column[14] This Value MUST Have POSITIVE Numbers');
+                    }
             },
 
             '14' => function($attribute, $value, $onFailure) {
+                if(!is_string($value) || is_numeric($value)){
+                $onFailure('Column[15] This Value MUST BE TEXT');
+                }
+            },
+
+            '15' => function($attribute, $value, $onFailure) {
                 if(!is_string($value) && !is_numeric($value)){
-                    $onFailure('Column[15] This Value MUST BE TEXT OR Number');
+                    $onFailure('Column[16] This Value MUST BE TEXT OR Number');
                     }
                     if(strlen($value) != 10 && strlen($value) != 14 && strlen($value) != 1){
-                        $onFailure('Column[15] This Value MUST BE "In Service" OR "Not In Service" OR "1" OR "0" ');
+                        $onFailure('Column[16] This Value MUST BE "In Service" OR "Not In Service" OR "1" OR "0" ');
                     }
             },
 

@@ -85,6 +85,11 @@
                       </div>
 
                       <div class="form-group col-md-3">
+                        <label for="partnerName">{{ $t('partnerName') }}</label>
+                        <input v-model="partner_name" type="text" class="form-control" id="partnerName" :placeholder="$t('partnerName')">
+                      </div>
+
+                      <div class="form-group col-md-3">
                         <label for="documentNumber">{{ $t('docNumber') }}</label>
                         <input v-model="document_number" type="text" class="form-control" id="documentNumber" :placeholder="$t('docNumber')">
                       </div>
@@ -97,17 +102,17 @@
                         </select>
                       </div>
 
-                      <div class="form-group col-md-4">
+                      <div class="form-group col-md-3">
                         <label for="aquisitionDate">{{ $t('aqDate') }}</label>
                         <input v-model="aquisition_date" type="text" class="form-control" id="aquisitionDate" :placeholder="$t('aqDate')" onfocus="(this.type='date')">
                       </div>
 
-                      <div class="form-group col-md-4">
+                      <div class="form-group col-md-3">
                         <label for="serialNumber">{{ $t('serNumber') }}</label>
                         <input v-model="serial_number" type="text" class="form-control" id="serialNumber" :placeholder="$t('serNumber')">
                       </div>
 
-                      <div class="form-group col-md-4">
+                      <div class="form-group col-md-3">
                         <label for="description">{{ $t('description') }}</label>
                         <input v-model="description" type="text" class="form-control" id="description" :placeholder="$t('description')">
                       </div>
@@ -171,6 +176,7 @@ import $ from 'jquery'
     document_number: '',
     aquisition_type: '',
     funded_by: '',
+    partner_name: '',
     expected_price: '',
     real_price: '',
     quantity: '',
@@ -230,6 +236,7 @@ import $ from 'jquery'
                 this.document_number = '';
                 this.aquisition_type = '';
                 this.funded_by = '';
+                this.partner_name = '';
                 this.expected_price = '';
                 this.real_price = '';
                 this.quantity = '';
@@ -251,6 +258,7 @@ import $ from 'jquery'
           'documentNumber': this.document_number,
           'aquisitionType': this.aquisition_type,
           'fundedBy': this.funded_by,
+          'partnerName': this.partner_name,
           'expectedPrice': this.expected_price,
           'realPrice': this.real_price,
           'quantity': this.quantity,
@@ -280,6 +288,7 @@ import $ from 'jquery'
             this.document_number = asset.documentNumber;
             this.aquisition_type = asset.aquisitionType;
             this.funded_by = asset.fundedBy;
+            this.partner_name = asset.partnerName;
             this.expected_price = asset.expectedPrice;
             this.real_price = asset.realPrice;
             this.quantity = asset.quantity;
@@ -330,6 +339,7 @@ import $ from 'jquery'
           'documentNumber': this.document_number,
           'aquisitionType': this.aquisition_type,
           'fundedBy': this.funded_by,
+          'partnerName': this.partner_name,
           'expectedPrice': this.expected_price,
           'realPrice': this.real_price,
           'quantity': this.quantity,

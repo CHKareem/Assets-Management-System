@@ -3,7 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Asset;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\withStrictNullComparison;
 use Maatwebsite\Excel\Concerns\shouldAutoSize;
@@ -18,17 +18,25 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use Maatwebsite\Excel\Concerns\ToModel;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
+use Maatwebsite\Excel\Concerns\Exportable;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\withMapping;
 
-class AssetExport extends DefaultValueBinder implements FromCollection,WithHeadings, withStrictNullComparison, shouldAutoSize, WithStyles, WithEvents, WithCustomValueBinder, withMapping
+class CustomGPExport extends DefaultValueBinder implements FromQuery,WithHeadings, withStrictNullComparison, shouldAutoSize, WithStyles, WithEvents, WithCustomValueBinder, withMapping
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+
+    use Exportable;
+
+    public function __construct($date1,$date2){
+        $this->date1 = $date1;
+        $this->date2 = $date2;
+    }
+
+    public function query()
     {
-        return Asset::all();
+            return Asset::with('items', 'types')->whereBetween('created_at',[$this->date1, $this->date2]);
+        
     }
 
     public function headings(): array
@@ -37,19 +45,18 @@ class AssetExport extends DefaultValueBinder implements FromCollection,WithHeadi
             ' Item Name ',
             ' Type Name ',
             ' Code Namaa ',
-            ' Description ',
             ' Status ',
             ' Quantity ',
             ' Real Price ',
-            ' Expected Price ',
+            ' Total Cost ',
             ' Serial Number ',
             ' Aquisition Date ',
-            ' Aquistion Type ',
+            ' Aquisition Type ',
             ' Funded By ',
-            ' Partner Name',
             ' Document Number ',
             ' Notes ',
             ' In Service ',
+            ' Description ',
         ];
     }
 
@@ -58,19 +65,18 @@ class AssetExport extends DefaultValueBinder implements FromCollection,WithHeadi
             $asset->items->itemName,
             $asset->types->typeName,
             $asset->codeNamaa,
-            $asset->description,
             $asset->status,
             $asset->quantity,
-            $asset->realPrice,
-            $asset->expectedPrice,
+            $asset->realPrice == 0 ? $asset->partnerName : $asset->realPrice,
+            $asset->realPrice * $asset->quantity,
             $asset->serialNumber,
             $asset->aquisitionDate,
             $asset->aquisitionType,
             $asset->fundedBy,
-            $asset->partnerName,
             $asset->documentNumber,
             $asset->notes,
             $asset->in_service_name,
+            $asset->description,
         ];
     }
 
@@ -97,6 +103,7 @@ class AssetExport extends DefaultValueBinder implements FromCollection,WithHeadi
 
     public function bindValue(Cell $cell, $value)
     {
+
         if (is_numeric($value)) {
             $cell->setValueExplicit($value, DataType::TYPE_STRING);
 
@@ -114,8 +121,6 @@ class AssetExport extends DefaultValueBinder implements FromCollection,WithHeadi
 
             return true;
         }
-
-        
 
         // else return default behavior
         return parent::bindValue($cell, $value);

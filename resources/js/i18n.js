@@ -48,9 +48,11 @@ const messages = {
         codeNamaaReport: 'Code Namaa Report',
         maintenanceReport: 'Maintenance Report',
         transportReport: 'Transport Report',
+        GPReport: 'GP Report',
         firstDate: 'First Date',
         secondDate: 'Second Date',
         expCustomCodeNamaa: 'Export Custom Code Namaa',
+        expCustomGP: 'Export GP Report',
         filter: 'Filter Data Using',
         expCustomTransport: 'Export Custom Transport',
         empName: 'Employee Name',
@@ -110,6 +112,7 @@ const messages = {
         addRow: 'Add Row',
         deleteRow: 'Delete Row',
         expCustomMaintenance: 'Export Custom Maintenances',
+        partnerName: 'Partner Name',
     },
     'ar': {
         transportCount: 'عدد التنقلات',
@@ -154,9 +157,11 @@ const messages = {
         codeNamaaReport: 'تقرير كود نماء',
         maintenanceReport: 'تقرير الصيانة',
         transportReport: 'تقرير التنقلات',
+        GPReport: 'GP تقرير',
         firstDate: 'تاريخ الأول',
         secondDate: 'تاريخ الثاني',
         expCustomCodeNamaa: 'تصدير كود نماء',
+        expCustomGP: 'GP تصدير تقرير',
         filter: 'فلترة البيانات حسب',
         expCustomTransport: 'تصدير التنقلات',
         empName: 'اسم الموظف',
@@ -216,6 +221,7 @@ const messages = {
         addRow: 'إضافة سطر',
         deleteRow: 'حذف سطر',
         expCustomMaintenance: 'تصدير الصيانات',
+        partnerName: 'اسم الشريك',
     }
 };
 

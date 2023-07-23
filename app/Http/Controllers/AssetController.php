@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\AssetImport;
 use App\Exports\AssetExport;
 use App\Exports\CustomCodeNamaaExport;
+use App\Exports\CustomGPExport;
 
 class AssetController extends Controller
 {
@@ -102,7 +103,6 @@ class AssetController extends Controller
     public function getCodeSerial(Request $request)
     {
         //
-
         return response()->json(Asset::where('serialNumber', 'like', $request->serialNumber.'%')->limit(5)->get());
     }
 
@@ -127,6 +127,10 @@ class AssetController extends Controller
         // dd($firstDate, $secondDate);
             return Excel::download(new CustomCodeNamaaExport($firstDate, $secondDate), 'Custom-Code-Namaa.xlsx');
         //  return (new export_employees)->download('Employees.xlsx');
+     }
+
+     public function export_custom_GP(Request $request, $firstDate, $secondDate){
+            return Excel::download(new CustomGPExport($firstDate, $secondDate), 'Custom-GP-Report.xlsx');
      }
 
 
