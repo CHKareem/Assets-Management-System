@@ -26,16 +26,17 @@ class CreateAssetsTable extends Migration
             $table->string('codeNamaa');
             $table->string('description');
             $table->string('status');
-            $table->integer('quantity');
-            $table->integer('realPrice')->nullable();
+            $table->integer('quantity')->unsigned()->default(0);
+            $table->integer('realPrice')->unsigned()->default(0);
             $table->integer('expectedPrice')->nullable();
             $table->string('serialNumber')->nullable();
             $table->date('aquisitionDate');
             $table->string('aquisitionType');
-            $table->string('fundedBy');
+            $table->string('fundedBy')->unsigned()->default(0);
+            $table->string('partnerName')->nullable();
             $table->integer('documentNumber')->nullable();
             $table->longText('notes');
-            $table->tinyInteger('inService');
+            $table->tinyInteger('inService')->unsigned()->default(1);
             $table->timestamps();
         });
     }

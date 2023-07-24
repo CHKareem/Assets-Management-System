@@ -49,6 +49,7 @@ class AssetController extends Controller
                 'aquisitionDate' => $request->aquisitionDate,
                 'aquisitionType' => $request->aquisitionType,
                 'fundedBy' => $request->fundedBy,
+		'partnerName' => $request->partnerName,
                 'documentNumber' => $request->documentNumber,
                 'notes' => $request->notes,
                 'inService' => $request->inService,
