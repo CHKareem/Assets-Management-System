@@ -64,11 +64,12 @@ Route::get('serialSearch', [AssetController::class,'getCodeSerial']);
 // Transports API
 Route::get('transport', [TransportController::class,'index']);
 Route::get('transport/{id}', [TransportController::class,'show']);
-Route::get('showTransports/{id}', [TransportController::class,'show_transports']);
+Route::get('showTransports/{id}/{transportType}/{firstDate}/{secondDate}', [TransportController::class,'show_transports']);
 Route::post('transport', [TransportController::class,'store']);
 Route::put('transport/{id}', [TransportController::class,'update']);
 Route::delete('transport/{id}', [TransportController::class,'destroy']);
 Route::post('transport/import_transports', [TransportController::class,'import_transports']);
+Route::get('transportTypeSearch', [TransportController::class,'getTransportType']);
 
 // Lost & Stolen API
 Route::get('lostStolen', [LostStolenController::class,'index']);
@@ -81,7 +82,7 @@ Route::post('lostStolen/import_lostStolens', [LostStolenController::class,'impor
 // Maintenance API
 Route::get('maintenance', [MaintenanceController::class,'index']);
 Route::get('maintenance/{id}', [MaintenanceController::class,'show']);
-Route::get('showMaintenances/{id}', [MaintenanceController::class,'show_maintenances']);
+Route::get('showMaintenances/{id}/{firstDate}/{secondDate}', [MaintenanceController::class,'show_maintenances']);
 Route::post('maintenance', [MaintenanceController::class,'store']);
 Route::put('maintenance/{id}', [MaintenanceController::class,'update']);
 Route::delete('maintenance/{id}', [MaintenanceController::class,'destroy']);

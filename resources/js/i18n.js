@@ -55,6 +55,8 @@ const messages = {
         expCustomGP: 'Export GP Report',
         filter: 'Filter Data Using',
         expCustomTransport: 'Export Custom Transport',
+        expCustomPrintTransport: 'Export Custom Transport Print Word',
+        expCustomPrintMaintenance: 'Export Custom Maintenance Print Word',
         empName: 'Employee Name',
         itemName: 'Item Name',
         typeName: 'Type Name',
@@ -113,6 +115,9 @@ const messages = {
         deleteRow: 'Delete Row',
         expCustomMaintenance: 'Export Custom Maintenances',
         partnerName: 'Partner Name',
+        numberOfTransports: 'Number Of All Transports',
+        numberOfMaintenances: 'Number Of All Maintenances',
+        resetValues: 'Reset Values',
     },
     'ar': {
         transportCount: 'عدد التنقلات',
@@ -222,6 +227,11 @@ const messages = {
         deleteRow: 'حذف سطر',
         expCustomMaintenance: 'تصدير الصيانات',
         partnerName: 'اسم الشريك',
+        expCustomPrintTransport: 'تصدير التنقلات إلى ملف طباعة',
+        expCustomPrintMaintenance:  'تصدير الصيانات إلى ملف طباعة',
+        numberOfTransports: 'عدد التنقلات الكلية',
+        numberOfMaintenances: 'عدد الصيانات الكلية',
+        resetValues: 'إعادة ضبط القيم',
     }
 };
 

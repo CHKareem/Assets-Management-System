@@ -21,6 +21,7 @@ const store = createStore({
             apiSerialSearch: 'http://localhost:8000/api/serialSearch',
             apiShowMaintenance: 'http://localhost:8000/api/showMaintenances',
             apiShowTransport: 'http://localhost:8000/api/showTransports',
+            apiTransportType: 'http://localhost:8000/api/transportTypeSearch',
             apiLogin: 'http://localhost:8000/api/login',
                 deleteUrl: '',
                 deleteData: '',

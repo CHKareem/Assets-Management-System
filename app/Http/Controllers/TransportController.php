@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\TransportImport;
 use App\Exports\TransportExport;
 use App\Exports\CustomTransportExport;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class TransportController extends Controller
 {
@@ -120,12 +121,73 @@ class TransportController extends Controller
             return Excel::download(new TransportExport, 'Transports.xlsx');
      }
 
-     public function show_transports($transport){
-        return response()->json(Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where('asset_id', $transport)->orWhere('employee_id', $transport)->get());
+     public function show_transports($transport, $transportType, $firesDate, $secondDate){
+        // if($transportType == null){
+        //     return response()->json(Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where('asset_id', $transport)->orWhere('employee_id', $transport)->whereBetween('transportDate',[$firesDate, $secondDate])->get());
+        // }if($firesDate == null && $secondDate == null){
+        //     return response()->json(Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where('asset_id', $transport)->orWhere('employee_id', $transport)->where('documentType', $transportType)->get());
+        // }if($firesDate == null && $secondDate == null && $transportType == null){
+        //     return response()->json(Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where('asset_id', $transport)->orWhere('employee_id', $transport)->get());
+        // }else{
+        return response()->json(Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where('asset_id', $transport)->orWhere('employee_id', $transport)->where('documentType', $transportType)->whereBetween('transportDate',[$firesDate, $secondDate])->get());
+        // }
      }
 
-     public function export_custom_transport(Request $request, $transportCode){
-            return Excel::download(new CustomTransportExport($transportCode), 'Custom-tranports.xlsx');
+     public function export_custom_transport(Request $request, $transportCode, $transportType, $firstDate, $secondDate){
+            return Excel::download(new CustomTransportExport($transportCode, $transportType, $firstDate, $secondDate), 'Custom-tranports.xlsx');
      }
+
+
+     public function export_word_report_transport(Request $request, $transportCode, $transportType, $firstDate, $secondDate){
+        $transports = Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where('employee_id', $transportCode)->where('documentType', $transportType)->whereBetween('transportDate',[$firstDate, $secondDate])->get();
+        if($transportType == 'ggo'){
+            $templateProcessor = new TemplateProcessor('transportToEmployee.docx');
+        }else{
+            $templateProcessor = new TemplateProcessor('transportFromEmployee.docx');
+        }
+        foreach($transports as $index => $transport){
+            // dd($transport, 'codenamaa'.$index, count($transports));
+            // $index = 5;
+            $indexIteration;
+            if($index < count($transports)){
+                $templateProcessor->setValue('fullName', $transport->employees->fullName);
+                $templateProcessor->setValue('positionName', $transport->positions->positionName);
+                $templateProcessor->setValue('centerName', $transport->centers->centerName);
+                $templateProcessor->setValue('codeNamaa'.$index, $transport->assets->codeNamaa);
+                $templateProcessor->setValue('serialNumber'.$index, $transport->assets->serialNumber);
+                $templateProcessor->setValue('transportDate', $transport->transportDate);
+                $templateProcessor->setValue('documentNumber', $transport->documentNumber);
+                $templateProcessor->setValue('item'.$index, $transport->assets->items->itemName);
+                $templateProcessor->setValue('type'.$index, $transport->assets->types->typeName);
+                $templateProcessor->setValue('status'.$index, 'جيد');
+                $indexIteration = $index + 1;
+            }
+            if($indexIteration >= count($transports)){
+                // $dd = 10 - count($transports);
+                // dd($dd);
+                for($i = $indexIteration ; $i <= 10; $i++){
+                    // dd($i);
+                    $templateProcessor->setValue('codeNamaa'.$i, null);
+                    $templateProcessor->setValue('serialNumber'.$i, null);
+                    $templateProcessor->setValue('item'.$i, null);
+                    $templateProcessor->setValue('type'.$i, null);
+                    $templateProcessor->setValue('status'.$i, null);
+                }
+                // dd($dd);
+            }
+            // $templateProcessor->setValue('name', $transport->employees->fullName);
+            // $templateProcessor->setValue('position', $transport->positions->positionName);
+            // $templateProcessor->setValue('codenamaa'.$index, $transport->assets->codeNamaa);
+            // $templateProcessor->setValue('codenamaa'.$index, $index > count($transports) ? null : $transport->assets->codeNamaa);
+        }
+        // dd($indexIteration);
+        $templateProcessor->saveAs('transport '.$transport->employees->fullName.'.docx');
+        return response()->download('transport '.$transport->employees->fullName.'.docx');
+
+ }
+
+        public function getTransportType(Request $request){
+            return response()->json(Transport::where('documentType', 'like', $request->documentType.'%')->limit(5)->get());
+        }
 
 }

@@ -12,7 +12,7 @@
     
     <div class="col-12">
 
-                      <a class="btn btn-primary col-md-auto mb-3 mt-2" :href="'/export_custom_maintenance/'+maintenanceCode">
+                      <a class="btn btn-primary col-md-auto mb-3 mt-2" :href="'/export_custom_maintenance/'+ maintenanceCode + '/' + this.first_date + '/' + this.second_date">
                           <i class="fa fa-plus-circle mr-2"></i>
                   <span>{{ $t('expCustomMaintenance') }}</span>
                       </a>
@@ -24,6 +24,16 @@
     <div class="row">
         <div class="modal-body">
                   <div class="form-row">
+
+                    <div class="form-group col-md-6">
+                            <label for="firstDate">{{ $t('firstDate') }}</label>
+                            <input v-model="first_date" type="text" class="form-control" id="firstDate" :placeholder="$t('firstDate')" onfocus="(this.type='date')">
+                          </div>
+    
+                          <div class="form-group col-md-6">
+                            <label for="secondDate">{{ $t('secondDate') }}</label>
+                            <input v-model="second_date" type="text" class="form-control" id="secondDate" :placeholder="$t('secondDate')" onfocus="(this.type='date')">
+                          </div>
 
                     <div class="form-group col-md-4">
                       <label for="assetId" class="ml-1">{{ $t('codeNamaa') }}</label>
@@ -61,6 +71,13 @@
 
                     </div>
 
+                    <a class="btn btn-danger col-md-auto float-right" @click="resetValues">
+                          <i class="fas fa-undo mr-2"></i>
+                  <span>{{ $t('resetValues') }}</span>
+                      </a>
+
+                    <p class="card-title float-none">{{ $t('numberOfMaintenances') }} <b class="text-primary">{{ filterMaintenances.length }}</b></p><br>
+
                     <div v-for="maintenance in filterMaintenances" :key="maintenance.id" >
                       <div class="card text-center">
             <div class="card-header">
@@ -87,6 +104,10 @@
     <h5 class="card-title float-none">{{ $t('paid') }}: <b class="ml-2">{{ maintenance.isPaid == 1 ? 'Yes' : 'No'}}</b></h5>
 
   </div>
+  <a class="btn btn-primary col-md-auto mb-3 mt-2 float-right" :href="'/export_word_report_maintenance/'+ maintenance.id">
+                          <i class="fa fa-plus-circle mr-2"></i>
+                  <span>{{ $t('expCustomPrintMaintenance') }}</span>
+                      </a>
 </div>
             </div>
 
@@ -103,6 +124,8 @@ import { useToastr } from '../toastr.js'
 export default ({
 
 data:() => ({
+  first_date:'',
+    second_date:'',
     asset_id:'',
     codeNamaa:'',
     search_asset : [],
@@ -117,11 +140,23 @@ data:() => ({
 }),
   methods:{
     useToastr,
+    resetValues(){
+      this.asset_id = '';
+      this.codeNamaa = '';
+      this.employee_id = '';
+      this.serial_id = '';
+      this.serialNumber = '';
+      this.fullName = '';
+      this.transport_type = '';
+      this.first_date = '';
+      this.second_date = '';
+      this.filterMaintenances = [];
+    },
     getAssetName(code, id){
       this.asset_id = id;
       this.codeNamaa = code;
       this.employee_id = '';
-      this.asset_id = '';
+      this.serial_id = '';
       this.serialNumber = '';
       this.fullName = '';
       this.getFilterMaintenance(id);
@@ -160,7 +195,7 @@ data:() => ({
       this.asset_id = '';
       this.serialNumber = '';
       this.codeNamaa = '';
-      await this.axios.get(this.$store.state.apiShowTransport + '/' + id).then(res =>{
+      await this.axios.get(this.$store.state.apiShowTransport + '/' + id+ '/' + 'ggo' + '/' + this.first_date + '/' + this.second_date).then(res =>{
         res.data.map(maintenance=>{
           this.getFilterMaintenance(maintenance.asset_id);
         });
@@ -181,7 +216,7 @@ data:() => ({
     },
     async getFilterMaintenance(maintenanceId){
       this.maintenanceCode = maintenanceId;
-        await this.axios.get(this.$store.state.apiShowMaintenance + '/' + maintenanceId).then(res =>{
+        await this.axios.get(this.$store.state.apiShowMaintenance + '/' + maintenanceId + '/' + this.first_date + '/' + this.second_date).then(res =>{
         this.filterMaintenances = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');

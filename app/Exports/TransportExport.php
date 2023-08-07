@@ -34,7 +34,8 @@ class TransportExport extends DefaultValueBinder implements FromCollection,WithH
     public function headings(): array
     {
         return [
-            ' Asset Name ',
+            ' Code Namaa ',
+            ' Serial Number ',
             ' Center Name ',
             ' Department Name ',
             ' Position Name ',
@@ -50,6 +51,7 @@ class TransportExport extends DefaultValueBinder implements FromCollection,WithH
     public function map($transport):array {
         return [
             $transport->assets->codeNamaa,
+            $transport->assets->serialNumber,
             $transport->centers->centerName,
             $transport->departments->departmentName,
             $transport->position_id == null ? '' :  $transport->positions->positionName,

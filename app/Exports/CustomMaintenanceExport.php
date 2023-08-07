@@ -28,17 +28,19 @@ class CustomMaintenanceExport extends DefaultValueBinder implements FromQuery,Wi
 
     use Exportable;
 
-    public function __construct($maintenanceCode){
+    public function __construct($maintenanceCode, $firstDate, $secondDate){
         $this->maintenanceCode = $maintenanceCode;
         // $this->codeNamaa = $codeNamaa;
         // $this->serialNumber = $serialNumber;
         // $this->employeeName = $employeeName;
+        $this->firstDate = $firstDate;
+        $this->secondDate = $secondDate;
     }
 
     public function query()
     {
             return Maintenance::with('assets', 'assets.items', 'assets.types')
-            ->where('asset_id', $this->maintenanceCode);
+            ->where('asset_id', $this->maintenanceCode)->whereBetween('created_at',[$this->firstDate, $this->secondDate]);
             // ->orWhere('employee_id', $this->maintenanceCode)
     }
 

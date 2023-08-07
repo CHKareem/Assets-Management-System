@@ -12,9 +12,15 @@
     
     <div class="col-12">
 
-                      <a class="btn btn-primary col-md-auto mb-3 mt-2" :href="'/export_custom_transport/'+transportCode">
+                      <a class="btn btn-primary col-md-auto mb-3 mt-2" :href="'/export_custom_transport/'+ transportCode + '/' + transport_type + '/' + first_date + '/' + second_date">
                           <i class="fa fa-plus-circle mr-2"></i>
                   <span>{{ $t('expCustomTransport') }}</span>
+                      </a>
+
+
+                      <a class="btn btn-primary col-md-auto mb-3 mt-2 float-right" :href="'/export_word_report_transport/'+ transportCode + '/' + transport_type + '/' + first_date + '/' + second_date">
+                          <i class="fa fa-plus-circle mr-2"></i>
+                  <span>{{ $t('expCustomPrintTransport') }}</span>
                       </a>
 
 </div>
@@ -24,6 +30,26 @@
     <div class="row">
         <div class="modal-body">
                   <div class="form-row">
+
+                    <div class="form-group col-md-4">
+                      <label for="transportType" class="ml-1">{{ $t('docType') }}</label>
+                      <div class="search-box">
+      <input type="text" :placeholder="$t('docType')" v-model="transport_type" @keyup="getTransportTypeData" autocomplete="off" class="form-control" id="transportType" />          
+        <ul>
+          <li @click="getTransportTypeName(transportType.documentType)" v-for="(transportType, index) in search_transortsType" :key="index" v-text="transportType.documentType"></li>
+        </ul>
+      </div>
+                      </div>
+
+                      <div class="form-group col-md-4">
+                            <label for="firstDate">{{ $t('firstDate') }}</label>
+                            <input v-model="first_date" type="text" class="form-control" id="firstDate" :placeholder="$t('firstDate')" onfocus="(this.type='date')">
+                          </div>
+    
+                          <div class="form-group col-md-4">
+                            <label for="secondDate">{{ $t('secondDate') }}</label>
+                            <input v-model="second_date" type="text" class="form-control" id="secondDate" :placeholder="$t('secondDate')" onfocus="(this.type='date')">
+                          </div>
 
                     <div class="form-group col-md-4">
                       <label for="assetId" class="ml-1">{{ $t('codeNamaa') }}</label>
@@ -59,8 +85,17 @@
                         </div>
                       </div>
 
+
                     </div>
 
+                    <a class="btn btn-danger col-md-auto float-right" @click="resetValues">
+                          <i class="fas fa-undo mr-2"></i>
+                  <span>{{ $t('resetValues') }}</span>
+                      </a>
+
+                      <p class="card-title float-none">{{ $t('numberOfTransports') }} <b class="text-primary">{{ filterTransports.length }}</b></p><br>
+
+                      <br>
                     <div v-for="transport in filterTransports" :key="transport.id" >
                       <div class="card text-center">
             <div class="card-header">
@@ -104,7 +139,10 @@ import { useToastr } from '../toastr.js'
 export default ({
 
 data:() => ({
+    first_date:'',
+    second_date:'',
     asset_id:'',
+    transport_type:'',
     codeNamaa:'',
     serial_id:'',
     serialNumber:'',
@@ -112,17 +150,31 @@ data:() => ({
     fullName:'',
     search_asset : [],
     search_serial : [],
+    search_transortsType:[],
     search_employee:[],
     filterTransports:[],
     transportCode:'',
+    // transportTypeName:'',
 }),
   methods:{
     useToastr,
+    resetValues(){
+      this.asset_id = '';
+      this.codeNamaa = '';
+      this.employee_id = '';
+      this.serial_id = '';
+      this.serialNumber = '';
+      this.fullName = '';
+      this.transport_type = '';
+      this.first_date = '';
+      this.second_date = '';
+      this.filterTransports = [];
+    },
     getAssetName(code, id){
       this.asset_id = id;
       this.codeNamaa = code;
       this.employee_id = '';
-      this.asset_id = '';
+      this.serial_id = '';
       this.serialNumber = '';
       this.fullName = '';
       this.getFilterTransport(id);
@@ -132,6 +184,23 @@ data:() => ({
       this.search_asset = [];
       await this.axios.get(this.$store.state.apiAssetSearch, {params:{ codeNamaa : this.asset_id }}).then(res =>{
         this.search_asset = res.data;
+      }).catch((error)=>{
+        this.useToastr().error('Something Went Wrong');
+      });
+    },
+    getTransportTypeName(transportType){
+      // this.employee_id = '';
+      // this.asset_id = '';
+      // this.serialNumber = '';
+      // this.fullName = '';
+      this.transport_type = transportType;
+      // this.transportTypeName = transportType;
+      this.search_transortsType = [];
+    },
+    async getTransportTypeData(){
+      this.search_transortsType = [];
+      await this.axios.get(this.$store.state.apiTransportType, {params:{ documentType : this.transport_type }}).then(res =>{
+        this.search_transortsType = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');
       });
@@ -174,7 +243,7 @@ data:() => ({
     },
     async getFilterTransport(transportId){
       this.transportCode = transportId;
-        await this.axios.get(this.$store.state.apiShowTransport + '/' + transportId).then(res =>{
+        await this.axios.get(this.$store.state.apiShowTransport + '/' + transportId + '/' + this.transport_type+ '/' + this.first_date + '/' + this.second_date).then(res =>{
         this.filterTransports = res.data;
       }).catch((error)=>{
         this.useToastr().error('Something Went Wrong');

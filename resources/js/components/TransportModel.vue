@@ -79,7 +79,7 @@
                 <div class="form-group col-md-4">
                       <label for="assetId">{{$t('codeNamaa')}}</label>
                       <div class="search-box">
-                        <input type="text" :placeholder="$t('codeNamaa')" v-model="transport.asset_id" @keyup="getAssetData(index)" autocomplete="off" class="form-control" id="assetId" />          
+                        <input type="text" :placeholder="$t('codeNamaa')" v-model="transports[index].asset_id" @keyup="getAssetData(index)" autocomplete="off" class="form-control" id="assetId" />          
                             <ul>
                             <li @click="getAssetName(asset.codeNamaa, asset.id, index)" v-for="asset in search_asset" :key="asset.id" v-text="asset.codeNamaa"></li>
                             </ul>

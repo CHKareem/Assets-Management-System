@@ -40,10 +40,13 @@ Route::get('/export_types', [TypeController::class,'export_types']);
 
 Route::get('/export_documents', [DocumentController::class,'export_documents']);
 
-Route::get('/export_custom_transport/{transportCode}', [TransportController::class,'export_custom_transport']);
+Route::get('/export_custom_transport/{transportCode}/{transportType}/{firstDate}/{secondDate}', [TransportController::class,'export_custom_transport']);
 
-Route::get('/export_custom_maintenance/{maintenanceCode}', [MaintenanceController::class,'export_custom_maintenance']);
-Route::get('export_custom_GP/{firstDate}/{secondDate}', [AssetController::class,'export_custom_GP']);
+Route::get('/export_word_report_transport/{transportCode}/{transportType}/{firstDate}/{secondDate}', [TransportController::class,'export_word_report_transport']);
+
+Route::get('/export_word_report_maintenance/{maintenanceId}', [MaintenanceController::class,'export_word_report_maintenance']);
+
+Route::get('/export_custom_maintenance/{maintenanceCode}/{firstDate}/{secondDate}', [MaintenanceController::class,'export_custom_maintenance']);
 
 Route::get('/{pathMatch}', function () {
     return view('welcome');

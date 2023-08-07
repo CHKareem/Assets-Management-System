@@ -28,17 +28,17 @@ class CustomTransportExport extends DefaultValueBinder implements FromQuery,With
 
     use Exportable;
 
-    public function __construct($transportCode){
+    public function __construct($transportCode, $transportType, $firstDate, $secondDate){
         $this->transportCode = $transportCode;
-        // $this->codeNamaa = $codeNamaa;
-        // $this->serialNumber = $serialNumber;
-        // $this->employeeName = $employeeName;
+        $this->transportType = $transportType;
+        $this->firstDate = $firstDate;
+        $this->secondDate = $secondDate;
     }
 
     public function query()
     {
             return Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')
-            ->where('asset_id', $this->transportCode)->orWhere('employee_id', $this->transportCode);
+            ->where('asset_id', $this->transportCode)->orWhere('employee_id', $this->transportCode)->where('documentType', $this->transportType)->whereBetween('transportDate',[$this->firstDate, $this->secondDate]);
         
     }
 
