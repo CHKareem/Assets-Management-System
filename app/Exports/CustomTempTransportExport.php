@@ -23,13 +23,12 @@ use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\withMapping;
 
-class CustomTransportExport extends DefaultValueBinder implements FromQuery,WithHeadings, withStrictNullComparison, shouldAutoSize, WithStyles, WithEvents, WithCustomValueBinder, withMapping
+class CustomTempTransportExport extends DefaultValueBinder implements FromQuery,WithHeadings, withStrictNullComparison, shouldAutoSize, WithStyles, WithEvents, WithCustomValueBinder, withMapping
 {
 
     use Exportable;
 
-    public function __construct($transportCode, $transportType, $firstDate, $secondDate){
-        $this->transportCode = $transportCode;
+    public function __construct($transportType, $firstDate, $secondDate){
         $this->transportType = $transportType;
         $this->firstDate = $firstDate;
         $this->secondDate = $secondDate;
@@ -37,13 +36,7 @@ class CustomTransportExport extends DefaultValueBinder implements FromQuery,With
 
     public function query()
     {
-        return Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where(function ($query) {
-            $query->where('asset_id', $this->transportCode)
-                  ->orWhere('employee_id', $this->transportCode);
-        })->where('documentType', $this->transportType)->whereBetween('transportDate',[$this->firstDate, $this->secondDate]);
-
-            // return Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')
-            // ->where('asset_id', $this->transportCode)->orWhere('employee_id', $this->transportCode)->where('documentType', $this->transportType)->whereBetween('transportDate',[$this->firstDate, $this->secondDate]);
+        return Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where('documentType', $this->transportType)->whereBetween('transportDate',[$this->firstDate, $this->secondDate]);
         
     }
 

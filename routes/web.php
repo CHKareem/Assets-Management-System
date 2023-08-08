@@ -42,7 +42,11 @@ Route::get('/export_documents', [DocumentController::class,'export_documents']);
 
 Route::get('/export_custom_transport/{transportCode}/{transportType}/{firstDate}/{secondDate}', [TransportController::class,'export_custom_transport']);
 
+Route::get('/export_custom_temp_transport/{transportType}/{firstDate}/{secondDate}', [TransportController::class,'export_custom_temp_transport']);
+
 Route::get('/export_word_report_transport/{transportCode}/{transportType}/{firstDate}/{secondDate}', [TransportController::class,'export_word_report_transport']);
+
+Route::get('/export_word_report_temp_transport/{transportType}/{firstDate}/{secondDate}', [TransportController::class,'export_word_report_temp_transport']);
 
 Route::get('/export_word_report_maintenance/{maintenanceId}', [MaintenanceController::class,'export_word_report_maintenance']);
 

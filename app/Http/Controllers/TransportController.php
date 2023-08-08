@@ -8,10 +8,12 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\TransportImport;
 use App\Exports\TransportExport;
 use App\Exports\CustomTransportExport;
+use App\Exports\CustomTempTransportExport;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class TransportController extends Controller
 {
+    public $transportCode;
     /**
      * Display a listing of the resource.
      */
@@ -129,13 +131,29 @@ class TransportController extends Controller
         // }if($firesDate == null && $secondDate == null && $transportType == null){
         //     return response()->json(Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where('asset_id', $transport)->orWhere('employee_id', $transport)->get());
         // }else{
-        return response()->json(Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where('asset_id', $transport)->orWhere('employee_id', $transport)->where('documentType', $transportType)->whereBetween('transportDate',[$firesDate, $secondDate])->get());
+            // dd($transport);
+            $this->transportCode = $transport;
+        // return response()->json(Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where('asset_id', $transport)->where('documentType', $transportType)->orWhere('employee_id', $transport)->whereBetween('transportDate',[$firesDate, $secondDate])->get());
+        return response()->json(Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where(function ($query) {
+            $query->where('asset_id', $this->transportCode)
+                  ->orWhere('employee_id', $this->transportCode);
+        })->where('documentType', $transportType)->whereBetween('transportDate',[$firesDate, $secondDate])->get());
         // }
      }
+
+    public function show_temp_transports($transportType, $firesDate, $secondDate){
+        return response()->json(Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where('documentType', $transportType)->whereBetween('transportDate',[$firesDate, $secondDate])->get());
+     }
+
 
      public function export_custom_transport(Request $request, $transportCode, $transportType, $firstDate, $secondDate){
             return Excel::download(new CustomTransportExport($transportCode, $transportType, $firstDate, $secondDate), 'Custom-tranports.xlsx');
      }
+
+
+     public function export_custom_temp_transport(Request $request, $transportType, $firstDate, $secondDate){
+        return Excel::download(new CustomTempTransportExport($transportType, $firstDate, $secondDate), 'Custom-temp_tranports.xlsx');
+ }
 
 
      public function export_word_report_transport(Request $request, $transportCode, $transportType, $firstDate, $secondDate){
@@ -185,6 +203,37 @@ class TransportController extends Controller
         return response()->download('transport '.$transport->employees->fullName.'.docx');
 
  }
+
+
+ public function export_word_report_temp_transport(Request $request, $transportType, $firstDate, $secondDate){
+    $tempTransports = Transport::with('assets', 'employees', 'positions', 'prevs', 'centers', 'departments', 'assets.items', 'assets.types')->where('documentType', $transportType)->whereBetween('transportDate',[$firstDate, $secondDate])->get();
+        $templateProcessor = new TemplateProcessor('temporaryTransport.docx');
+    foreach($tempTransports as $index => $tempTransport){
+        $indexIteration;
+        if($index < count($tempTransports)){
+            $templateProcessor->setValue('codeNamaa'.$index, $tempTransport->assets->codeNamaa);
+            $templateProcessor->setValue('serialNumber'.$index, $tempTransport->assets->serialNumber);
+            $templateProcessor->setValue('documentNumber', $tempTransport->documentNumber);
+            $templateProcessor->setValue('item'.$index, $tempTransport->assets->items->itemName);
+            $templateProcessor->setValue('type'.$index, $tempTransport->assets->types->typeName);
+            $indexIteration = $index + 1;
+        }
+        if($indexIteration >= count($tempTransports)){
+
+            for($i = $indexIteration ; $i <= 5; $i++){
+                $templateProcessor->setValue('codeNamaa'.$i, null);
+                $templateProcessor->setValue('serialNumber'.$i, null);
+                $templateProcessor->setValue('item'.$i, null);
+                $templateProcessor->setValue('type'.$i, null);
+            }
+        }
+    }
+
+    $templateProcessor->saveAs('tempTransport '.$tempTransport->transportDate.'.docx');
+    return response()->download('tempTransport '.$tempTransport->transportDate.'.docx');
+
+}
+
 
         public function getTransportType(Request $request){
             return response()->json(Transport::where('documentType', 'like', $request->documentType.'%')->limit(5)->get());

@@ -65,6 +65,7 @@ Route::get('serialSearch', [AssetController::class,'getCodeSerial']);
 Route::get('transport', [TransportController::class,'index']);
 Route::get('transport/{id}', [TransportController::class,'show']);
 Route::get('showTransports/{id}/{transportType}/{firstDate}/{secondDate}', [TransportController::class,'show_transports']);
+Route::get('showTempTransports/{transportType}/{firstDate}/{secondDate}', [TransportController::class,'show_temp_transports']);
 Route::post('transport', [TransportController::class,'store']);
 Route::put('transport/{id}', [TransportController::class,'update']);
 Route::delete('transport/{id}', [TransportController::class,'destroy']);

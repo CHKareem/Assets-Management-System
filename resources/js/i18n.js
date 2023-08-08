@@ -118,6 +118,9 @@ const messages = {
         numberOfTransports: 'Number Of All Transports',
         numberOfMaintenances: 'Number Of All Maintenances',
         resetValues: 'Reset Values',
+        expCustomPrintTempTransport: 'Export Custom Transport Print Word',
+        expCustomTempTransport: 'Export Custom Temp Transports',
+        tempTransportReport: 'Temp Transports Report',
     },
     'ar': {
         transportCount: 'عدد التنقلات',
@@ -232,6 +235,9 @@ const messages = {
         numberOfTransports: 'عدد التنقلات الكلية',
         numberOfMaintenances: 'عدد الصيانات الكلية',
         resetValues: 'إعادة ضبط القيم',
+        expCustomPrintTempTransport: 'تصدير التنقلا المؤقتة إلى ملف طباعة',
+        expCustomTempTransport: 'تصدير التنقلات المؤقتة',
+        tempTransportReport: 'تقرير التنقلات المؤقتة',
     }
 };
 
