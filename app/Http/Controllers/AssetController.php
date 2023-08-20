@@ -45,7 +45,7 @@ class AssetController extends Controller
                 'quantity' => $request->quantity,
                 'realPrice' => $request->realPrice,
                 'expectedPrice' => $request->expectedPrice,
-                'serialNumber' => $request->serialNumber,
+                'serialNumber' => $request->serialNumber[$i],
                 'aquisitionDate' => $request->aquisitionDate,
                 'aquisitionType' => $request->aquisitionType,
                 'fundedBy' => $request->fundedBy,

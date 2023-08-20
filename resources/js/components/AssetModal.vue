@@ -171,6 +171,7 @@ import $ from 'jquery'
     code_namaa: [],
     code_namaa_edit:'',
     serial_number: '',
+    serial_number_group:[],
     aquisition_date: '',
     in_service: '',
     document_number: '',
@@ -231,6 +232,7 @@ import $ from 'jquery'
                 this.notes = '';
                 this.code_namaa = [];
                 this.serial_number = '';
+                this.serial_number_group = [];
                 this.aquisition_date = '';
                 this.in_service = '';
                 this.document_number = '';
@@ -328,12 +330,13 @@ import $ from 'jquery'
       });
       },
     async add_asset(){
+      this.serial_number_group = this.serial_number.split(",");
       let data = {
           'item_id': this.item_id,
           'type_id': this.type_id,
           'notes': this.notes,
           'codeNamaa': this.code_namaa,
-          'serialNumber': this.serial_number,
+          'serialNumber': this.serial_number_group,
           'aquisitionDate': this.aquisition_date,
           'inService': this.in_service,
           'documentNumber': this.document_number,
